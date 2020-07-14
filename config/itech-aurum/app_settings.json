@@ -1,0 +1,1195 @@
+{
+  "locales": [
+    {
+      "code": "en",
+      "name": "English"
+    },
+    {
+      "code": "es",
+      "name": "Español (Spanish)"
+    },
+    {
+      "code": "fr",
+      "name": "Français (French)"
+    },
+    {
+      "code": "ne",
+      "name": "नेपाली (Nepali)"
+    },
+    {
+      "code": "sw",
+      "name": "Kiswahili (Swahili)"
+    }
+  ],
+  "locale": "en",
+  "locale_outgoing": "en",
+  "muvuku_webapp_url": "/medic-reporter/_design/medic-reporter/_rewrite/?_embed_mode=2&_locale=en#/generic-anc.json",
+  "date_format": "ddd, MMM Do, YYYY",
+  "reported_date_format": "ddd, MMM Do, YYYY [at] h:mm A",
+  "forms_only_mode": false,
+  "default_responses": {
+    "start_date": "1970-01-01"
+  },
+  "district_admins_access_unallocated_messages": true,
+  "public_access": false,
+  "default_country_code": "263",
+  "gateway_number": "+263782492877",
+  "kujua-reporting": [
+    {
+      "code": "",
+      "reporting_freq": "weekly"
+    }
+  ],
+  "anc_forms": {},
+  "schedule_morning_hours": 6,
+  "schedule_morning_minutes": 0,
+  "schedule_evening_hours": 20,
+  "schedule_evening_minutes": 0,
+  "synthetic_date": "",
+  "contact_display_short": "clinic.name",
+  "permissions": {
+    "can_export_messages": [
+      "national_admin",
+      "district_admin",
+      "analytics"
+    ],
+    "can_export_forms": [
+      "national_admin",
+      "district_admin",
+      "analytics"
+    ],
+    "can_export_contacts": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_export_audit": [
+      "national_admin"
+    ],
+    "can_export_feedback": [
+      "national_admin"
+    ],
+    "can_export_server_logs": [
+      "national_admin"
+    ],
+    "can_access_directly": [
+      "national_admin"
+    ],
+    "can_view_analytics": [
+      "national_admin",
+      "district_admin",
+      "analytics"
+    ],
+    "can_view_data_records": [
+      "national_admin",
+      "district_admin",
+      "analytics",
+      "gateway"
+    ],
+    "can_view_unallocated_data_records": [
+      "national_admin",
+      "district_admin",
+      "gateway"
+    ],
+    "can_view_users": [
+      "national_admin"
+    ],
+    "can_edit": [
+      "national_admin",
+      "district_admin",
+      "gateway"
+    ],
+    "can_update_messages": [
+      "national_admin",
+      "district_admin",
+      "gateway"
+    ],
+    "can_update_users": [
+      "national_admin"
+    ],
+    "can_update_people": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_update_places": [
+      "national_admin"
+    ],
+    "can_create_records": [
+      "national_admin",
+      "district_admin",
+      "data_entry",
+      "gateway"
+    ],
+    "can_access_gateway_api": [
+      "gateway"
+    ],
+    "can_create_users": [
+      "national_admin"
+    ],
+    "can_create_people": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_create_places": [
+      "national_admin"
+    ],
+    "can_view_tasks": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_view_tasks_tab": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_configure": [
+      "national_admin"
+    ],
+    "can_view_messages": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_view_messages_tab": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_view_reports": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_view_reports_tab": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_view_analytics_tab": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_view_contacts": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_view_contacts_tab": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_edit_profile": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_delete_reports": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_bulk_delete_reports": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_delete_contacts": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_delete_messages": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_delete_users": [
+      "national_admin"
+    ],
+    "can_view_message_action": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_view_call_action": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_log_out_on_android": []
+  },
+  "roles": {
+    "data_entry": {
+      "name": "usertype.data-entry"
+    },
+    "analytics": {
+      "name": "usertype.analytics"
+    },
+    "gateway": {
+      "name": "usertype.gateway"
+    },
+    "national_admin": {
+      "name": "usertype.national-manager"
+    },
+    "district_admin": {
+      "name": "usertype.district-manager",
+      "offline": true
+    }
+  },
+  "setup_complete": true,
+  "care_coordinator": "chw",
+  "anc_registration_lmp": true,
+  "statistics_submission": "none",
+  "outgoing_phone_replace": {
+    "match": "",
+    "replace": ""
+  },
+  "outgoing_phone_filters": [
+    {
+      "match": "",
+      "replace": ""
+    }
+  ],
+  "id_format": "1111",
+  "statistics_submission_number": "",
+  "replication_depth": [
+    {
+      "role": "",
+      "depth": 2
+    }
+  ],
+  "alerts": [
+    {
+      "form": "",
+      "condition": "",
+      "message": "",
+      "recipient": ""
+    }
+  ],
+  "reminders": [
+    {
+      "form": "",
+      "text_expression": "",
+      "cron": "",
+      "mute_after_form_for": "",
+      "message": ""
+    }
+  ],
+  "registrations": [
+    {
+      "form": "scheduled_msgs",
+      "events": [
+        {
+          "name": "on_create",
+          "trigger": "assign_schedule",
+          "params": "Enrolled Clients Reminders English",
+          "bool_expr": "doc.fields.language_preference == 'english' && doc.fields.randomization == 'texting'"
+        },
+        {
+          "name": "on_create",
+          "trigger": "assign_schedule",
+          "params": "Enrolled Clients Reminders Shona",
+          "bool_expr": "doc.fields.language_preference == 'shona' && doc.fields.randomization == 'texting'"
+        },
+        {
+          "name": "on_create",
+          "trigger": "assign_schedule",
+          "params": "Day 14 reminder English",
+          "bool_expr": "doc.fields.language_preference == 'english'"
+        },
+        {
+          "name": "on_create",
+          "trigger": "assign_schedule",
+          "params": "Day 14 reminder Shona",
+          "bool_expr": "doc.fields.language_preference == 'shona'"
+        }
+      ],
+      "validations": {
+        "join_responses": false,
+        "list": []
+      },
+      "messages": [
+        {
+          "message": [
+            {
+              "content": "Thank you for participating in this study to improve male circumcision services. Tinokutendai nekupinda mutsvakiridzo ichabatsira kuvandudza chirongwa chekuchecheudzwa.",
+              "locale": "en"
+            }
+          ],
+          "recipient": "phone"
+        }
+      ]
+    },
+    {
+      "form": "0",
+      "fields": [],
+      "events": [],
+      "validations": {},
+      "messages": []
+    },
+    {
+      "form": "1",
+      "fields": [],
+      "events": [],
+      "validations": {},
+      "messages": []
+    },
+    {
+      "form": "4",
+      "fields": [],
+      "events": [],
+      "validations": {},
+      "messages": []
+    },
+    {
+      "form": "9",
+      "fields": [],
+      "events": [],
+      "validations": {},
+      "messages": []
+    },
+    {
+      "form": "Y",
+      "fields": [],
+      "events": [],
+      "validations": {},
+      "messages": []
+    },
+    {
+      "form": "N",
+      "fields": [],
+      "events": [],
+      "validations": {},
+      "messages": []
+    }
+  ],
+  "patient_reports": [
+    {
+      "form": "followup",
+      "validations": {},
+      "messages": []
+    },
+    {
+      "form": "day14review",
+      "validations": {},
+      "messages": []
+    }
+  ],
+  "schedules": [
+    {
+      "name": "Day 14 reminder English",
+      "summary": "",
+      "description": "",
+      "start_from": "reported_date",
+      "messages": [
+        {
+          "message": [
+            {
+              "content": "Thank you for participating in the study. Please return to the clinic tomorrow for your short Day 14 visit and to receive your airtime.",
+              "locale": "en"
+            }
+          ],
+          "group": 13,
+          "offset": "13 days",
+          "send_time": "06:03",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Thank you for participating in the study! Today is Day 14. Please return to the clinic today for review and to receive airtime.",
+              "locale": "en"
+            }
+          ],
+          "group": 14,
+          "offset": "14 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Are you satisfied with your circumcision? Note: this response is different. Enter your response 4=Yes 9=No and press send",
+              "locale": "en"
+            }
+          ],
+          "group": 42,
+          "offset": "42 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        }
+      ]
+    },
+    {
+      "name": "Day 14 reminder Shona",
+      "summary": "",
+      "description": "",
+      "start_from": "reported_date",
+      "messages": [
+        {
+          "message": [
+            {
+              "content": "Tinotenda zvikuru nekuva mutsvakiridzo. Mudzoke kukirikini mangwana kuzuva rechi14 muonekwe ronda nekupihwa airtime",
+              "locale": "en"
+            }
+          ],
+          "group": 13,
+          "offset": "13 days",
+          "send_time": "06:03",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Tinokutendai nekupinda mutsvakiridzo! Nhasi izuva rechi 14, huyai kukiriniki muonekwe mobva mapihwa airtime.",
+              "locale": "en"
+            }
+          ],
+          "group": 14,
+          "offset": "14 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Muri kugutsikana here nekuchecheudwza kwamakaitwa? Cherechedzai:Mhinduro iyi yakasiyana nedzimwe. Bayai 4= Hongu 9= Kwete motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 42,
+          "offset": "42 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        }
+      ]
+    },
+    {
+      "name": "Enrolled Clients Reminders English",
+      "summary": "",
+      "description": "",
+      "start_from": "reported_date",
+      "messages": [
+        {
+          "message": [
+            {
+              "content": "How are you? Are you experiencing any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 1,
+          "offset": "1 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "It is Day 2. Remove the bandage. Any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 2,
+          "offset": "2 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "How are you? Are you experiencing any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 3,
+          "offset": "3 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "How are you? Are you experiencing any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 4,
+          "offset": "4 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "How are you? Are you experiencing any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 5,
+          "offset": "5 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "How are you? Are you experiencing any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 6,
+          "offset": "6 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "It is Day 7. Are you experiencing any bleeding, selling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 7,
+          "offset": "7 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "How are you? Are you experiencing any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 8,
+          "offset": "8 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "How are you? Are you experiencing any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 9,
+          "offset": "9 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "How are you? Are you experiencing any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 10,
+          "offset": "10 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "How are you? Are you experiencing any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 11,
+          "offset": "11 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "How are you? Are you experiencing any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 12,
+          "offset": "12 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "How are you? Are you experiencing any bleeding, swelling, pus, pain, redness or wound opening? Enter 1=Yes 0=No and press send.",
+              "locale": "en"
+            }
+          ],
+          "group": 13,
+          "offset": "13 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Would you recommend cell phone message follow-up to your friends? Note: this response is different. Enter your response Y=Yes N=No and press send",
+              "locale": "en"
+            }
+          ],
+          "group": 40,
+          "offset": "40 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        }
+      ]
+    },
+    {
+      "name": "Enrolled Clients Reminders Shona",
+      "summary": "",
+      "description": "",
+      "start_from": "reported_date",
+      "messages": [
+        {
+          "message": [
+            {
+              "content": "Makadii? Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 1,
+          "offset": "1 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Izuva rechi2. Bvisai bhandiji. Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 2,
+          "offset": "2 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Makadii? Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 3,
+          "offset": "3 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Makadii? Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 4,
+          "offset": "4 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Makadii? Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 5,
+          "offset": "5 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Makadii? Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 6,
+          "offset": "6 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Izuva rechi 7. Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 7,
+          "offset": "7 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Makadii? Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 8,
+          "offset": "8 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Makadii? Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 9,
+          "offset": "9 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Makadii? Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 10,
+          "offset": "10 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Makadii? Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 11,
+          "offset": "11 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Makadii? Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 12,
+          "offset": "12 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Makadii? Paronda renyu parikubuda ropa, kuzvimba, hurwa, kurwadziwa, kutsvuka, kana kuvhurika here? Bayai 1= Hongu 0=Kwete, motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 13,
+          "offset": "13 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        },
+        {
+          "message": [
+            {
+              "content": "Mungakurudzire here vamwe kuti vateverwe nenzira yekutumirana mameseji pamafoni? Mhinduro iyi yakasiyana nedzimwe. Bayai Y= Hongu N=Kwete motumira",
+              "locale": "en"
+            }
+          ],
+          "group": 40,
+          "offset": "40 days",
+          "send_time": "06:00",
+          "recipient": "phone"
+        }
+      ]
+    }
+  ],
+  "notifications": {
+    "off_form": "OFF",
+    "on_form": "ON",
+    "confirm_deactivation": false,
+    "validations": {
+      "join_responses": false,
+      "list": [
+        {
+          "property": "patient_id",
+          "rule": "regex('^[0-9]{5}$')",
+          "message": [
+            {
+              "content": "{{#patient_id}}The ID number submitted is incorrect, it should be 5 numbers, please submit a valid ID.{{/patient_id}}{{^patient_id}}The message format is incorrect. Please ensure the message begins with ON or OFF followed by space then the woman's ID.{{/patient_id}}",
+              "locale": "en"
+            },
+            {
+              "content": "{{#patient_id}}Nambari ya ID iliyowasilishwa si sahihi, yapaswa kuwa nambari 5, tafadhali wasilisha ID halali.{{/patient_id}}{{^patient_id}}Muundo wa ujumbe si sahihi. Tafadhali hakikisha umeanza na ON/OFF ikifuatiwa na nafasi kisha ID ya mwanamke.{{/patient_id}}",
+              "locale": "sw"
+            },
+            {
+              "content": "{{#patient_id}}Le numéro d'identification doit être 5 chiffres. SVP réessayez avec un code d'identification valide.{{/patient_id}}{{^patient_id}}Le message manque le numéro d'identification. SVP réessayez avec le mot ON ou OFF suivi d'un espace ensuite le code d'identification du patient.{{/patient_id}}",
+              "locale": "fr"
+            },
+            {
+              "content": "{{#patient_id}} यह पहचान नंबर गलत है , 5 अंकों का एक मान्य पहचान नंबर कृपया भेजें | {{/patient_id}}{{^patient_id}} यह संदेश का नंबर गलत है | कृपया जांचें कि संदेश \"ON\" या \"OFF\" के साथ शुरू होता है और महिला की पहचान नंबर के साथ समाप्त होता है | {{/patient_id}}",
+              "locale": "hi"
+            },
+            {
+              "content": "{{#patient_id}} दर्ता नं मिलेन। कृपया ५ अंकको सहि दर्ता नं प्रयोग गरि पुन: फारम पठाउनुहोला। {{/patient_id}}{{^patient_id}} सन्देशको ढांचा मिलेन! सहि प्रतिवेदनको सुरुमा ON या OFF र अन्त्यमा ५ अंकको दर्ता नं हुनुपर्छ।{{/patient_id}}",
+              "locale": "ne"
+            },
+            {
+              "content": "{{#patient_id}}  El numero de la ID presentado es incorrecto Deberia ser de 5 numeros, por favor presenta una ID valida..{{/patient_id}}{{^patient_id}}El formato del mensaje es incorrecto. Por favor enviar un mensaje que empieze con ON o OFF seguido por un espacio y el ID de la mujer.{{/patient_id}}",
+              "locale": "es"
+            }
+          ]
+        }
+      ]
+    },
+    "messages": [
+      {
+        "message": [
+          {
+            "content": "No further notifications regarding {{patient_name}} will be sent until you submit 'ON {{patient_id}}'.",
+            "locale": "en"
+          },
+          {
+            "content": "Asante {{contact.name}}, arifa zaidi kumhusu {{patient_name}} hazitatumwa hadi utakapowasilisha 'ON {{patient_id}}'.",
+            "locale": "sw"
+          },
+          {
+            "content": "Les messages pour {{patient_name}} ont été arrêtés. Pour réactiver envoyez 'ON {{patient_id}}'.",
+            "locale": "fr"
+          },
+          {
+            "content": "जब तक आप 'ON {{patient_id}}' नहीं भेजेंगे, {{patient_name}} से संबंधित कोई और सूचनाएं को नहीं भेजा जाएगा ।",
+            "locale": "hi"
+          },
+          {
+            "content": "{{patient_name}} ({{patient_id}}) का लागि सबै सुचना बन्द गरिएको छ। सुचारु गर्नका लागि 'ON {{patient_id}}' लेखि SMS पठाउनुहोला। धन्यवाद!",
+            "locale": "ne"
+          },
+          {
+            "content": "No mas notificaciones sobre {{patient_name}} seran enviadas a usted hasta que usted presenta 'ON {{patient_id}}'.",
+            "locale": "es"
+          }
+        ],
+        "event_type": "on_mute",
+        "recipient": "reporting_unit"
+      },
+      {
+        "message": [
+          {
+            "content": "Thank you {{contact.name}}, record for {{patient_name}} ({{patient_id}}) has been reactivated. Notifications regarding this patient will resume.",
+            "locale": "en"
+          },
+          {
+            "content": "Asante {{contact.name}}, rekodi ya {{patient_name}} ({{patient_id}}) imefunguliwa tena. Arifa za mhudumiwa huyu zimerejeshwa.",
+            "locale": "sw"
+          },
+          {
+            "content": "Merci {{contact.name}}, les messages pour {{patient_name}} ({{patient_id}}) ont été réactivés.",
+            "locale": "fr"
+          },
+          {
+            "content": "धन्यवाद {{contact.name}}, {{patient_name}} ({{patient_id}}) का रिकॉर्ड फिर से सक्रिय बना दिया गया है |  इस रोगी से संबंधित सूचनाएं फिर से शुरू हो जाएंगे |",
+            "locale": "hi"
+          },
+          {
+            "content": "धन्यवाद, {{contact.name}}! {{patient_name}} ({{patient_id}}) का लागि सुचना सुचारु गरिएको छ।",
+            "locale": "ne"
+          },
+          {
+            "content": "Gracias {{contact.name}}, el registro para {{patient_name}} ({{patient_id}}) ha sido reactivado. Notificaciones sobre este paciente reanudaran.",
+            "locale": "es"
+          }
+        ],
+        "event_type": "on_unmute",
+        "recipient": "reporting_unit"
+      },
+      {
+        "message": [
+          {
+            "content": "No patient with ID number '{{patient_id}}' found.",
+            "locale": "en"
+          },
+          {
+            "content": "Hakuna mhudumiwa mwenye nambari ya ID '{{patient_id}}'.",
+            "locale": "sw"
+          },
+          {
+            "content": "Aucun patient a été trouvé avec le numéro d'identification '{{patient_id}}'.",
+            "locale": "fr"
+          },
+          {
+            "content": "पहचान नंबर '{{patient_id}}' का कोई रोगी नहीं मिल पाया |",
+            "locale": "hi"
+          },
+          {
+            "content": " '{{patient_id}}' कुनै पनि महिलालाई दिईएको छैन।",
+            "locale": "ne"
+          },
+          {
+            "content": "No se encuentra ninguna paciente con el numero de ID '{{patient_id}}'.",
+            "locale": "es"
+          }
+        ],
+        "event_type": "patient_not_found",
+        "recipient": "reporting_unit"
+      }
+    ]
+  },
+  "tasks": {
+    "rules": "define Target {_id: null,contact: null,deleted: null,type: null,pass: null,date: null}define Contact {contact: null,reports: null}define Task {_id: null,deleted: null,doc: null,contact: null,icon: null,date: null,readyStart: null,readyEnd: null,title: null,fields: null,resolved: null,priority: null,priorityLabel: null,reports: null,actions: null}rule GenerateEvents {when {c: Contact}then {var createTask = function(contact, schedule, report) {return new Task({_id: contact.contact._id + '-' + schedule.id,deleted: (contact.contact ? contact.contact.deleted : false) || (report ? report.deleted : false),doc: contact,contact: contact.contact,icon: schedule.icon,priority: schedule.description ? 'high' : null,priorityLabel: schedule.description ? schedule.description : '',icon: schedule.type,date: null,readyStart: schedule.start,readyEnd: schedule.end,title: schedule.title,resolved: false,actions: []});};var emitTask = function(task, scheduleEvent) {if (Utils.isTimely(task.date, scheduleEvent)) {emit('task', task);}};if (c.contact && c.contact.type === 'person') {let pilot_users = [\"58284f3c-9c2e-49f5-a039-8d90071c8022\",\"303f9f4c-0c6f-405c-940a-b2f573a85a0c\",\"fcac5344-c15d-4c04-b888-df0cf77fc275\",\"f69d7760-fd9c-418a-a41d-a349cbe5cba2\",\"f8af310b-ffb3-4ecf-b345-b46c196f6d5c\",\"711fe306-e072-433b-9de7-1666d709e87b\",\"d36fb82a-c150-4745-a991-4644f10e1883\",\"3457a5f1-e806-438a-929b-a246ffdb98d4\",\"749cc214-d05a-4f19-8ce0-61e233bac7b2\",\"323d1b41-3427-4109-9336-32e5f37c03dd\",\"4bccd638-6f69-4fbd-914a-c115eba1563b\",\"72a86cdc-4d32-4cb0-85c2-7b5c63d0bb32\",\"4b9ac080-a3ee-4959-94dd-c5b7ea29e7a1\",\"112d37f9-25e2-49b7-b289-d4ead1ce248c\",\"5fe44ccb-8cc2-4d26-9157-df01d4899d34\",\"f4d7b1e7-ff89-40b3-9d70-9afa5685c6fa\"];let schedule = Utils.getSchedule('scheduled-msgs');if (schedule && c.contact.patient_id && pilot_users.indexOf(c.contact._id) == -1) {schedule.events.forEach(function(s){let dueDate = new Date(Utils.addDate(new Date(c.contact.reported_date), s.days));let task = createTask(c, s);task.date = dueDate;task.resolved = !!Utils.getMostRecentReport(c.reports, 'scheduled_msgs');task.actions.push({type: 'report',form: \"scheduled_msgs\",label: 'Send 14-day scheduled SMSs',content: {source: 'task',source_id: c._id,contact: c.contact}});emitTask(task, s);});}let nurse_id = \"06f2b862-5b10-464e-ad7f-a162c8da1e2c\";if (c.contact.randomization && c.contact.randomization == 'texting' && c.contact._id != nurse_id) {schedule = Utils.getSchedule('texting-group');if (schedule) {for (var k = 0; k < schedule.events.length; k++) {var s = schedule.events[k];var dueDate = new Date(Utils.addDate(new Date(c.contact.reported_date), s.days));var task = createTask(c, s);task._id += '-' + k;task.date = dueDate;task.resolved = !!Utils.getMostRecentReport(c.reports, s.form);task.actions.push({type: 'report',form: s.form,label: 'Follow up client',content: {source: 'task',source_id: c._id,contact: c.contact}});emitTask(task, s);}}}schedule = \"\";schedule = Utils.getSchedule(\"followup-day-14\");if (schedule && c.contact._id != nurse_id){var s = schedule.events[0];var task = createTask(c, s);var dueDate = new Date(Utils.addDate(new Date(c.contact.reported_date), s.days));task._id += '-' + k;task.date = dueDate;task.resolved = !!Utils.getMostRecentReport(c.reports, \"day14_client_visit\");if (!task.resolved){task.resolved = c.reports.some(function(r){return r.form == \"client_visit\" && r.fields.visit == \"day14\"});}task.actions.push({type: 'report',form: s.form,label: 'Follow up client',content: {source: 'task',source_id: c._id,contact: c.contact}});emitTask(task, s);}c.reports.forEach(function(r) {switch(r.form) {case 'potential_ae':if(r.fields.n.client_return == 'yes'){let schedule = Utils.getSchedule('ae-referral');if(schedule){schedule.events.forEach(function(s) {var dueDate = new Date(Utils.addDate(new Date(r.reported_date), s.days));var visit = createTask(c, s, r);visit.date = dueDate;visit.resolved = Utils.isFormSubmittedInWindow(c.reports, 'referral_confirmation', Utils.addDate(dueDate, s.start * -1).getTime(), Utils.addDate(dueDate, (s.end + 1)).getTime() );visit.actions.push({type: 'report',form: 'referral_confirmation',label: 'SMS Referral',content: {source: 'task',source_id: r._id,contact: c.contact,}});emitTask(visit, s);});}}break;}});}emit('_complete', { _id: true });}}",
+    "schedules": [
+      {
+        "name": "texting-group",
+        "events": [
+          {
+            "id": "sms-followup-day-2",
+            "days": 2,
+            "start": 0,
+            "end": 365,
+            "form": "day2_sms",
+            "icon": "treatment",
+            "title": [
+              {
+                "content": "{{contact.name}} Day 2 SMS received",
+                "locale": "en"
+              }
+            ]
+          },
+          {
+            "id": "sms-followup-day-7",
+            "days": 7,
+            "start": 0,
+            "end": 365,
+            "form": "day7_sms",
+            "icon": "treatment",
+            "title": [
+              {
+                "content": "{{contact.name}} Day 7 SMS received",
+                "locale": "en"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "followup-day-14",
+        "events": [
+          {
+            "id": "followup-day-14",
+            "days": 14,
+            "start": 2,
+            "end": 365,
+            "form": "day14_client_visit",
+            "icon": "treatment",
+            "title": [
+              {
+                "content": "{{contact.name}} Day 14 in-person followup",
+                "locale": "en"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "ae-referral",
+        "events": [
+          {
+            "id": "ae-referral",
+            "days": 2,
+            "start": 2,
+            "end": 365,
+            "icon": "treatment",
+            "title": [
+              {
+                "content": "{{contact.name}} SMS Referral Followup",
+                "locale": "en"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "scheduled-msgs",
+        "events": [
+          {
+            "id": "scheduled-msgs-0",
+            "days": 0,
+            "start": 1,
+            "end": 365,
+            "icon": "network",
+            "title": [
+              {
+                "content": "Send scheduled messages to {{contact.name}}",
+                "locale": "en"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "targets": {}
+  },
+  "forms": {
+    "0": {
+      "meta": {
+        "label": {
+          "en": "No AE Experienced"
+        },
+        "code": "0"
+      },
+      "fields": {},
+      "facility_reference": "rc_code",
+      "use_sentinel": true
+    },
+    "1": {
+      "meta": {
+        "label": {
+          "en": "Suspected AE Reported"
+        },
+        "code": "1",
+        "icon": "risk"
+      },
+      "fields": {},
+      "facility_reference": "rc_code",
+      "use_sentinel": true
+    },
+    "4": {
+      "meta": {
+        "label": {
+          "en": "Satisfied with MC"
+        },
+        "code": "4"
+      },
+      "fields": {},
+      "facility_reference": "rc_code",
+      "use_sentinel": true
+    },
+    "9": {
+      "meta": {
+        "label": {
+          "en": "Dissatisfied with MC"
+        },
+        "code": "9"
+      },
+      "fields": {},
+      "facility_reference": "rc_code",
+      "use_sentinel": true
+    },
+    "scheduled_msgs": {
+      "meta": {
+        "label": {
+          "en": "Scheduled Messages"
+        },
+        "code": ""
+      },
+      "fields": {},
+      "facility_reference": "rc_code",
+      "use_sentinel": false
+    },
+    "N": {
+      "meta": {
+        "label": {
+          "en": "Does NOT recommend MC"
+        },
+        "code": "N"
+      },
+      "fields": {},
+      "facility_reference": "rc_code",
+      "use_sentinel": true
+    },
+    "Y": {
+      "meta": {
+        "label": {
+          "en": "Recommends MC"
+        },
+        "code": "Y"
+      },
+      "fields": {},
+      "facility_reference": "rc_code",
+      "use_sentinel": true
+    }
+  },
+  "transitions": {
+    "default_responses": false,
+    "update_clinics": true,
+    "accept_patient_reports": true,
+    "conditional_alerts": false,
+    "update_sent_by": false,
+    "registration": true,
+    "update_notifications": true,
+    "update_scheduled_reports": false,
+    "multi_report_alerts": false,
+    "update_sent_forms": false,
+    "generate_patient_id_on_people": true
+  },
+  "_version": "2.13.5",
+  "contact_summary": "var ContactSummary = {}; !function(e,t){if('object'==typeof exports&&'object'==typeof module)module.exports=t();else if('function'==typeof define&&define.amd)define([],t);else{var n=t();for(var r in n)('object'==typeof exports?exports:e)[r]=n[r]}}(ContactSummary,(function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){'undefined'!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:'Module'}),Object.defineProperty(e,'__esModule',{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&'object'==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,'default',{enumerable:!0,value:e}),2&t&&'string'!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,'a',t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p='',n(n.s=0)}([function(e,t){}])})); return ContactSummary;",
+  "place_hierarchy_types": [
+    "district_hospital",
+    "health_center"
+  ],
+  "changes_controller": {
+    "reiterate_changes": true,
+    "changes_limit": 100,
+    "debounce_interval": 200
+  },
+  "sms": {
+    "outgoing_service": "medic-gateway"
+  },
+  "contact_types": [
+    {
+      "id": "district_hospital",
+      "name_key": "contact.type.district_hospital",
+      "group_key": "contact.type.district_hospital.plural",
+      "create_key": "contact.type.district_hospital.new",
+      "edit_key": "contact.type.place.edit",
+      "icon": "medic-district-hospital",
+      "create_form": "form:contact:district_hospital:create",
+      "edit_form": "form:contact:district_hospital:edit"
+    },
+    {
+      "id": "health_center",
+      "name_key": "contact.type.health_center",
+      "group_key": "contact.type.health_center.plural",
+      "create_key": "contact.type.health_center.new",
+      "edit_key": "contact.type.place.edit",
+      "parents": [
+        "district_hospital"
+      ],
+      "icon": "medic-health-center",
+      "create_form": "form:contact:health_center:create",
+      "edit_form": "form:contact:health_center:edit"
+    },
+    {
+      "id": "clinic",
+      "name_key": "contact.type.clinic",
+      "group_key": "contact.type.clinic.plural",
+      "create_key": "contact.type.clinic.new",
+      "edit_key": "contact.type.place.edit",
+      "parents": [
+        "health_center"
+      ],
+      "icon": "medic-clinic",
+      "create_form": "form:contact:clinic:create",
+      "edit_form": "form:contact:clinic:edit",
+      "count_visits": true
+    },
+    {
+      "id": "person",
+      "name_key": "contact.type.person",
+      "group_key": "contact.type.person.plural",
+      "create_key": "contact.type.person.new",
+      "edit_key": "contact.type.person.edit",
+      "primary_contact_key": "clinic.field.contact",
+      "parents": [
+        "district_hospital",
+        "health_center",
+        "clinic"
+      ],
+      "icon": "medic-person",
+      "create_form": "form:contact:person:create",
+      "edit_form": "form:contact:person:edit",
+      "person": true
+    }
+  ]
+}

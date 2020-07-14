@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Edit Person</h:title>
+    <model>
+      <instance>
+        <data delimiter="#" id="contact:person:edit" prefix="J1!contact:person:edit!" version="2017-10-16 00:00:00">
+          <person>
+            <parent>PARENT</parent>
+            <type>person</type>
+            <name/>
+            <vmmc_no/>
+            <study_no/>
+            <enrollment_date/>
+            <n/>
+            <consent/>
+            <randomization/>
+            <phone/>
+            <language_preference/>
+            <mobile_company/>
+            <transport_cost/>
+            <clinic_trip>
+              <hours/>
+              <minutes/>
+            </clinic_trip>
+            <food_cost/>
+            <wage_period/>
+            <wage_amount/>
+          </person>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </data>
+      </instance>
+      <bind nodeset="/data/person/parent" type="string"/>
+      <bind nodeset="/data/person/type" type="string"/>
+      <bind nodeset="/data/person/name" required="true()" type="string"/>
+      <bind constraint="regex(., '[0-9]{5,9}')" jr:constraintMsg="Must be 5 – 9 numeric digits" nodeset="/data/person/vmmc_no" required="true()" type="string"/>
+      <bind constraint="regex(., '[0-9]{5,9}')" jr:constraintMsg="Must be 5 – 9 numeric digits" nodeset="/data/person/study_no" required="true()" type="string"/>
+      <bind constraint=". &lt;= today()" jr:constraintMsg="Enrollment date must not be in the future I.e today or before" nodeset="/data/person/enrollment_date" required="true()" type="date"/>
+      <bind nodeset="/data/person/n" readonly="true()" type="string"/>
+      <bind nodeset="/data/person/consent" required="true()" type="select1"/>
+      <bind nodeset="/data/person/randomization" required="true()" type="select1"/>
+      <bind constraint="regex(., '^\+?\d{3,15}$')" nodeset="/data/person/phone" required="true()" type="string"/>
+      <bind nodeset="/data/person/language_preference" required="true()" type="select1"/>
+      <bind nodeset="/data/person/mobile_company" required="true()" type="select1"/>
+      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/data/person/transport_cost" required="true()" type="decimal"/>
+      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/data/person/clinic_trip/hours" type="int"/>
+      <bind constraint=". &gt;= 0 and . &lt; 60" jr:constraintMsg="Must be between 0 and 59" nodeset="/data/person/clinic_trip/minutes" type="int"/>
+      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/data/person/food_cost" required="true()" type="decimal"/>
+      <bind nodeset="/data/person/wage_period" required="true()" type="select1"/>
+      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/data/person/wage_amount" relevant=" /data/person/wage_period  = 'daily' or  /data/person/wage_period  = 'monthly'" required="true()" type="decimal"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/data/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group appearance="field-list" ref="/data/person">
+      <input appearance="hidden" ref="/data/person/parent">
+        <label>Parent</label>
+      </input>
+      <input appearance="hidden" ref="/data/person/type">
+        <label>Person Type</label>
+        <hint>mandatory</hint>
+      </input>
+      <input ref="/data/person/name">
+        <label>Client Name</label>
+      </input>
+      <input ref="/data/person/vmmc_no">
+        <label>VMMC Client Number</label>
+      </input>
+      <input ref="/data/person/study_no">
+        <label>2WT Study Number</label>
+      </input>
+      <input ref="/data/person/enrollment_date">
+        <label>Enrollment Date</label>
+      </input>
+      <input ref="/data/person/n">
+        <label>Study coordinator to administer the following questions</label>
+      </input>
+      <select1 ref="/data/person/consent">
+        <label>Confirmation of consent</label>
+        <item>
+          <label>Yes</label>
+          <value>yes</value>
+        </item>
+        <item>
+          <label>No</label>
+          <value>no</value>
+        </item>
+      </select1>
+      <select1 ref="/data/person/randomization">
+        <label>Result of randomization</label>
+        <item>
+          <label>Texting</label>
+          <value>texting</value>
+        </item>
+        <item>
+          <label>Routine care</label>
+          <value>routine</value>
+        </item>
+      </select1>
+      <input ref="/data/person/phone">
+        <label>Mobile phone number</label>
+      </input>
+      <select1 ref="/data/person/language_preference">
+        <label>What is this client's language of preference for the texts?</label>
+        <item>
+          <label>English</label>
+          <value>english</value>
+        </item>
+        <item>
+          <label>Shona</label>
+          <value>shona</value>
+        </item>
+      </select1>
+      <select1 ref="/data/person/mobile_company">
+        <label>What is your cell phone company?</label>
+        <item>
+          <label>Econet</label>
+          <value>econet</value>
+        </item>
+        <item>
+          <label>Net.One</label>
+          <value>netone</value>
+        </item>
+        <item>
+          <label>Telecel</label>
+          <value>telecel</value>
+        </item>
+      </select1>
+      <input ref="/data/person/transport_cost">
+        <label>How much did you pay in transportation to come to the clinic?</label>
+      </input>
+      <group appearance="field-list" ref="/data/person/clinic_trip">
+        <label>How long did it take you to get to the clinic</label>
+        <input ref="/data/person/clinic_trip/hours">
+          <label>Hours</label>
+        </input>
+        <input ref="/data/person/clinic_trip/minutes">
+          <label>Minutes</label>
+        </input>
+      </group>
+      <input ref="/data/person/food_cost">
+        <label>How much did you spend in food and drink as a part of this visit ($)</label>
+      </input>
+      <select1 ref="/data/person/wage_period">
+        <label>Wage period</label>
+        <item>
+          <label>Daily</label>
+          <value>daily</value>
+        </item>
+        <item>
+          <label>Monthly</label>
+          <value>monthly</value>
+        </item>
+        <item>
+          <label>None</label>
+          <value>none</value>
+        </item>
+      </select1>
+      <input ref="/data/person/wage_amount">
+        <label>Wage amount</label>
+      </input>
+    </group>
+  </h:body>
+</h:html>

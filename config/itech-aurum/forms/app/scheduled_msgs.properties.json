@@ -1,0 +1,8 @@
+{
+  "icon": "network",
+  "context": {
+    "person": true,
+    "place": false,
+    "expression": "false"
+  }
+}

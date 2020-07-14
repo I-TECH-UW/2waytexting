@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Schedule 2WT Automated Messages</h:title>
+    <model>
+      <instance>
+        <scheduled_msgs delimiter="#" id="scheduled_msgs" prefix="J1!scheduled_msgs!">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <source>user</source>
+            <source_id/>
+            <contact>
+              <_id/>
+              <name/>
+              <phone/>
+              <language_preference/>
+              <patient_id/>
+              <randomization/>
+            </contact>
+          </inputs>
+          <patient_name/>
+          <phone/>
+          <language_preference/>
+          <randomization/>
+          <patient_id/>
+          <n/>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </scheduled_msgs>
+      </instance>
+      <instance id="contact-summary"/>
+      <bind nodeset="/scheduled_msgs/inputs" relevant="./source = 'user'"/>
+      <bind nodeset="/scheduled_msgs/inputs/source" type="string"/>
+      <bind nodeset="/scheduled_msgs/inputs/source_id" type="string"/>
+      <bind nodeset="/scheduled_msgs/inputs/contact/_id" type="db:person"/>
+      <bind nodeset="/scheduled_msgs/inputs/contact/name" type="string"/>
+      <bind nodeset="/scheduled_msgs/inputs/contact/phone" type="string"/>
+      <bind nodeset="/scheduled_msgs/inputs/contact/language_preference" type="string"/>
+      <bind nodeset="/scheduled_msgs/inputs/contact/patient_id" type="string"/>
+      <bind nodeset="/scheduled_msgs/inputs/contact/randomization" type="string"/>
+      <bind calculate="../inputs/contact/name" nodeset="/scheduled_msgs/patient_name" type="string"/>
+      <bind calculate="../inputs/contact/phone" nodeset="/scheduled_msgs/phone" type="string"/>
+      <bind calculate="../inputs/contact/language_preference" nodeset="/scheduled_msgs/language_preference" type="string"/>
+      <bind calculate="../inputs/contact/randomization" nodeset="/scheduled_msgs/randomization" type="string"/>
+      <bind calculate="../inputs/contact/patient_id" nodeset="/scheduled_msgs/patient_id" type="string"/>
+      <bind nodeset="/scheduled_msgs/n" readonly="true()" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/scheduled_msgs/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <group appearance="field-list" ref="/scheduled_msgs/inputs">
+      <label>Patient</label>
+      <input appearance="hidden" ref="/scheduled_msgs/inputs/source">
+        <label>Source</label>
+      </input>
+      <input appearance="hidden" ref="/scheduled_msgs/inputs/source_id">
+        <label>Source ID</label>
+      </input>
+      <group ref="/scheduled_msgs/inputs/contact">
+        <label>Contact</label>
+        <input appearance="db-object" ref="/scheduled_msgs/inputs/contact/_id">
+          <label>What is the patient's name?</label>
+          <hint>Select a person from list</hint>
+        </input>
+        <input ref="/scheduled_msgs/inputs/contact/name">
+          <label>Patient Name</label>
+        </input>
+        <input ref="/scheduled_msgs/inputs/contact/phone">
+          <label>Patient phone</label>
+        </input>
+        <input ref="/scheduled_msgs/inputs/contact/language_preference">
+          <label>Language preference</label>
+        </input>
+        <input ref="/scheduled_msgs/inputs/contact/patient_id">
+          <label>Patient ID</label>
+        </input>
+        <input ref="/scheduled_msgs/inputs/contact/randomization">
+          <label>Randomization</label>
+        </input>
+      </group>
+    </group>
+    <input ref="/scheduled_msgs/n">
+      <label>Click on submit to send scheduled messages to <output value=" /scheduled_msgs/patient_name "/>.</label>
+    </input>
+  </h:body>
+</h:html>

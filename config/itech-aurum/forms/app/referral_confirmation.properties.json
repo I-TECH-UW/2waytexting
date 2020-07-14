@@ -1,0 +1,8 @@
+{
+  "icon": "treatment",
+  "context": {
+    "person": true,
+    "place": false,
+    "expression": ""
+  }
+}

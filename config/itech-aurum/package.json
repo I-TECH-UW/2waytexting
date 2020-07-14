@@ -1,0 +1,23 @@
+{
+  "name": "itech-aurum",
+  "version": "0.1.0",
+  "description": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "eslint": "eslint **.js",
+    "test": "echo 'test'",
+    "travis": "npm install && npm test",
+    "deploy-app-forms": "medic-conf --url=$url convert-app-forms upload-app-forms",
+    "deploy-contact-forms": "medic-conf --url=$url convert-contact-forms upload-contact-forms",
+    "deploy-app-settings": "medic-conf --url=$url compile-app-settings upload-app-settings",
+    "deploy-translations": "medic-conf --url=$url upload-custom-translations",
+    "deploy-resources": "medic-conf --url=$url upload-resources",
+    "deploy": "npm-run-all deploy-translations deploy-app-forms deploy-contact-forms deploy-app-settings deploy-resources"
+  },
+  "devDependencies": {
+    "medic-conf": "^3.2.0",
+    "medic-conf-test-harness": "^0.1.30"
+  }
+}

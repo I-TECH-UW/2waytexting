@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Day 2 SMS Received</h:title>
+    <model>
+      <instance>
+        <r delimiter="#" id="day2_sms" prefix="J1!day2_sms!" version="2017-09-30 00:00:00">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <source>user</source>
+            <source_id/>
+            <contact>
+              <_id/>
+              <name/>
+              <phone/>
+            </contact>
+          </inputs>
+          <patient_name/>
+          <phone/>
+          <patient_id/>
+          <response/>
+          <symptom/>
+          <other_symptom/>
+          <comments/>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </r>
+      </instance>
+      <instance id="contact-summary"/>
+      <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
+      <bind nodeset="/r/inputs/source" type="string"/>
+      <bind nodeset="/r/inputs/source_id" type="string"/>
+      <bind nodeset="/r/inputs/contact/_id" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/name" type="string"/>
+      <bind nodeset="/r/inputs/contact/phone" type="string"/>
+      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
+      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
+      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
+      <bind nodeset="/r/response" required="true()" type="select1"/>
+      <bind nodeset="/r/symptom" relevant=" /r/response  = 'yes_ae'" required="true()" type="select"/>
+      <bind nodeset="/r/other_symptom" relevant=" /r/symptom  = 'other'" required="true()" type="string"/>
+      <bind nodeset="/r/comments" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group appearance="field-list" ref="/r/inputs">
+      <label>Patient</label>
+      <input appearance="hidden" ref="/r/inputs/source">
+        <label>Source</label>
+      </input>
+      <input appearance="hidden" ref="/r/inputs/source_id">
+        <label>Source ID</label>
+      </input>
+      <group ref="/r/inputs/contact">
+        <label>Contact</label>
+        <input appearance="db-object" ref="/r/inputs/contact/_id">
+          <label>What is the patient's name?</label>
+          <hint>Select a person from list</hint>
+        </input>
+        <input ref="/r/inputs/contact/name">
+          <label>Patient Name</label>
+        </input>
+        <input ref="/r/inputs/contact/phone">
+          <label>Phone Number</label>
+        </input>
+      </group>
+    </group>
+    <select1 ref="/r/response">
+      <label>Did the patient respond via SMS?</label>
+      <item>
+        <label>Yes, but no Adverse Event reported</label>
+        <value>yes_no_ae</value>
+      </item>
+      <item>
+        <label>Yes, Adverse Event reported</label>
+        <value>yes_ae</value>
+      </item>
+      <item>
+        <label>No. Referred for patient tracing</label>
+        <value>no</value>
+      </item>
+    </select1>
+    <select ref="/r/symptom">
+      <label>What was their primary symptom? select all that apply</label>
+      <item>
+        <label>Bleeding</label>
+        <value>bleeding</value>
+      </item>
+      <item>
+        <label>Swelling</label>
+        <value>swelling</value>
+      </item>
+      <item>
+        <label>Pus</label>
+        <value>pus</value>
+      </item>
+      <item>
+        <label>Pain</label>
+        <value>pain</value>
+      </item>
+      <item>
+        <label>Wound opening</label>
+        <value>wound_opening</value>
+      </item>
+      <item>
+        <label>Redness</label>
+        <value>redness</value>
+      </item>
+      <item>
+        <label>Other</label>
+        <value>other</value>
+      </item>
+    </select>
+    <input ref="/r/other_symptom">
+      <label>Specify other</label>
+    </input>
+    <input ref="/r/comments">
+      <label>comments</label>
+    </input>
+  </h:body>
+</h:html>

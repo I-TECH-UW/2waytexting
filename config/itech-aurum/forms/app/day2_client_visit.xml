@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Day 2 client Visit</h:title>
+    <model>
+      <instance>
+        <r delimiter="#" id="day2_client_visit" prefix="J1!day2_client_visit!" version="2017-09-30 00:00:00">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <source>user</source>
+            <source_id/>
+            <contact>
+              <_id/>
+              <name/>
+              <phone/>
+            </contact>
+          </inputs>
+          <patient_name/>
+          <phone/>
+          <patient_id/>
+          <n/>
+          <visit/>
+          <phone_credit/>
+          <explanation/>
+          <visit_date>today()</visit_date>
+          <ae_severity/>
+          <ae_code/>
+          <care_provider/>
+          <comments/>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </r>
+      </instance>
+      <instance id="contact-summary"/>
+      <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
+      <bind nodeset="/r/inputs/source" type="string"/>
+      <bind nodeset="/r/inputs/source_id" type="string"/>
+      <bind nodeset="/r/inputs/contact/_id" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/name" type="string"/>
+      <bind nodeset="/r/inputs/contact/phone" type="string"/>
+      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
+      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
+      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
+      <bind nodeset="/r/n" readonly="true()" type="string"/>
+      <bind nodeset="/r/visit" required="true()" type="select1"/>
+      <bind nodeset="/r/phone_credit" relevant=" /r/visit  = 'day14'" required="true()" type="select1"/>
+      <bind nodeset="/r/explanation" relevant=" /r/phone_credit  = 'no'" required="true()" type="string"/>
+      <bind constraint=". &lt; today()" nodeset="/r/visit_date" required="true()" type="date"/>
+      <bind nodeset="/r/ae_severity" type="select1"/>
+      <bind constraint="string-length(.) &gt;= 4 and string-length(.) &lt;= 6" nodeset="/r/ae_code" relevant=" /r/ae_severity  = 'mild' or  /r/ae_severity  = 'moderate' or  /r/ae_severity  = 'severe'" type="string"/>
+      <bind nodeset="/r/care_provider" type="string"/>
+      <bind nodeset="/r/comments" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group appearance="field-list" ref="/r/inputs">
+      <label>Patient</label>
+      <input appearance="hidden" ref="/r/inputs/source">
+        <label>Source</label>
+      </input>
+      <input appearance="hidden" ref="/r/inputs/source_id">
+        <label>Source ID</label>
+      </input>
+      <group ref="/r/inputs/contact">
+        <label>Contact</label>
+        <input appearance="db-object" ref="/r/inputs/contact/_id">
+          <label>What is the patient's name?</label>
+          <hint>Select a person from list</hint>
+        </input>
+        <input ref="/r/inputs/contact/name">
+          <label>Patient Name</label>
+        </input>
+        <input ref="/r/inputs/contact/phone">
+          <label>Phone Number</label>
+        </input>
+      </group>
+    </group>
+    <input ref="/r/n">
+      <label>This information about in-person clinic visits should be copied directly from the paper VMMC Register and/or paper Client Intake Form. For all pilot and study participants, record data for MC, Day 14 Review, and any Additional Reviews. For Control Group clients, record data for MC, Day 2, Day 7, Day 14 and any Additional Reviews.</label>
+    </input>
+    <select1 ref="/r/visit">
+      <label>What type of visit are you reporting?</label>
+      <item>
+        <label>Circumcision</label>
+        <value>circumcision</value>
+      </item>
+      <item>
+        <label>Day 2 post circumcision</label>
+        <value>day2</value>
+      </item>
+      <item>
+        <label>Day 7 post circumcision</label>
+        <value>day7</value>
+      </item>
+      <item>
+        <label>Day 14 post circumcision</label>
+        <value>day14</value>
+      </item>
+      <item>
+        <label>Additional Review</label>
+        <value>additional</value>
+      </item>
+    </select1>
+    <select1 ref="/r/phone_credit">
+      <label>Verify $5 phone credit given to client</label>
+      <item>
+        <label>Yes</label>
+        <value>yes</value>
+      </item>
+      <item>
+        <label>No</label>
+        <value>no</value>
+      </item>
+    </select1>
+    <input ref="/r/explanation">
+      <label>Explain why</label>
+    </input>
+    <input ref="/r/visit_date">
+      <label>Date of visit</label>
+    </input>
+    <select1 ref="/r/ae_severity">
+      <label>Did the client report an Adverse Event?</label>
+      <item>
+        <label>No</label>
+        <value>no</value>
+      </item>
+      <item>
+        <label>Mild</label>
+        <value>mild</value>
+      </item>
+      <item>
+        <label>Moderate</label>
+        <value>moderate</value>
+      </item>
+      <item>
+        <label>Severe</label>
+        <value>severe</value>
+      </item>
+    </select1>
+    <input ref="/r/ae_code">
+      <label>Adverse Event Code</label>
+    </input>
+    <input ref="/r/care_provider">
+      <label>Name of health care provider who reviewed this client</label>
+      <hint>Note that this is the name of the clinician, copied from the paper Client Intake Form, not the name of the study nurse who uses the software</hint>
+    </input>
+    <input ref="/r/comments">
+      <label>Comments</label>
+    </input>
+  </h:body>
+</h:html>

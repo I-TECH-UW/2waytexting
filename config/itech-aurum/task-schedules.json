@@ -1,0 +1,90 @@
+[
+  {
+    "name": "texting-group",
+    "events": [
+      {
+        "id": "sms-followup-day-2",
+        "days": 2,
+        "start": 0,
+        "end": 365,
+        "form": "day2_sms",
+        "icon": "treatment",
+        "title": [
+          {
+            "content": "{{contact.name}} Day 2 SMS received",
+            "locale": "en"
+          }
+        ]
+      },
+      {
+        "id": "sms-followup-day-7",
+        "days": 7,
+        "start": 0,
+        "end": 365,
+        "form": "day7_sms",
+        "icon": "treatment",
+        "title": [
+          {
+            "content": "{{contact.name}} Day 7 SMS received",
+            "locale": "en"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "followup-day-14",
+    "events": [
+      {
+        "id": "followup-day-14",
+        "days": 14,
+        "start": 2,
+        "end": 365,
+        "form": "day14_client_visit",
+        "icon": "treatment",
+        "title": [
+          {
+            "content": "{{contact.name}} Day 14 in-person followup",
+            "locale": "en"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "ae-referral",
+    "events": [
+      {
+        "id": "ae-referral",
+        "days": 2,
+        "start": 2,
+        "end": 365,
+        "icon": "treatment",
+        "title": [
+          {
+            "content": "{{contact.name}} SMS Referral Followup",
+            "locale": "en"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "scheduled-msgs",
+    "events": [
+      {
+        "id": "scheduled-msgs-0",
+        "days": 0,
+        "start": 1,
+        "end": 365,
+        "icon": "network",
+        "title": [
+          {
+            "content": "Send scheduled messages to {{contact.name}}",
+            "locale": "en"
+          }
+        ]
+      }
+    ]
+  }
+]

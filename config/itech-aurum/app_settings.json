@@ -1136,6 +1136,14 @@
   "sms": {
     "outgoing_service": "medic-gateway"
   },
+  "replications": [
+    {
+      "fromSuffix": "user-[^\\-]+-meta",
+      "toSuffix": "users-meta",
+      "text_expression": "",
+      "cron": "0 2 * * *"
+    }
+  ],
   "contact_types": [
     {
       "id": "district_hospital",

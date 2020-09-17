@@ -1,0 +1,8 @@
+{
+  "icon": "person",
+  "context": {
+    "person": false,
+    "place": true,
+    "expression": "['clinic', 'health_center', 'district_hospital'].indexOf(contact.type) !== -1"
+  }
+}

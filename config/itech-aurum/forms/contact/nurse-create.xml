@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Add Nurse</h:title>
+    <model>
+      <instance>
+        <data delimiter="#" id="contact:nurse:create" prefix="J1!contact:nurse:create!" version="2020-07-15">
+          <nurse>
+            <parent>PARENT</parent>
+            <type>person</type>
+            <name/>
+            <is_nurse>TRUE</is_nurse>
+          </nurse>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </data>
+      </instance>
+      <bind nodeset="/data/nurse/parent" type="string"/>
+      <bind nodeset="/data/nurse/type" type="string"/>
+      <bind constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space." nodeset="/data/nurse/name" required="true()" type="string"/>
+      <bind calculate="true()" nodeset="/data/nurse/is_nurse" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/data/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group appearance="field-list" ref="/data/nurse">
+      <input appearance="hidden" ref="/data/nurse/parent">
+        <label>Parent</label>
+      </input>
+      <input appearance="hidden" ref="/data/nurse/type">
+        <label>Person Type</label>
+        <hint>mandatory</hint>
+      </input>
+      <input ref="/data/nurse/name">
+        <label>Nurse Name</label>
+      </input>
+    </group>
+  </h:body>
+</h:html>

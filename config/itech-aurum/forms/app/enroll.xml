@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Enroll New Person</h:title>
+    <model>
+      <instance>
+        <enroll delimiter="#" id="enroll" prefix="J1!enroll!" version="2020-03-10 00:00:00">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <source>user</source>
+            <source_id/>
+            <is_task/>
+            <contact>
+              <_id/>
+              <name/>
+              <phone/>
+              <parent>
+                <_id/>
+              </parent>
+            </contact>
+          </inputs>
+          <patient_name/>
+          <patient_uuid db-doc-ref=" /enroll/person "/>
+          <place_id/>
+          <phone/>
+          <language_preference/>
+          <randomization/>
+          <person db-doc="true">
+            <parent>
+              <_id/>
+              <parent>
+                <_id/>
+              </parent>
+            </parent>
+            <type/>
+            <name/>
+            <vmmc_no/>
+            <study_no/>
+            <n_study/>
+            <consent/>
+            <randomization/>
+            <phone/>
+            <language_preference/>
+            <mobile_company/>
+            <mobile_other/>
+            <transport_cost/>
+            <clinic_trip>
+              <hours/>
+              <minutes/>
+            </clinic_trip>
+            <food_cost/>
+            <wage_period/>
+            <wage_amount/>
+          </person>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </enroll>
+      </instance>
+      <instance id="contact-summary"/>
+      <bind nodeset="/enroll/inputs" relevant="./source = 'user'"/>
+      <bind nodeset="/enroll/inputs/source" type="string"/>
+      <bind nodeset="/enroll/inputs/source_id" type="string"/>
+      <bind nodeset="/enroll/inputs/is_task" type="string"/>
+      <bind nodeset="/enroll/inputs/contact/_id" required="true()" type="db:person"/>
+      <bind nodeset="/enroll/inputs/contact/name" type="string"/>
+      <bind nodeset="/enroll/inputs/contact/phone" type="string"/>
+      <bind nodeset="/enroll/inputs/contact/parent/_id" type="string"/>
+      <bind calculate="../person/name" nodeset="/enroll/patient_name" type="string"/>
+      <bind calculate="person" nodeset="/enroll/patient_uuid" type="string"/>
+      <bind calculate="../inputs/contact/_id" nodeset="/enroll/place_id" type="string"/>
+      <bind calculate="../person/phone" nodeset="/enroll/phone" type="string"/>
+      <bind calculate="../person/language_preference" nodeset="/enroll/language_preference" type="string"/>
+      <bind calculate="../person/randomization" nodeset="/enroll/randomization" type="string"/>
+      <bind calculate="../../../inputs/contact/_id" nodeset="/enroll/person/parent/_id" type="string"/>
+      <bind calculate="../../../../inputs/contact/parent/_id" nodeset="/enroll/person/parent/parent/_id" type="string"/>
+      <bind calculate="&quot;person&quot;" jr:constraintMsg="person" nodeset="/enroll/person/type" type="string"/>
+      <bind constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please enter valid VMMC Client name" nodeset="/enroll/person/name" required="true()" type="string"/>
+      <bind constraint="regex(., '^[0-9\-]+$')" jr:constraintMsg="Please enter valid VMMC Client Number" nodeset="/enroll/person/vmmc_no" required="true()" type="string"/>
+      <bind constraint="regex(., '^[0-9\-]+$')" jr:constraintMsg="Please enter valid 2wT Study Number" nodeset="/enroll/person/study_no" required="true()" type="string"/>
+      <bind nodeset="/enroll/person/n_study" readonly="true()" type="string"/>
+      <bind jr:requiredMsg="Please confirm consent" nodeset="/enroll/person/consent" required="true()" type="select1"/>
+      <bind nodeset="/enroll/person/randomization" required="true()" type="select1"/>
+      <bind constraint="regex(., '^\+27[0-9]{9}$')" jr:constraintMsg="Please enter a valid mobile number" nodeset="/enroll/person/phone" required="true()" type="string"/>
+      <bind nodeset="/enroll/person/language_preference" required="true()" type="select1"/>
+      <bind nodeset="/enroll/person/mobile_company" required="true()" type="select1"/>
+      <bind nodeset="/enroll/person/mobile_other" relevant="selected(../mobile_company, 'other')" required="false()" type="string"/>
+      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/enroll/person/transport_cost" required="true()" type="int"/>
+      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/enroll/person/clinic_trip/hours" type="int"/>
+      <bind constraint=". &gt;= 0 and . &lt; 60" jr:constraintMsg="Must be between 0 and 59" nodeset="/enroll/person/clinic_trip/minutes" type="int"/>
+      <bind constraint=". &gt;= 0" jr:constraintMsg="Please enter a valid amount" nodeset="/enroll/person/food_cost" required="true()" type="int"/>
+      <bind jr:requiredMsg="Please select a wage period" nodeset="/enroll/person/wage_period" required="true()" type="select1"/>
+      <bind constraint=". &gt;= 0" jr:constraintMsg="Please enter a valid amount" nodeset="/enroll/person/wage_amount" relevant=" /enroll/person/wage_period  = 'daily' or  /enroll/person/wage_period  = 'monthly'" required="true()" type="int"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/enroll/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group appearance="field-list" ref="/enroll/inputs">
+      <label>Patient</label>
+      <input appearance="hidden" ref="/enroll/inputs/source">
+        <label>Source</label>
+      </input>
+      <input appearance="hidden" ref="/enroll/inputs/source_id">
+        <label>Source ID</label>
+      </input>
+      <input appearance="hidden" ref="/enroll/inputs/is_task">
+        <label>Is Task</label>
+      </input>
+      <group ref="/enroll/inputs/contact">
+        <label>Contact</label>
+        <input appearance="db-object" ref="/enroll/inputs/contact/_id">
+          <label>What is the patient's name?</label>
+          <hint>Select a person from list</hint>
+        </input>
+        <input appearance="hidden" ref="/enroll/inputs/contact/name">
+          <label>Patient Name</label>
+        </input>
+        <input appearance="hidden" ref="/enroll/inputs/contact/phone">
+          <label>Phone Number</label>
+        </input>
+        <group ref="/enroll/inputs/contact/parent">
+          <label>Parent</label>
+          <input ref="/enroll/inputs/contact/parent/_id">
+            <label></label>
+          </input>
+        </group>
+      </group>
+    </group>
+    <group appearance="field-list" ref="/enroll/person">
+      <label></label>
+      <group appearance="hidden" ref="/enroll/person/parent">
+        <label></label>
+        <group appearance="field-list" ref="/enroll/person/parent/parent">
+          <label></label>
+        </group>
+      </group>
+      <input ref="/enroll/person/name">
+        <label>Client Name</label>
+      </input>
+      <input appearance="number" ref="/enroll/person/vmmc_no">
+        <label>VMMC Client No.</label>
+      </input>
+      <input appearance="number" ref="/enroll/person/study_no">
+        <label>2WT Study Number</label>
+      </input>
+      <input ref="/enroll/person/n_study">
+        <label>Study coordinator to administer the following questions</label>
+      </input>
+      <select1 ref="/enroll/person/consent">
+        <label>Confirmation of consent</label>
+        <item>
+          <label>Yes</label>
+          <value>yes</value>
+        </item>
+        <item>
+          <label>No</label>
+          <value>no</value>
+        </item>
+      </select1>
+      <select1 ref="/enroll/person/randomization">
+        <label>Result of randomization</label>
+        <item>
+          <label>Texting</label>
+          <value>texting</value>
+        </item>
+        <item>
+          <label>Routine care</label>
+          <value>routine</value>
+        </item>
+      </select1>
+      <input appearance="number" ref="/enroll/person/phone">
+        <label>Mobile phone number</label>
+        <hint>Should start with the country code +27xxxxxxxxx</hint>
+      </input>
+      <select1 ref="/enroll/person/language_preference">
+        <label>What is this client's language of preference for the texts?</label>
+        <item>
+          <label>English</label>
+          <value>english</value>
+        </item>
+        <item>
+          <label>isiZulu</label>
+          <value>isizulu</value>
+        </item>
+        <item>
+          <label>Setswana</label>
+          <value>setswana</value>
+        </item>
+      </select1>
+      <select1 ref="/enroll/person/mobile_company">
+        <label>What is your cell phone company?</label>
+        <item>
+          <label>MTN</label>
+          <value>mtn</value>
+        </item>
+        <item>
+          <label>Vodacom</label>
+          <value>vodacom</value>
+        </item>
+        <item>
+          <label>Cell C</label>
+          <value>cellc</value>
+        </item>
+        <item>
+          <label>Telcom</label>
+          <value>telcom</value>
+        </item>
+        <item>
+          <label>Other</label>
+          <value>other</value>
+        </item>
+      </select1>
+      <input ref="/enroll/person/mobile_other">
+        <label>Please enter your cell phone company</label>
+      </input>
+      <input ref="/enroll/person/transport_cost">
+        <label>How much did you pay in transportation to come to the clinic?</label>
+        <hint>This should be in Rands i.e. ZAR</hint>
+      </input>
+      <group appearance="field-list" ref="/enroll/person/clinic_trip">
+        <label>How long did it take you to get to the clinic?</label>
+        <input ref="/enroll/person/clinic_trip/hours">
+          <label>Hours</label>
+        </input>
+        <input ref="/enroll/person/clinic_trip/minutes">
+          <label>Minutes</label>
+        </input>
+      </group>
+      <input ref="/enroll/person/food_cost">
+        <label>How much did you spend on food and drink as a part of this visit (in ZAR)?</label>
+      </input>
+      <select1 ref="/enroll/person/wage_period">
+        <label>Wage period</label>
+        <item>
+          <label>Daily</label>
+          <value>daily</value>
+        </item>
+        <item>
+          <label>Weekly</label>
+          <value>weekly</value>
+        </item>
+        <item>
+          <label>Monthly</label>
+          <value>monthly</value>
+        </item>
+        <item>
+          <label>None</label>
+          <value>none</value>
+        </item>
+      </select1>
+      <input ref="/enroll/person/wage_amount">
+        <label>Wage amount (ZAR)</label>
+      </input>
+    </group>
+  </h:body>
+</h:html>

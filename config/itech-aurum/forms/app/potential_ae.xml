@@ -25,17 +25,18 @@
           <patient_name/>
           <patient_id/>
           <phone/>
-          <n>
+          <note>
             <days_post_mc/>
             <symptoms/>
             <other_symptom/>
             <followup_request/>
             <followup_method/>
             <ae/>
+            <severity/>
             <info/>
             <client_return/>
             <explanation/>
-          </n>
+          </note>
           <meta tag="hidden">
             <instanceID/>
           </meta>
@@ -51,15 +52,16 @@
       <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
       <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
       <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
-      <bind nodeset="/r/n/days_post_mc" type="select1"/>
-      <bind nodeset="/r/n/symptoms" required="true()" type="select"/>
-      <bind nodeset="/r/n/other_symptom" relevant="selected( /r/n/symptoms , 'other')" required="true()" type="string"/>
-      <bind nodeset="/r/n/followup_request" type="select1"/>
-      <bind nodeset="/r/n/followup_method" type="select1"/>
-      <bind nodeset="/r/n/ae" type="select1"/>
-      <bind nodeset="/r/n/info" type="string"/>
-      <bind nodeset="/r/n/client_return" type="select1"/>
-      <bind nodeset="/r/n/explanation" relevant=" /r/n/client_return  = 'no'" type="string"/>
+      <bind jr:requiredMsg="Please select one option" nodeset="/r/note/days_post_mc" required="true()" type="select1"/>
+      <bind jr:requiredMsg="Please select all options that apply" nodeset="/r/note/symptoms" required="true()" type="select"/>
+      <bind nodeset="/r/note/other_symptom" relevant="selected( /r/note/symptoms , 'other')" required="true()" type="string"/>
+      <bind nodeset="/r/note/followup_request" type="select1"/>
+      <bind nodeset="/r/note/followup_method" type="select1"/>
+      <bind nodeset="/r/note/ae" type="select1"/>
+      <bind nodeset="/r/note/severity" relevant="selected( /r/note/ae , 'yes')" required="true()" type="select1"/>
+      <bind nodeset="/r/note/info" type="string"/>
+      <bind nodeset="/r/note/client_return" type="select1"/>
+      <bind nodeset="/r/note/explanation" relevant="selected( /r/note/client_return , 'no')" type="string"/>
       <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
     </model>
   </h:head>
@@ -86,9 +88,9 @@
         </input>
       </group>
     </group>
-    <group ref="/r/n">
+    <group ref="/r/note">
       <label>This form is NOT for AEs recorded in the Day 2 or Day 7 SMS Received forms. Study Nurse will use this form to record every other potential AE report, even if multiple per client, including: 1) A client sends a YES SMS to note a potential AE; 2) A client sends a question about a symptom via SMS; and 3) A client requests a follow-up call.</label>
-      <select1 ref="/r/n/days_post_mc">
+      <select1 ref="/r/note/days_post_mc">
         <label>Day post MC that an AE was reported by client.</label>
         <item>
           <label>1</label>
@@ -143,11 +145,11 @@
           <value>13</value>
         </item>
         <item>
-          <label>14+</label>
+          <label>14</label>
           <value>14</value>
         </item>
       </select1>
-      <select ref="/r/n/symptoms">
+      <select ref="/r/note/symptoms">
         <label>What symptoms did the client report?</label>
         <item>
           <label>Bleeding</label>
@@ -178,11 +180,11 @@
           <value>other</value>
         </item>
       </select>
-      <input ref="/r/n/other_symptom">
+      <input ref="/r/note/other_symptom">
         <label>Specify other</label>
       </input>
-      <select1 ref="/r/n/followup_request">
-        <label>Did the client request interactive text or phone call follow-up?</label>
+      <select1 ref="/r/note/followup_request">
+        <label>Did the client request interactive text or phone call follow up?</label>
         <item>
           <label>Phone call</label>
           <value>phone</value>
@@ -192,12 +194,12 @@
           <value>text</value>
         </item>
         <item>
-          <label>No response or client did not request follow up</label>
+          <label>No response OR client did not request follow up</label>
           <value>none</value>
         </item>
       </select1>
-      <select1 ref="/r/n/followup_method">
-        <label>How did you reach the participant?</label>
+      <select1 ref="/r/note/followup_method">
+        <label>How did you reach the client?</label>
         <item>
           <label>Phone call</label>
           <value>phone</value>
@@ -207,11 +209,11 @@
           <value>text</value>
         </item>
         <item>
-          <label>I was not able to reach the patient</label>
+          <label>I was not able to reach the client</label>
           <value>none</value>
         </item>
       </select1>
-      <select1 ref="/r/n/ae">
+      <select1 ref="/r/note/ae">
         <label>In your opinion, did the client describe an AE?</label>
         <item>
           <label>Yes</label>
@@ -221,15 +223,26 @@
           <label>No</label>
           <value>no</value>
         </item>
+      </select1>
+      <select1 ref="/r/note/severity">
+        <label>What is the severity of the AE?</label>
         <item>
-          <label>Unsure</label>
-          <value>unsure</value>
+          <label>Mild</label>
+          <value>mild</value>
+        </item>
+        <item>
+          <label>Moderate</label>
+          <value>moderate</value>
+        </item>
+        <item>
+          <label>Severe</label>
+          <value>severe</value>
         </item>
       </select1>
-      <input ref="/r/n/info">
+      <input ref="/r/note/info">
         <label>What information did you provide the client?</label>
       </input>
-      <select1 ref="/r/n/client_return">
+      <select1 ref="/r/note/client_return">
         <label>Did you ask the client to return to the clinic?</label>
         <item>
           <label>Yes</label>
@@ -240,8 +253,8 @@
           <value>no</value>
         </item>
       </select1>
-      <input ref="/r/n/explanation">
-        <label>Please explain why you did not ask the client to return to the clinic.</label>
+      <input ref="/r/note/explanation">
+        <label>Why was client NOT asked to seek care?</label>
       </input>
     </group>
   </h:body>

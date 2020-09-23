@@ -28,12 +28,13 @@
           <patient_id/>
           <c_reported_date/>
           <first_visit/>
-          <n/>
+          <note/>
           <return/>
           <visit_date/>
+          <comments/>
           <trace/>
           <explanation/>
-          <comments/>
+          <comments_2/>
           <meta tag="hidden">
             <instanceID/>
           </meta>
@@ -52,12 +53,13 @@
       <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
       <bind calculate="../inputs/contact/reported_date" nodeset="/r/c_reported_date" type="string"/>
       <bind calculate="today()" nodeset="/r/first_visit" type="string"/>
-      <bind nodeset="/r/n" readonly="true()" type="string"/>
+      <bind nodeset="/r/note" readonly="true()" type="string"/>
       <bind nodeset="/r/return" required="true()" type="select1"/>
-      <bind constraint=". &lt;= today()" nodeset="/r/visit_date" relevant=" /r/return  = 'yes'" required="true()" type="date"/>
-      <bind nodeset="/r/trace" relevant=" /r/return  = 'no'" required="true()" type="select1"/>
-      <bind nodeset="/r/explanation" relevant=" /r/trace  = 'no'" required="true()" type="string"/>
+      <bind constraint=". &lt;= today()" jr:constraintMsg="Please select current or previous date" nodeset="/r/visit_date" relevant="selected( /r/return , 'yes')" required="true()" type="date"/>
       <bind nodeset="/r/comments" type="string"/>
+      <bind nodeset="/r/trace" relevant="selected( /r/return , 'no')" required="true()" type="select1"/>
+      <bind nodeset="/r/explanation" relevant="selected( /r/trace , 'no')" required="true()" type="string"/>
+      <bind nodeset="/r/comments_2" type="string"/>
       <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
     </model>
   </h:head>
@@ -87,7 +89,7 @@
         </input>
       </group>
     </group>
-    <input ref="/r/n">
+    <input ref="/r/note">
       <label>When 2WT client has been asked to return to the clinic for an in-person visit, the Study Nurse will use this form to document whether the client returned. This information should be copied from the paper VMMC Register or the paper VMMC Client Intake Form.</label>
     </input>
     <select1 ref="/r/return">
@@ -104,6 +106,9 @@
     <input ref="/r/visit_date">
       <label>Date of in-person visit</label>
     </input>
+    <input ref="/r/comments">
+      <label>Comments</label>
+    </input>
     <select1 ref="/r/trace">
       <label>Was the client referred for patient tracing?</label>
       <item>
@@ -116,9 +121,9 @@
       </item>
     </select1>
     <input ref="/r/explanation">
-      <label>Please explain why they have not attended the clinic.</label>
+      <label>Please explain why the patient was not traced.</label>
     </input>
-    <input ref="/r/comments">
+    <input ref="/r/comments_2">
       <label>Comments</label>
     </input>
   </h:body>

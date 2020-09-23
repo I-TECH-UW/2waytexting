@@ -31,10 +31,9 @@
           <note/>
           <return/>
           <visit_date/>
-          <comments/>
           <trace/>
           <explanation/>
-          <comments_2/>
+          <comments/>
           <meta tag="hidden">
             <instanceID/>
           </meta>
@@ -56,10 +55,9 @@
       <bind nodeset="/r/note" readonly="true()" type="string"/>
       <bind nodeset="/r/return" required="true()" type="select1"/>
       <bind constraint=". &lt;= today()" jr:constraintMsg="Please select current or previous date" nodeset="/r/visit_date" relevant="selected( /r/return , 'yes')" required="true()" type="date"/>
-      <bind nodeset="/r/comments" type="string"/>
       <bind nodeset="/r/trace" relevant="selected( /r/return , 'no')" required="true()" type="select1"/>
       <bind nodeset="/r/explanation" relevant="selected( /r/trace , 'no')" required="true()" type="string"/>
-      <bind nodeset="/r/comments_2" type="string"/>
+      <bind nodeset="/r/comments" relevant="selected( /r/trace , 'yes')" type="string"/>
       <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
     </model>
   </h:head>
@@ -106,9 +104,6 @@
     <input ref="/r/visit_date">
       <label>Date of in-person visit</label>
     </input>
-    <input ref="/r/comments">
-      <label>Comments</label>
-    </input>
     <select1 ref="/r/trace">
       <label>Was the client referred for patient tracing?</label>
       <item>
@@ -123,7 +118,7 @@
     <input ref="/r/explanation">
       <label>Please explain why the patient was not traced.</label>
     </input>
-    <input ref="/r/comments_2">
+    <input ref="/r/comments">
       <label>Comments</label>
     </input>
   </h:body>

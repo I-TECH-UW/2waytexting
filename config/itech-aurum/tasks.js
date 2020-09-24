@@ -119,32 +119,48 @@ module.exports = [
   },
 
   {
-    name: 'scheduled-msgs',
-    icon: 'network',
-    title: 'task.scheduled-msgs.title',
-    appliesTo: 'contacts',
-    appliesToType: ['person'],
-    appliesIf: (contact) => {
-      return contact.contact.patient_id && contact.contact.vmmc_no;
-    },
+    name: 'no-contact',
+    icon: 'off',
+    title: 'task.no-contact.title',
+    appliesTo: 'reports',
+    appliesToType: ['enroll'],
+    appliesIf: (contact, report) => report.form === 'enroll',
     resolvedIf: (contact, report, event, dueDate) => {
-      return Utils.isFormSubmittedInWindow(
-        contact.reports,
-        'scheduled_msgs',
-        Utils.addDate(dueDate, -event.start).getTime(),
-        Utils.addDate(dueDate, event.end + 1).getTime()
-      );
+        const no_contact_submitted = Utils.isFormSubmittedInWindow(
+            contact.reports,
+            'no_contact',
+            Utils.addDate(dueDate, -event.start).getTime(),
+            Utils.addDate(dueDate, event.end + 1).getTime()
+        );
+
+        const report_0_submitted = Utils.isFormSubmittedInWindow(
+            contact.reports,
+            '0',
+            report.reported_date,
+            Utils.addDate(dueDate, 1).getTime()
+        );
+
+        const report_1_submitted = Utils.isFormSubmittedInWindow(
+            contact.reports,
+            '1',
+            report.reported_date,
+            Utils.addDate(dueDate, 1).getTime()
+        );
+
+        return no_contact_submitted || report_0_submitted || report_1_submitted;
     },
     actions: [{
-      form: 'scheduled_msgs',
-      label: 'Send 14-day scheduled SMSs',
+        form: 'no_contact',
+        label: 'No Contact',
+        modifyContent: function (content) {
+            content.is_task = true;
+        }
     }],
     events: [{
-      id: 'scheduled-msgs-0',
-      days: 0,
-      start: 1,
-      end: 365
+        days: 8,
+        start: 0,
+        end: 365
     }]
-  },
+}
 
 ];

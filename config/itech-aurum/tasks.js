@@ -135,7 +135,7 @@ module.exports = [
       const someReportSubmitted = ['0', '1'].some((rep) => Utils.isFormSubmittedInWindow(
         contact.reports,
         rep,
-        rep.reported_date,
+        report.reported_date,
         Utils.addDate(dueDate, 1).getTime())
       );
 

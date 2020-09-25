@@ -75,8 +75,8 @@ module.exports = [
         'day14_client_visit',
         Utils.addDate(dueDate, -event.start).getTime(),
         Utils.addDate(dueDate, event.end + 1).getTime()
-      ) || contact.reports.some(function (r) {
-        return r.form === 'client_visit' && r.fields.visit === 'day14';
+      ) || contact.reports.some(function (rep) {
+        return rep.form === 'client_visit' && rep.fields.visit === 'day14';
       });
     },
     actions: [{
@@ -132,10 +132,10 @@ module.exports = [
         Utils.addDate(dueDate, event.end + 1).getTime()
       );
 
-      const someReportSubmitted = ['0', '1'].some((report) => Utils.isFormSubmittedInWindow(
+      const someReportSubmitted = ['0', '1'].some((rep) => Utils.isFormSubmittedInWindow(
         contact.reports,
-        report,
-        report.reported_date,
+        rep,
+        rep.reported_date,
         Utils.addDate(dueDate, 1).getTime())
       );
 

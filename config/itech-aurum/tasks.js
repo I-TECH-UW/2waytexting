@@ -124,43 +124,35 @@ module.exports = [
     title: 'task.no-contact.title',
     appliesTo: 'reports',
     appliesToType: ['enroll'],
-    appliesIf: (contact, report) => report.form === 'enroll',
     resolvedIf: (contact, report, event, dueDate) => {
-        const no_contact_submitted = Utils.isFormSubmittedInWindow(
-            contact.reports,
-            'no_contact',
-            Utils.addDate(dueDate, -event.start).getTime(),
-            Utils.addDate(dueDate, event.end + 1).getTime()
-        );
+      const noContactAlreadySubmitted = Utils.isFormSubmittedInWindow(
+        contact.reports,
+        'no_contact',
+        Utils.addDate(dueDate, -event.start).getTime(),
+        Utils.addDate(dueDate, event.end + 1).getTime()
+      );
 
-        const report_0_submitted = Utils.isFormSubmittedInWindow(
-            contact.reports,
-            '0',
-            report.reported_date,
-            Utils.addDate(dueDate, 1).getTime()
-        );
+      const someReportSubmitted = ['0', '1'].some((report) => Utils.isFormSubmittedInWindow(
+        contact.reports,
+        report,
+        report.reported_date,
+        Utils.addDate(dueDate, 1).getTime())
+      );
 
-        const report_1_submitted = Utils.isFormSubmittedInWindow(
-            contact.reports,
-            '1',
-            report.reported_date,
-            Utils.addDate(dueDate, 1).getTime()
-        );
-
-        return no_contact_submitted || report_0_submitted || report_1_submitted;
+      return noContactAlreadySubmitted || someReportSubmitted;
     },
     actions: [{
-        form: 'no_contact',
-        label: 'No Contact',
-        modifyContent: function (content) {
-            content.is_task = true;
-        }
+      form: 'no_contact',
+      label: 'No Contact',
+      modifyContent: function (content) {
+        content.is_task = true;
+      }
     }],
     events: [{
-        days: 8,
-        start: 0,
-        end: 365
+      days: 8,
+      start: 0,
+      end: 365
     }]
-}
+  }
 
 ];

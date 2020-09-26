@@ -75,8 +75,8 @@ module.exports = [
         'day14_client_visit',
         Utils.addDate(dueDate, -event.start).getTime(),
         Utils.addDate(dueDate, event.end + 1).getTime()
-      ) || contact.reports.some(function (r) {
-        return r.form === 'client_visit' && r.fields.visit === 'day14';
+      ) || contact.reports.some(function (rep) {
+        return rep.form === 'client_visit' && rep.fields.visit === 'day14';
       });
     },
     actions: [{
@@ -119,32 +119,40 @@ module.exports = [
   },
 
   {
-    name: 'scheduled-msgs',
-    icon: 'network',
-    title: 'task.scheduled-msgs.title',
-    appliesTo: 'contacts',
-    appliesToType: ['person'],
-    appliesIf: (contact) => {
-      return contact.contact.patient_id && contact.contact.vmmc_no;
-    },
+    name: 'no-contact',
+    icon: 'off',
+    title: 'task.no-contact.title',
+    appliesTo: 'reports',
+    appliesToType: ['enroll'],
     resolvedIf: (contact, report, event, dueDate) => {
-      return Utils.isFormSubmittedInWindow(
+      const noContactAlreadySubmitted = Utils.isFormSubmittedInWindow(
         contact.reports,
-        'scheduled_msgs',
+        'no_contact',
         Utils.addDate(dueDate, -event.start).getTime(),
         Utils.addDate(dueDate, event.end + 1).getTime()
       );
+
+      const someReportSubmitted = ['0', '1'].some((rep) => Utils.isFormSubmittedInWindow(
+        contact.reports,
+        rep,
+        report.reported_date,
+        Utils.addDate(dueDate, 1).getTime())
+      );
+
+      return noContactAlreadySubmitted || someReportSubmitted;
     },
     actions: [{
-      form: 'scheduled_msgs',
-      label: 'Send 14-day scheduled SMSs',
+      form: 'no_contact',
+      label: 'No Contact',
+      modifyContent: function (content) {
+        content.is_task = true;
+      }
     }],
     events: [{
-      id: 'scheduled-msgs-0',
-      days: 0,
-      start: 1,
+      days: 8,
+      start: 0,
       end: 365
     }]
-  },
+  }
 
 ];

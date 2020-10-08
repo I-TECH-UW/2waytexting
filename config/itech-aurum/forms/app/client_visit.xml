@@ -51,11 +51,11 @@
       <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
       <bind nodeset="/r/n" readonly="true()" type="string"/>
       <bind nodeset="/r/visit" required="true()" type="select1"/>
-      <bind nodeset="/r/phone_credit" relevant=" /r/visit  = 'day14'" required="true()" type="select1"/>
-      <bind nodeset="/r/explanation" relevant=" /r/phone_credit  = 'no'" required="true()" type="string"/>
-      <bind constraint=". &lt; today()" nodeset="/r/visit_date" required="true()" type="date"/>
-      <bind nodeset="/r/ae_severity" type="select1"/>
-      <bind constraint="string-length(.) &gt;= 4 and string-length(.) &lt;= 6" nodeset="/r/ae_code" relevant=" /r/ae_severity  = 'mild' or  /r/ae_severity  = 'moderate' or  /r/ae_severity  = 'severe'" type="string"/>
+      <bind nodeset="/r/phone_credit" relevant="selected( /r/visit , 'day14')" required="true()" type="select1"/>
+      <bind nodeset="/r/explanation" relevant="selected( /r/phone_credit , 'no')" required="true()" type="string"/>
+      <bind constraint=". &lt; today()" jr:constraintMsg="Please select current or previous date" nodeset="/r/visit_date" required="true()" type="date"/>
+      <bind nodeset="/r/ae_severity" required="true()" type="select1"/>
+      <bind constraint="regex(., '^(AN|BL|IN|OT|PA|SD|SX|WD|OA)-[A-C]$')" jr:constraintMsg="Please enter valid AE Code" nodeset="/r/ae_code" relevant="selected( /r/ae_severity , 'mild') or selected( /r/ae_severity , 'moderate') or selected( /r/ae_severity , 'severe')" type="string"/>
       <bind nodeset="/r/care_provider" type="string"/>
       <bind nodeset="/r/comments" type="string"/>
       <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
@@ -63,7 +63,7 @@
   </h:head>
   <h:body class="pages">
     <group appearance="field-list" ref="/r/inputs">
-      <label>Patient</label>
+      <label></label>
       <input appearance="hidden" ref="/r/inputs/source">
         <label>Source</label>
       </input>
@@ -94,19 +94,19 @@
         <value>circumcision</value>
       </item>
       <item>
-        <label>Day 2 post circumcision</label>
+        <label>Day 2 Post Circumcision</label>
         <value>day2</value>
       </item>
       <item>
-        <label>Day 7 post circumcision</label>
+        <label>Day 7 Post Circumcision</label>
         <value>day7</value>
       </item>
       <item>
-        <label>Day 14 post circumcision</label>
+        <label>Day 14 Post Circumcision</label>
         <value>day14</value>
       </item>
       <item>
-        <label>Day 42 post circumcision</label>
+        <label>Day 42 Post Circumcision</label>
         <value>day42</value>
       </item>
       <item>
@@ -115,7 +115,7 @@
       </item>
     </select1>
     <select1 ref="/r/phone_credit">
-      <label>Verify $5 phone credit given to client</label>
+      <label>Verify ZAR 100 phone credit given to client</label>
       <item>
         <label>Yes</label>
         <value>yes</value>
@@ -132,7 +132,7 @@
       <label>Date of visit</label>
     </input>
     <select1 ref="/r/ae_severity">
-      <label>Did the client report an Adverse Event?</label>
+      <label>Did the provider identify an AE?</label>
       <item>
         <label>No</label>
         <value>no</value>
@@ -151,10 +151,10 @@
       </item>
     </select1>
     <input ref="/r/ae_code">
-      <label>Adverse Event Code</label>
+      <label>Adverse Event Code and Timing</label>
     </input>
     <input ref="/r/care_provider">
-      <label>Name of health care provider who reviewed this client</label>
+      <label>Name of Health Care Provider who reviewed the client</label>
       <hint>Note that this is the name of the clinician, copied from the paper Client Intake Form, not the name of the study nurse who uses the software</hint>
     </input>
     <input ref="/r/comments">

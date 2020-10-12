@@ -1,0 +1,15 @@
+{
+    "user": {
+      "_id": "site_nurse_uuid",
+      "name": "Site Nurse",
+      "type": "user-settings",
+      "role": "site_nurse",
+      "roles": ["site_nurse"],
+      "contact_id": "site_nurse_uuid",
+      "facility_id": "site_id"
+    },
+    "content": {
+      "source": "user",
+      "source_id": ""
+    }
+  }

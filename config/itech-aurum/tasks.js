@@ -92,7 +92,7 @@ module.exports = [
     title: 'task.ae-referral.title',
     appliesTo: 'reports',
     appliesToType: ['potential_ae'],
-    appliesIf: () => true,
+    appliesIf: (contact, report) => { return Utils.getField(report, 'note.client_return') === 'yes'; },
     resolvedIf: (contact, report, event, dueDate) => {
       return Utils.isFormSubmittedInWindow(
         contact.reports,

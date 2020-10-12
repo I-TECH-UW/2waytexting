@@ -69,19 +69,14 @@ module.exports = [
       return contact.contact.randomization && contact.contact.randomization === 'texting'
         && !contact.contact.role;//Avoid showing tasks for nurse contact
     },
-    resolvedIf: (contact, report, event, dueDate) => {
-      return Utils.isFormSubmittedInWindow(
-        contact.reports,
-        'day14_client_visit',
-        Utils.addDate(dueDate, -event.start).getTime(),
-        Utils.addDate(dueDate, event.end + 1).getTime()
-      ) || contact.reports.some(function (rep) {
+    resolvedIf: (contact) => {
+      return contact.reports.some(function (rep) {
         return rep.form === 'client_visit' && rep.fields.visit === 'day14';
       });
     },
     actions: [{
-      form: 'day14_client_visit',
-      label: 'Follow up client',
+      form: 'client_visit',
+      label: '14 Day Follow up client',
     }],
     events: [{
       id: 'followup-day-14',
@@ -97,7 +92,7 @@ module.exports = [
     title: 'task.ae-referral.title',
     appliesTo: 'reports',
     appliesToType: ['potential_ae'],
-    appliesIf: () => true,
+    appliesIf: (contact, report) => { return Utils.getField(report, 'note.client_return') === 'yes'; },
     resolvedIf: (contact, report, event, dueDate) => {
       return Utils.isFormSubmittedInWindow(
         contact.reports,

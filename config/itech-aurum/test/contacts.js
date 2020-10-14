@@ -70,7 +70,7 @@ module.exports = {
         },
         food_cost: "0",
         wage_period: "none",
-        reported_date: 946664100000
+        reported_date: 946677600000
     }
 
 };

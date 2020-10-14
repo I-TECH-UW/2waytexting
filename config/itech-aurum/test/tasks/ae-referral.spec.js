@@ -28,20 +28,23 @@ describe('AE referral task', () => {
 
     it('AE referral task should start to show immediately after potential AE report is submitted where client is asked to return to the clinic', async () => {
         harness.flush(5);
-        await harness.fillForm('potential_ae', ...potential_ae.day5_pain_called);
+        const formFilled = await harness.fillForm('potential_ae', ...potential_ae.day5_pain_called);
+        expect(formFilled.errors).to.be.empty;
         let tasks = await harness.getTasks();
         expect(tasks).to.contain.something.like({ title: 'task.ae-referral.title' });
     });
 
     it('AE referral task should not show after potential AE report is submitted where client is not asked to return to the clinic', async () => {
         harness.flush(5);
-        await harness.fillForm('potential_ae', ...potential_ae.day5_pain_not_called);
+        const formFilled = await harness.fillForm('potential_ae', ...potential_ae.day5_pain_not_called);
+        expect(formFilled.errors).to.be.empty;
         let tasks = await harness.getTasks();
         expect(tasks).to.not.contain.something.like({ title: 'task.ae-referral.title' });
     });
 
     it('AE Referral task should only show up until Day 2 + 365 after the report', async () => {
-        await harness.fillForm('potential_ae', ...potential_ae.day5_pain_called);
+        const formFilled = await harness.fillForm('potential_ae', ...potential_ae.day5_pain_called);
+        expect(formFilled.errors).to.be.empty;
         let tasks = await harness.getTasks();
         expect(tasks).to.contain.something.like({ title: 'task.ae-referral.title' });
         harness.flush(367);
@@ -54,13 +57,14 @@ describe('AE referral task', () => {
 
     it('AE Referral task should resolve after referral_confirmation is done', async () => {
         harness.flush(5);
-        await harness.fillForm('potential_ae', ...potential_ae.day5_pain_called);
+        let formFilled = await harness.fillForm('potential_ae', ...potential_ae.day5_pain_called);
+        expect(formFilled.errors).to.be.empty;
         harness.flush(1);
         let tasks = await harness.getTasks();
         expect(tasks).to.contain.something.like({ title: 'task.ae-referral.title' });
         let aeReferralTask = tasks.find(t => t.title === 'task.ae-referral.title');
         await harness.loadAction(aeReferralTask.actions[0]);
-        let formFilled = await harness.fillForm(...referral_confirmation.returned)
+        formFilled = await harness.fillForm(...referral_confirmation.returned)
         expect(formFilled.errors).to.be.empty;
         tasks = await harness.getTasks();
         expect(tasks).to.not.contain.something.like({ title: 'task.ae-referral.title' });

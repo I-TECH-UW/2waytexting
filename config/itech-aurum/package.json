@@ -8,7 +8,7 @@
   "scripts": {
     "eslint": "eslint **.js",
     "test": "npm run compile-forms && npm run compile-app-settings && npm run unittest",
-    "unittest": "TZ=Africa/Nairobi mocha test/**/*.spec.js --timeout 15000 --slow 500",
+    "unittest": "cross-env TZ=Africa/Johannesburg mocha test/**/*.spec.js --timeout 15000 --slow 500",
     "compile-app-settings": "npx medic-conf compile-app-settings",
     "compile-forms": "npx medic-conf convert-app-forms convert-contact-forms",
     "travis": "npm run test",
@@ -21,9 +21,14 @@
   },
   "devDependencies": {
     "@medic/eslint-config": "^1.1.0",
+    "chai": "^4.2.0",
+    "chai-like": "^1.1.1",
+    "chai-things": "^0.2.0",
+    "cross-env": "^7.0.2",
     "eslint": "^7.4.0",
     "eslint-plugin-json": "^2.0.1",
     "medic-conf": "^3.2.0",
-    "medic-conf-test-harness": "^0.1.30"
+    "medic-conf-test-harness": "^0.1.31",
+    "mocha": "^6.1.4"
   }
 }

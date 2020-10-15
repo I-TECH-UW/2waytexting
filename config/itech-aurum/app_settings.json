@@ -529,7 +529,7 @@
       },
       "mapping": {
         "flow": {
-          "expr": "'a32c9358-1c04-4878-a1e4-a75f7b9ebdc1'"
+          "expr": "'f7523e71-9c46-4b05-8d28-35e10901ed54'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.fields.phone ]",
@@ -544,6 +544,28 @@
           "optional": false
         },
         "extra.name": "doc.fields.patient_name"
+      }
+    },
+    
+    "textit-gateway": {
+      "relevant_to": "doc.type === 'data_record' && doc.tasks && doc.tasks[0] && doc.tasks[0].state && doc.tasks[0].state === 'pending'",
+      "destination": {
+        "base_url": "https://textit.in",
+        "auth": {
+          "type": "header",
+          "name": "Authorization",
+          "value_key": "textit.in"
+        },
+        "path": "/api/v2/flow_starts.json"
+      },
+      "mapping": {
+        "flow": {
+          "expr": "'24f40c6f-e6be-4587-a76f-85ff6c9af00e'"
+        },
+        "urns": {
+          "expr": "[ 'tel:' + doc.tasks[0].messages[0].to ]",
+          "optional": false
+        }
       }
     }
   },

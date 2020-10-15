@@ -17,7 +17,7 @@ describe('Enrollment', () => {
     afterEach(() => { expect(harness.consoleErrors).to.be.empty; });
 
     it('Patient contact is created upon enrollment', async () => {
-        let enrollment = await harness.fillForm('enroll', ...enroll.texting);
+        const enrollment = await harness.fillForm('enroll', ...enroll.texting);
         expect(enrollment.errors).to.be.empty;
         harness.state.contacts[1]._id = 'patient_id';
         expect(harness.state.contacts[1]).to.deep.equal(patient);

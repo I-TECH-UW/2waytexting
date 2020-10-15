@@ -31,7 +31,7 @@ describe('Day 7 SMS Task', () => {
 
     it('Day 7 SMS Received task should show on Day 7', async () => {
         harness.flush(7);
-        let tasks = await harness.getTasks();
+        const tasks = await harness.getTasks();
         expect(tasks).to.contain.something.like({ title: 'task.day7-sms.title' });
         expect(tasks[0].contact).to.include({name: 'Client A'});
     });
@@ -49,9 +49,9 @@ describe('Day 7 SMS Task', () => {
         harness.flush(7);
         let tasks = await harness.getTasks();
         expect(tasks).to.contain.something.like({ title: 'task.day7-sms.title' });
-        let day7SMSTask = tasks.find(t => t.title === 'task.day7-sms.title');
+        const day7SMSTask = tasks.find(t => t.title === 'task.day7-sms.title');
         harness.loadAction(day7SMSTask.actions[0]);
-        let formFilled = await harness.fillForm(...day7_sms.yes_no_ae)
+        const formFilled = await harness.fillForm(...day7_sms.yes_no_ae)
         expect(formFilled.errors).to.be.empty;
         tasks = await harness.getTasks();
         expect(tasks).to.not.contain.something.like({ title: 'task.day7-sms.title' });

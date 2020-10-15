@@ -34,7 +34,7 @@ describe('No contact task', () => {
 
     it('No-contact task should show on day 8', async () => {
         harness.flush(8);
-        let tasks = await harness.getTasks();
+        const tasks = await harness.getTasks();
         expect(tasks).to.contain.something.like({ title: 'task.no-contact.title' });
     });
 
@@ -42,7 +42,7 @@ describe('No contact task', () => {
         harness.flush(4);
         harness.state.reports.push(suspected_ae_reported);
         harness.flush(4);
-        let tasks = await harness.getTasks();
+        const tasks = await harness.getTasks();
         expect(tasks).to.not.contain.something.like({ title: 'task.no-contact.title' });
     });
 
@@ -50,9 +50,9 @@ describe('No contact task', () => {
         harness.flush(8);
         let tasks = await harness.getTasks();
         expect(tasks).to.contain.something.like({ title: 'task.no-contact.title' });
-        let noContactTask = tasks.find(t => t.title === 'task.no-contact.title');
+        const noContactTask = tasks.find(t => t.title === 'task.no-contact.title');
         await harness.loadAction(noContactTask.actions[0]);
-        let formFilled = await harness.fillForm(...no_contact.ok);
+        const formFilled = await harness.fillForm(...no_contact.ok);
         expect(formFilled.errors).to.be.empty;
         tasks = await harness.getTasks();
         expect(tasks).to.not.contain.something.like({ title: 'task.no-contact.title' });

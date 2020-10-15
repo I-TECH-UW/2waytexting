@@ -31,7 +31,7 @@ describe('Followup Day 14 Task', () => {
 
     it('Followup Day 14 task should start showing up from Day 12', async () => {
         harness.flush(12);
-        let tasks = await harness.getTasks();
+        const tasks = await harness.getTasks();
         expect(tasks).to.contain.something.like({ title: 'task.followup-day-14.title' });
     });
 
@@ -47,9 +47,9 @@ describe('Followup Day 14 Task', () => {
     it('Followup Day 14 task should resolve if client_visit of day 14 has been reported', async () => {
         harness.flush(15);
         let tasks = await harness.getTasks();
-        let followupDay14Task = tasks.find(t => t.title === 'task.followup-day-14.title');
+        const followupDay14Task = tasks.find(t => t.title === 'task.followup-day-14.title');
         harness.loadAction(followupDay14Task.actions[0]);
-        let formFilled = await harness.fillForm(...client_visit.day14)
+        const formFilled = await harness.fillForm(...client_visit.day14)
         expect(formFilled.errors).to.be.empty;
         tasks = await harness.getTasks();
         expect(tasks).to.not.contain.something.like({ title: 'task.followup-day-14.title' });
@@ -58,9 +58,9 @@ describe('Followup Day 14 Task', () => {
     it('Followup Day 14 task should not resolve if client_visit of day 7 has been reported', async () => {
         harness.flush(15);
         let tasks = await harness.getTasks();
-        let followupDay14Task = tasks.find(t => t.title === 'task.followup-day-14.title');
+        const followupDay14Task = tasks.find(t => t.title === 'task.followup-day-14.title');
         harness.loadAction(followupDay14Task.actions[0]);
-        let formFilled = await harness.fillForm(...client_visit.day7)
+        const formFilled = await harness.fillForm(...client_visit.day7)
         expect(formFilled.errors).to.be.empty;
         tasks = await harness.getTasks();
         expect(tasks).to.contain.something.like({ title: 'task.followup-day-14.title' });

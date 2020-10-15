@@ -54,7 +54,7 @@ describe('Day 2 SMS Task', () => {
         let tasks = await harness.getTasks();
         expect(tasks).to.have.length(1);
         harness.loadAction(tasks[0].actions[0]);
-        let formFilled = await harness.fillForm(...day2_sms.yes_no_ae)
+        const formFilled = await harness.fillForm(...day2_sms.yes_no_ae)
         expect(formFilled.errors).to.be.empty;
         tasks = await harness.getTasks();
         expect(tasks).to.be.empty;

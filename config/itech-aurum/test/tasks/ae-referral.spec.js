@@ -22,7 +22,7 @@ describe('AE referral task', () => {
     afterEach(() => { expect(harness.consoleErrors).to.be.empty; });
 
     it('AE referral task should not show until potential AE report is submitted', async () => {
-        let tasks = await harness.getTasks();
+        const tasks = await harness.getTasks();
         expect(tasks).to.not.contain.something.like({ title: 'task.ae-referral.title' });
     });
 
@@ -30,7 +30,7 @@ describe('AE referral task', () => {
         harness.flush(5);
         const formFilled = await harness.fillForm('potential_ae', ...potential_ae.day5_pain_called);
         expect(formFilled.errors).to.be.empty;
-        let tasks = await harness.getTasks();
+        const tasks = await harness.getTasks();
         expect(tasks).to.contain.something.like({ title: 'task.ae-referral.title' });
     });
 
@@ -38,7 +38,7 @@ describe('AE referral task', () => {
         harness.flush(5);
         const formFilled = await harness.fillForm('potential_ae', ...potential_ae.day5_pain_not_called);
         expect(formFilled.errors).to.be.empty;
-        let tasks = await harness.getTasks();
+        const tasks = await harness.getTasks();
         expect(tasks).to.not.contain.something.like({ title: 'task.ae-referral.title' });
     });
 
@@ -62,7 +62,7 @@ describe('AE referral task', () => {
         harness.flush(1);
         let tasks = await harness.getTasks();
         expect(tasks).to.contain.something.like({ title: 'task.ae-referral.title' });
-        let aeReferralTask = tasks.find(t => t.title === 'task.ae-referral.title');
+        const aeReferralTask = tasks.find(t => t.title === 'task.ae-referral.title');
         await harness.loadAction(aeReferralTask.actions[0]);
         formFilled = await harness.fillForm(...referral_confirmation.returned)
         expect(formFilled.errors).to.be.empty;

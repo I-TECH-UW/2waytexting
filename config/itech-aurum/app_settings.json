@@ -529,7 +529,7 @@
       },
       "mapping": {
         "flow": {
-          "expr": "'f7523e71-9c46-4b05-8d28-35e10901ed54'"
+          "expr": "'a4c1f171-24f9-427b-aafe-4dbf1f85857b'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.fields.phone ]",
@@ -560,7 +560,7 @@
       },
       "mapping": {
         "flow": {
-          "expr": "'24f40c6f-e6be-4587-a76f-85ff6c9af00e'"
+          "expr": "'1cd8f9d5-e16c-4e7c-a5a6-6220d71a8a29'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.tasks[0].messages[0].to ]",
@@ -611,7 +611,9 @@
       "parents": [
         "district_hospital"
       ],
-      "icon": "medic-health-center"
+      "icon": "medic-health-center",
+      "create_form": "form:contact:health_center:create",
+      "edit_form": "form:contact:health_center:edit"
     },
     {
       "id": "clinic",

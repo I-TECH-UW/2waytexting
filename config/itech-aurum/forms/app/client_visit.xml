@@ -43,7 +43,7 @@
       <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
       <bind nodeset="/r/inputs/source" type="string"/>
       <bind nodeset="/r/inputs/source_id" type="string"/>
-      <bind nodeset="/r/inputs/contact/_id" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
       <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>

@@ -54,6 +54,7 @@ module.exports = {
         },
         _id: "patient_id",
         type: "person",
+        role: "patient",
         name: "Client A",
         vmmc_no: "00001",
         study_no: "00001",

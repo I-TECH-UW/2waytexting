@@ -6,8 +6,7 @@ module.exports = [
     appliesTo: 'contacts',
     appliesToType: ['person'],
     appliesIf: (contact) => {
-      return contact.contact.randomization && contact.contact.randomization === 'texting'
-        && !contact.contact.role;//Avoid showing tasks for nurse contact
+      return contact.contact.randomization && contact.contact.randomization === 'texting';
     },
     resolvedIf: (contact, report, event, dueDate) => {
       return Utils.isFormSubmittedInWindow(
@@ -36,8 +35,7 @@ module.exports = [
     appliesTo: 'contacts',
     appliesToType: ['person'],
     appliesIf: (contact) => {
-      return contact.contact.randomization && contact.contact.randomization === 'texting'
-        && !contact.contact.role;//Avoid showing tasks for nurse contact
+      return contact.contact.randomization && contact.contact.randomization === 'texting';
     },
     resolvedIf: (contact, report, event, dueDate) => {
       return Utils.isFormSubmittedInWindow(
@@ -66,8 +64,7 @@ module.exports = [
     appliesTo: 'contacts',
     appliesToType: ['person'],
     appliesIf: (contact) => {
-      return contact.contact.randomization && contact.contact.randomization === 'texting'
-        && !contact.contact.role;//Avoid showing tasks for nurse contact
+      return !!contact.contact.randomization;
     },
     resolvedIf: (contact) => {
       return contact.reports.some(function (rep) {

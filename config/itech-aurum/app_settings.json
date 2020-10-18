@@ -103,6 +103,10 @@
       "district_admin",
       "gateway"
     ],
+    "can_update_reports": [
+      "national_admin",
+      "district_admin"
+    ],
     "can_update_users": [
       "national_admin"
     ],
@@ -199,6 +203,10 @@
       "district_admin"
     ],
     "can_view_call_action": [
+      "national_admin",
+      "district_admin"
+    ],
+    "can_verify_reports": [
       "national_admin",
       "district_admin"
     ],
@@ -430,7 +438,6 @@
         "code": "0"
       },
       "fields": {},
-      "facility_reference": "rc_code",
       "use_sentinel": true
     },
     "1": {
@@ -442,7 +449,6 @@
         "icon": "risk"
       },
       "fields": {},
-      "facility_reference": "rc_code",
       "use_sentinel": true
     },
     "4": {
@@ -453,7 +459,6 @@
         "code": "4"
       },
       "fields": {},
-      "facility_reference": "rc_code",
       "use_sentinel": true
     },
     "9": {
@@ -464,7 +469,6 @@
         "code": "9"
       },
       "fields": {},
-      "facility_reference": "rc_code",
       "use_sentinel": true
     },
     "scheduled_msgs": {
@@ -475,7 +479,6 @@
         "code": ""
       },
       "fields": {},
-      "facility_reference": "rc_code",
       "use_sentinel": false
     },
     "N": {
@@ -486,7 +489,6 @@
         "code": "N"
       },
       "fields": {},
-      "facility_reference": "rc_code",
       "use_sentinel": true
     },
     "Y": {
@@ -497,7 +499,6 @@
         "code": "Y"
       },
       "fields": {},
-      "facility_reference": "rc_code",
       "use_sentinel": true
     }
   },
@@ -517,7 +518,7 @@
   },
   "outbound": {
     "textit-scheduled-msg": {
-      "relevant_to": "doc.type === 'data_record' && doc.form === 'enroll' && doc.fields.randomization === 'texting'",
+      "relevant_to": "doc.type === 'data_record' && doc.form === 'enroll'",
       "destination": {
         "base_url": "https://textit.in",
         "auth": {
@@ -543,7 +544,14 @@
           "expr": "new Date(doc.reported_date).getDate()+'-'+ (new Date(doc.reported_date).getMonth()+1) +'-' + new Date(doc.reported_date).getFullYear()+ ' ' + new Date(doc.reported_date).getHours() + ':' +  new Date(doc.reported_date).getMinutes()",
           "optional": false
         },
-        "extra.name": "doc.fields.patient_name"
+        "extra.name": {
+          "expr": "doc.fields.patient_name",
+          "optional": false
+        },
+        "extra.group": {
+          "expr": "doc.fields.randomization",
+          "optional": false
+        }
       }
     },
     
@@ -570,7 +578,7 @@
     }
   },
   "_version": "3.9.0",
-  "contact_summary": "var ContactSummary = {}; !function(e,t){if('object'==typeof exports&&'object'==typeof module)module.exports=t();else if('function'==typeof define&&define.amd)define([],t);else{var n=t();for(var r in n)('object'==typeof exports?exports:e)[r]=n[r]}}(ContactSummary,(function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){'undefined'!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:'Module'}),Object.defineProperty(e,'__esModule',{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&'object'==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,'default',{enumerable:!0,value:e}),2&t&&'string'!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,'a',t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p='',n(n.s=0)}([function(e,t,n){var r=n(1),o=n(2);e.exports=o(r,contact,reports)},function(e,t){e.exports=[]},function(e,t){function n(e){return Array.isArray(e)?e:[e]}function r(e,t,n){if(e.appliesIf(n)){var r='function'==typeof e.fields?e.fields(n):e.fields.filter((function(e){switch(typeof e.appliesIf){case'undefined':return!0;case'function':return e.appliesIf(n);default:return e.appliesIf}})).map((function(e){var t={};return o(e,t,'label'),o(e,t,'value'),o(e,t,'translate'),o(e,t,'filter'),o(e,t,'width'),o(e,t,'icon'),e.context&&(t.context={},o(e.context,t.context,'count'),o(e.context,t.context,'total')),t}));return e.modifyContext&&e.modifyContext(t,n),{label:e.label,fields:r}}function o(e,t,r){switch(typeof e[r]){case'undefined':return;case'function':t[r]=e[r](n);break;default:t[r]=e[r]}}}e.exports=function(e,t,o){var i=e.fields||[],f=e.context||{},u=e.cards||[],c=t&&(t.contact_type||t.type),l={cards:[],fields:i.filter((function(e){var t=n(e.appliesToType),r=t.filter((function(e){return e&&'!'===e.charAt(0)}));if((t.includes(c)||r.length>0&&!r.includes('!'+c))&&(!e.appliesIf||e.appliesIf()))return delete e.appliesToType,delete e.appliesIf,!0}))};return u.forEach((function(e){var t,i,u,a,p=n(e.appliesToType);if(p.includes('report')&&p.length>1)throw new Error('You cannot set appliesToType to an array which includes the type \\'report\\' and another type.');if(p.includes('report'))for(t=0;t<o.length;++t)i=o[t],!(a=i)||a.errors&&a.errors.length||(u=r(e,f,i))&&l.cards.push(u);else{if(!p.includes(c))return;(u=r(e,f))&&l.cards.push(u)}})),l.context=f,l}}])})); return ContactSummary;",
+  "contact_summary": "var ContactSummary = {}; !function(e,t){if('object'==typeof exports&&'object'==typeof module)module.exports=t();else if('function'==typeof define&&define.amd)define([],t);else{var n=t();for(var r in n)('object'==typeof exports?exports:e)[r]=n[r]}}(ContactSummary,(function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){'undefined'!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:'Module'}),Object.defineProperty(e,'__esModule',{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&'object'==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,'default',{enumerable:!0,value:e}),2&t&&'string'!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,'a',t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p='',n(n.s=0)}([function(e,t,n){var r=n(1),o=n(2);e.exports=o(r,contact,reports)},function(e,t){const n=contact,r=lineage,o=()=>'patient'===n.role||!n.role,l=[{appliesToType:['person'],label:'person.field.phone',value:n.phone,width:6,filter:'phone'},{appliesToType:['person'],appliesIf:o,label:'person.field.group',value:'person.field.group.'+n.randomization,width:6,translate:!0},{appliesToType:['person'],appliesIf:o,label:'person.field.vmmc_no',value:n.vmmc_no,width:6},{appliesToType:['person'],appliesIf:o,label:'person.field.study_no',value:n.study_no,width:6},{appliesToType:['person'],appliesIf:o,label:'person.field.language',value:'person.field.language.'+n.language_preference,width:6,translate:!0},{appliesToType:['person','nurse'],label:'contact.parent',value:r,filter:'lineage'},{appliesToType:['district_hospital','health_center'],label:'Contact',value:n.contact&&n.contact.name,width:6},{appliesToType:['district_hospital','health_center'],label:'person.field.phone',value:n.contact&&n.contact.phone,width:6},{appliesToType:['district_hospital','health_center'],label:'External ID',value:n.external_id,width:4},{appliesToType:['district_hospital','health_center'],appliesIf:function(){return n.parent&&r[0]},label:'contact.parent',value:r,filter:'lineage'}];e.exports={fields:l}},function(e,t){function n(e){return Array.isArray(e)?e:[e]}function r(e,t,n){if(e.appliesIf(n)){var r='function'==typeof e.fields?e.fields(n):e.fields.filter((function(e){switch(typeof e.appliesIf){case'undefined':return!0;case'function':return e.appliesIf(n);default:return e.appliesIf}})).map((function(e){var t={};return o(e,t,'label'),o(e,t,'value'),o(e,t,'translate'),o(e,t,'filter'),o(e,t,'width'),o(e,t,'icon'),e.context&&(t.context={},o(e.context,t.context,'count'),o(e.context,t.context,'total')),t}));return e.modifyContext&&e.modifyContext(t,n),{label:e.label,fields:r}}function o(e,t,r){switch(typeof e[r]){case'undefined':return;case'function':t[r]=e[r](n);break;default:t[r]=e[r]}}}e.exports=function(e,t,o){var l=e.fields||[],i=e.context||{},a=e.cards||[],p=t&&(t.contact_type||t.type),s={cards:[],fields:l.filter((function(e){var t=n(e.appliesToType),r=t.filter((function(e){return e&&'!'===e.charAt(0)}));if((t.includes(p)||r.length>0&&!r.includes('!'+p))&&(!e.appliesIf||e.appliesIf()))return delete e.appliesToType,delete e.appliesIf,!0}))};return a.forEach((function(e){var t,l,a,c,f=n(e.appliesToType);if(f.includes('report')&&f.length>1)throw new Error('You cannot set appliesToType to an array which includes the type \\'report\\' and another type.');if(f.includes('report'))for(t=0;t<o.length;++t)l=o[t],!(c=l)||c.errors&&c.errors.length||(a=r(e,i,l))&&s.cards.push(a);else{if(!f.includes(p))return;(a=r(e,i))&&s.cards.push(a)}})),s.context=i,s}}])})); return ContactSummary;",
   "place_hierarchy_types": [
     "district_hospital",
     "health_center"

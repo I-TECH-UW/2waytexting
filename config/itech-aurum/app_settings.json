@@ -481,7 +481,8 @@
     "N": {
       "meta": {
         "label": {
-          "en": "Does NOT recommend MC"
+          "en": "Does NOT recommend MC",
+          "icon": "not-recommend"
         },
         "code": "N"
       },
@@ -494,7 +495,8 @@
         "label": {
           "en": "Recommends MC"
         },
-        "code": "Y"
+        "code": "Y",
+        "icon": "recommend"
       },
       "fields": {},
       "facility_reference": "rc_code",

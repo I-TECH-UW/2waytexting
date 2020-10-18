@@ -40,6 +40,7 @@
               </parent>
             </parent>
             <type/>
+            <role/>
             <name/>
             <vmmc_no/>
             <study_no/>
@@ -81,7 +82,8 @@
       <bind calculate="../person/randomization" nodeset="/enroll/randomization" type="string"/>
       <bind calculate="../../../inputs/contact/_id" nodeset="/enroll/person/parent/_id" type="string"/>
       <bind calculate="../../../../inputs/contact/parent/_id" nodeset="/enroll/person/parent/parent/_id" type="string"/>
-      <bind calculate="&quot;person&quot;" jr:constraintMsg="person" nodeset="/enroll/person/type" type="string"/>
+      <bind calculate="&quot;person&quot;" nodeset="/enroll/person/type" type="string"/>
+      <bind calculate="&quot;patient&quot;" nodeset="/enroll/person/role" type="string"/>
       <bind constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please enter valid VMMC Client name" nodeset="/enroll/person/name" required="true()" type="string"/>
       <bind constraint="regex(., '^[0-9\-]+$')" jr:constraintMsg="Please enter valid VMMC Client Number" nodeset="/enroll/person/vmmc_no" required="true()" type="string"/>
       <bind constraint="regex(., '^[0-9\-]+$')" jr:constraintMsg="Please enter valid 2wT Study Number" nodeset="/enroll/person/study_no" required="true()" type="string"/>

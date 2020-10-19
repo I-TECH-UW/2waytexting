@@ -2,7 +2,7 @@ module.exports = {
   enroll: {
     texting: [
       [],
-      ['Client A', '00001', '00001', 'yes', 'texting', '+27000000000', 'english', 'mtn', '0', '0', '0', '0', 'none']
+      ['Client A', '00001', '00001', 'yes', 'texting', '+27000000000', '', 'english', 'mtn', '0', '0', '0', '0', 'none']
     ]
   },
 

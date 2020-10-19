@@ -43,7 +43,7 @@
       <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
       <bind nodeset="/r/inputs/source" type="string"/>
       <bind nodeset="/r/inputs/source_id" type="string"/>
-      <bind nodeset="/r/inputs/contact/_id" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
       <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
@@ -75,12 +75,6 @@
         <input appearance="db-object" ref="/r/inputs/contact/_id">
           <label>What is the patient's name?</label>
           <hint>Select a person from list</hint>
-        </input>
-        <input ref="/r/inputs/contact/name">
-          <label>Patient Name</label>
-        </input>
-        <input ref="/r/inputs/contact/phone">
-          <label>Phone Number</label>
         </input>
       </group>
     </group>

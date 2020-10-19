@@ -1,5 +1,5 @@
 {
-  "icon": "person",
+  "icon": "patient",
   "context": {
     "person": false,
     "place": true,

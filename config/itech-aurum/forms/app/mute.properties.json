@@ -1,0 +1,8 @@
+{
+  "context": {
+    "expression": "!contact.muted && contact.role === 'patient'",
+    "person": true,
+    "place": false
+  },
+  "icon": "off"
+}

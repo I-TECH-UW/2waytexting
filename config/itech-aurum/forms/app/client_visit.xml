@@ -76,12 +76,6 @@
           <label>What is the patient's name?</label>
           <hint>Select a person from list</hint>
         </input>
-        <input ref="/r/inputs/contact/name">
-          <label>Patient Name</label>
-        </input>
-        <input ref="/r/inputs/contact/phone">
-          <label>Phone Number</label>
-        </input>
       </group>
     </group>
     <input ref="/r/n">

@@ -62,6 +62,7 @@ module.exports = {
         consent: "yes",
         randomization: "texting",
         phone: "+27000000000",
+        confirm: "",
         language_preference: "english",
         mobile_company: "mtn",
         transport_cost: "0",

@@ -48,6 +48,7 @@
             <consent/>
             <randomization/>
             <phone/>
+            <confirm/>
             <language_preference/>
             <mobile_company/>
             <mobile_other/>
@@ -90,7 +91,8 @@
       <bind nodeset="/enroll/person/n_study" readonly="true()" type="string"/>
       <bind jr:requiredMsg="Please confirm consent" nodeset="/enroll/person/consent" required="true()" type="select1"/>
       <bind nodeset="/enroll/person/randomization" required="true()" type="select1"/>
-      <bind nodeset="/enroll/person/phone" required="true()" type="string"/>
+      <bind constraint="regex(., '^\+27[0-9]{9}$') or selected( /enroll/person/confirm , 'yes')" jr:constraintMsg="Please enter a valid mobile number" nodeset="/enroll/person/phone" required="true()" type="string"/>
+      <bind nodeset="/enroll/person/confirm" type="select"/>
       <bind nodeset="/enroll/person/language_preference" required="true()" type="select1"/>
       <bind nodeset="/enroll/person/mobile_company" required="true()" type="select1"/>
       <bind nodeset="/enroll/person/mobile_other" relevant="selected(../mobile_company, 'other')" required="false()" type="string"/>
@@ -179,8 +181,15 @@
       </select1>
       <input appearance="number" ref="/enroll/person/phone">
         <label>Mobile phone number</label>
-        <hint>Temporarily disabled validation for testing</hint>
+        <hint>Should start with the country code +27xxxxxxxxx</hint>
       </input>
+      <select ref="/enroll/person/confirm">
+        <label></label>
+        <item>
+          <label>If you need to test by entering a non-RSA number, check this and you will be able to enter any phone number (no check)</label>
+          <value>yes</value>
+        </item>
+      </select>
       <select1 ref="/enroll/person/language_preference">
         <label>What is this client's language of preference for the texts?</label>
         <item>

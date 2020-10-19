@@ -297,20 +297,6 @@
       "events": [],
       "validations": {},
       "messages": []
-    },
-    {
-      "form": "on",
-      "fields": [],
-      "events": [],
-      "validations": {},
-      "messages": []
-    },
-    {
-      "form": "off",
-      "fields": [],
-      "events": [],
-      "validations": {},
-      "messages": []
     }
   ],
   "patient_reports": [
@@ -371,28 +357,6 @@
           "en": "Recommends MC"
         },
         "code": "Y"
-      },
-      "fields": {},
-      "use_sentinel": true
-    },
-    "off": {
-      "meta": {
-        "label": {
-          "en": "Mute (by client)"
-        },
-        "code": "off",
-        "icon": "off"
-      },
-      "fields": {},
-      "use_sentinel": true
-    },
-    "on": {
-      "meta": {
-        "label": {
-          "en": "Unmute (by client)"
-        },
-        "code": "on",
-        "icon": "on"
       },
       "fields": {},
       "use_sentinel": true
@@ -608,12 +572,10 @@
   ],
   "muting": {
     "mute_forms": [
-      "mute",
-      "off"
+      "mute"
     ],
     "unmute_forms": [
-      "unmute",
-      "on"
+      "unmute"
     ],
     "validations": {
       "join_responses": true,

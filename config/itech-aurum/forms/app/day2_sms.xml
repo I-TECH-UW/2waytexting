@@ -24,7 +24,7 @@
           </inputs>
           <patient_name/>
           <phone/>
-          <patient_id/>
+          <patient_id tag="hidden"/>
           <response/>
           <symptom/>
           <other_symptom/>
@@ -90,7 +90,8 @@
       </item>
     </select1>
     <select ref="/r/symptom">
-      <label>What was their primary symptom? select all that apply</label>
+      <label>What was their primary symptom?</label>
+      <hint>Select all that apply.</hint>
       <item>
         <label>Bleeding</label>
         <value>bleeding</value>

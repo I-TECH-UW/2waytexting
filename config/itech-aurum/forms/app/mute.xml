@@ -24,7 +24,7 @@
           </inputs>
           <patient_name/>
           <phone/>
-          <patient_id/>
+          <patient_id tag="hidden"/>
           <confirm/>
           <reason/>
           <meta tag="hidden">

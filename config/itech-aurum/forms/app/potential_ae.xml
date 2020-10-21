@@ -23,7 +23,7 @@
             </contact>
           </inputs>
           <patient_name/>
-          <patient_id/>
+          <patient_id tag="hidden"/>
           <phone/>
           <note>
             <days_post_mc/>

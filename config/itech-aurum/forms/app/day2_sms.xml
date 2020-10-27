@@ -25,10 +25,10 @@
           <patient_name/>
           <phone/>
           <patient_id/>
-          <response/>
-          <symptom/>
-          <other_symptom/>
-          <comments/>
+          <patient_sms>
+            <response/>
+            <comments/>
+          </patient_sms>
           <meta tag="hidden">
             <instanceID/>
           </meta>
@@ -44,10 +44,8 @@
       <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
       <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
       <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
-      <bind nodeset="/r/response" required="true()" type="select1"/>
-      <bind nodeset="/r/symptom" relevant=" /r/response  = 'yes_ae'" required="true()" type="select"/>
-      <bind nodeset="/r/other_symptom" relevant=" /r/symptom  = 'other'" required="true()" type="string"/>
-      <bind nodeset="/r/comments" type="string"/>
+      <bind nodeset="/r/patient_sms/response" required="true()" type="select1"/>
+      <bind nodeset="/r/patient_sms/comments" required="true()" type="string"/>
       <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
     </model>
   </h:head>
@@ -74,57 +72,22 @@
         </input>
       </group>
     </group>
-    <select1 ref="/r/response">
-      <label>Did the patient respond via SMS?</label>
-      <item>
-        <label>Yes, but no Adverse Event reported</label>
-        <value>yes_no_ae</value>
-      </item>
-      <item>
-        <label>Yes, Adverse Event reported</label>
-        <value>yes_ae</value>
-      </item>
-      <item>
-        <label>No. Referred for patient tracing</label>
-        <value>no</value>
-      </item>
-    </select1>
-    <select ref="/r/symptom">
-      <label>What was their primary symptom? select all that apply</label>
-      <item>
-        <label>Bleeding</label>
-        <value>bleeding</value>
-      </item>
-      <item>
-        <label>Swelling</label>
-        <value>swelling</value>
-      </item>
-      <item>
-        <label>Pus</label>
-        <value>pus</value>
-      </item>
-      <item>
-        <label>Pain</label>
-        <value>pain</value>
-      </item>
-      <item>
-        <label>Wound opening</label>
-        <value>wound_opening</value>
-      </item>
-      <item>
-        <label>Redness</label>
-        <value>redness</value>
-      </item>
-      <item>
-        <label>Other</label>
-        <value>other</value>
-      </item>
-    </select>
-    <input ref="/r/other_symptom">
-      <label>Specify other</label>
-    </input>
-    <input ref="/r/comments">
-      <label>comments</label>
-    </input>
+    <group appearance="field-list" ref="/r/patient_sms">
+      <label></label>
+      <select1 ref="/r/patient_sms/response">
+        <label>Did the patient respond via SMS?</label>
+        <item>
+          <label>Yes</label>
+          <value>yes</value>
+        </item>
+        <item>
+          <label>No, Referred for tracing</label>
+          <value>no</value>
+        </item>
+      </select1>
+      <input ref="/r/patient_sms/comments">
+        <label>Additional Comments</label>
+      </input>
+    </group>
   </h:body>
 </h:html>

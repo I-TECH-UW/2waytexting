@@ -8,7 +8,7 @@ const {super_nurse_user} = require('../users');
 //const harness = new TestHarness({ headless: false, user: super_nurse_user })
 const harness = new TestHarness({ user: super_nurse_user});
 const { super_nurse, patient } = require('../contacts');
-const {day7_sms } = require('../form-inputs');
+const { sms_followup } = require('../form-inputs');
 
 describe('Day 7 SMS Task', () => {
     before(async () => { return await harness.start(); });
@@ -51,7 +51,7 @@ describe('Day 7 SMS Task', () => {
         expect(tasks).to.contain.something.like({ title: 'task.day7-sms.title' });
         const day7SMSTask = tasks.find(t => t.title === 'task.day7-sms.title');
         harness.loadAction(day7SMSTask.actions[0]);
-        const formFilled = await harness.fillForm(...day7_sms.yes_no_ae)
+        const formFilled = await harness.fillForm(...sms_followup)
         expect(formFilled.errors).to.be.empty;
         tasks = await harness.getTasks();
         expect(tasks).to.not.contain.something.like({ title: 'task.day7-sms.title' });

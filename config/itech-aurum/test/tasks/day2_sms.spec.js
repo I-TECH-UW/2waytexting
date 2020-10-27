@@ -5,7 +5,7 @@ const {super_nurse_user} = require('../users');
 //const harness = new TestHarness({ headless: false, user: super_nurse_user })
 const harness = new TestHarness({ user: super_nurse_user});
 const { patient } = require('../contacts');
-const {day2_sms } = require('../form-inputs');
+const { sms_followup } = require('../form-inputs');
 
 describe('Day 2 SMS Task', () => {
     before(async () => { return await harness.start(); });
@@ -54,7 +54,7 @@ describe('Day 2 SMS Task', () => {
         let tasks = await harness.getTasks();
         expect(tasks).to.have.length(1);
         harness.loadAction(tasks[0].actions[0]);
-        const formFilled = await harness.fillForm(...day2_sms.yes_no_ae)
+        const formFilled = await harness.fillForm(...sms_followup)
         expect(formFilled.errors).to.be.empty;
         tasks = await harness.getTasks();
         expect(tasks).to.be.empty;

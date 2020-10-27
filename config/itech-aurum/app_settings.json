@@ -50,16 +50,19 @@
   "permissions": {
     "can_export_messages": [
       "national_admin",
+      "super_nurse",
       "district_admin",
       "analytics"
     ],
     "can_export_forms": [
       "national_admin",
+      "super_nurse",
       "district_admin",
       "analytics"
     ],
     "can_export_contacts": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_export_audit": [
@@ -76,17 +79,20 @@
     ],
     "can_view_analytics": [
       "national_admin",
+      "super_nurse",
       "district_admin",
       "analytics"
     ],
     "can_view_data_records": [
       "national_admin",
+      "super_nurse",
       "district_admin",
       "analytics",
       "gateway"
     ],
     "can_view_unallocated_data_records": [
       "national_admin",
+      "super_nurse",
       "district_admin",
       "gateway"
     ],
@@ -95,16 +101,19 @@
     ],
     "can_edit": [
       "national_admin",
+      "super_nurse",
       "district_admin",
       "gateway"
     ],
     "can_update_messages": [
       "national_admin",
+      "super_nurse",
       "district_admin",
       "gateway"
     ],
     "can_update_reports": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_update_users": [
@@ -112,7 +121,7 @@
     ],
     "can_update_people": [
       "national_admin",
-      "district_admin"
+      "super_nurse"
     ],
     "can_update_places": [
       "national_admin"
@@ -120,6 +129,7 @@
     "can_create_records": [
       "national_admin",
       "district_admin",
+      "super_nurse",
       "data_entry",
       "gateway"
     ],
@@ -131,6 +141,7 @@
     ],
     "can_create_people": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_create_places": [
@@ -138,10 +149,12 @@
     ],
     "can_view_tasks": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_view_tasks_tab": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_configure": [
@@ -149,50 +162,61 @@
     ],
     "can_view_messages": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_view_messages_tab": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_view_reports": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_view_reports_tab": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_view_analytics_tab": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_view_contacts": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_view_contacts_tab": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_edit_profile": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_delete_reports": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_bulk_delete_reports": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_delete_contacts": [
       "national_admin",
-      "district_admin"
+      "super_nurse"
     ],
     "can_delete_messages": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_delete_users": [
@@ -200,14 +224,17 @@
     ],
     "can_view_message_action": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_view_call_action": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_verify_reports": [
       "national_admin",
+      "super_nurse",
       "district_admin"
     ],
     "can_log_out_on_android": []
@@ -224,6 +251,10 @@
     },
     "national_admin": {
       "name": "usertype.national-manager"
+    },
+    "super_nurse": {
+      "name": "usertype.super-nurse",
+      "offline": true
     },
     "district_admin": {
       "name": "usertype.district-manager",
@@ -313,7 +344,7 @@
   ],
   "schedules": [],
   "tasks": {
-    "rules": "define Target { _id: null, contact: null, deleted: null, type: null, pass: null, date: null, groupBy: null }\ndefine Contact { contact: null, reports: null, tasks: null }\ndefine Task { _id: null, deleted: null, doc: null, contact: null, icon: null, date: null, readyStart: null, readyEnd: null, title: null, fields: null, resolved: null, priority: null, priorityLabel: null, reports: null, actions: null }\nrule GenerateEvents {\n  when { c: Contact } then { !function(t){var e={};function a(o){if(e[o])return e[o].exports;var n=e[o]={i:o,l:!1,exports:{}};return t[o].call(n.exports,n,n.exports,a),n.l=!0,n.exports}a.m=t,a.c=e,a.d=function(t,e,o){a.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},a.r=function(t){'undefined'!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:'Module'}),Object.defineProperty(t,'__esModule',{value:!0})},a.t=function(t,e){if(1&e&&(t=a(t)),8&e)return t;if(4&e&&'object'==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(a.r(o),Object.defineProperty(o,'default',{enumerable:!0,value:t}),2&e&&'string'!=typeof t)for(var n in t)a.d(o,n,function(e){return t[e]}.bind(null,n));return o},a.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return a.d(e,'a',e),e},a.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},a.p='',a(a.s=1)}([function(t,e){t.exports=function(t){var e={};!function t(e,a){var o=Object.keys(e);for(var n in o){var r=o[n];switch(typeof e[r]){case'object':t(e[r],a);break;case'function':e[r]=e[r].bind(a)}}}(t,e),e.definition=function t(e){var a=Object.assign({},e),o=Object.keys(a);for(var n in o){var r=o[n];if(Array.isArray(a[r])){a[r]=a[r].slice(0);for(var i=0;i<a[r].length;++i)'object'==typeof a[r][i]&&(a[r][i]=t(a[r][i]))}else'object'==typeof a[r]&&(a[r]=t(a[r]))}return a}(t)}},function(t,e,a){var o=a(2),n=a(3),r=a(4);a(5)(n,c,Utils,Target,emit),r(o,c,Utils,Task,emit),emit('_complete',{_id:!0})},function(t,e){t.exports=[{name:'day2-sms',icon:'treatment',title:'task.day2-sms.title',appliesTo:'contacts',appliesToType:['person'],appliesIf:t=>t.contact.randomization&&'texting'===t.contact.randomization,resolvedIf:(t,e,a,o)=>Utils.isFormSubmittedInWindow(t.reports,'day2_sms',Utils.addDate(o,-a.start).getTime(),Utils.addDate(o,a.end+1).getTime()),actions:[{form:'day2_sms',label:'Follow up client'}],events:[{id:'sms-followup-day-2',days:2,start:0,end:365}]},{name:'day7-sms',icon:'treatment',title:'task.day7-sms.title',appliesTo:'contacts',appliesToType:['person'],appliesIf:t=>t.contact.randomization&&'texting'===t.contact.randomization,resolvedIf:(t,e,a,o)=>Utils.isFormSubmittedInWindow(t.reports,'day7_sms',Utils.addDate(o,-a.start).getTime(),Utils.addDate(o,a.end+1).getTime()),actions:[{form:'day7_sms',label:'Follow up client'}],events:[{id:'sms-followup-day-7',days:7,start:0,end:365}]},{name:'followup-day-14',icon:'treatment',title:'task.followup-day-14.title',appliesTo:'contacts',appliesToType:['person'],appliesIf:t=>!!t.contact.randomization,resolvedIf:t=>t.reports.some((function(t){return'client_visit'===t.form&&'day14'===t.fields.visit})),actions:[{form:'client_visit',label:'14 Day Follow up client'}],events:[{id:'followup-day-14',days:14,start:2,end:365}]},{name:'ae-referral',icon:'treatment',title:'task.ae-referral.title',appliesTo:'reports',appliesToType:['potential_ae'],appliesIf:(t,e)=>'yes'===Utils.getField(e,'note.client_return'),resolvedIf:(t,e,a,o)=>Utils.isFormSubmittedInWindow(t.reports,'referral_confirmation',Utils.addDate(o,-a.start).getTime(),Utils.addDate(o,a.end+1).getTime()),actions:[{form:'referral_confirmation',label:'SMS Referral'}],events:[{id:'ae-referral',days:2,start:2,end:365}]},{name:'no-contact',icon:'off',title:'task.no-contact.title',appliesTo:'reports',appliesToType:['enroll'],resolvedIf:(t,e,a,o)=>{const n=Utils.isFormSubmittedInWindow(t.reports,'no_contact',Utils.addDate(o,-a.start).getTime(),Utils.addDate(o,a.end+1).getTime()),r=['0','1'].some(a=>Utils.isFormSubmittedInWindow(t.reports,a,e.reported_date,Utils.addDate(o,1).getTime()));return n||r},actions:[{form:'no_contact',label:'No Contact',modifyContent:function(t){t.is_task=!0}}],events:[{days:8,start:0,end:365}]}]},function(t,e){t.exports=[]},function(t,e,a){var o=a(0);function n(t,e,a,o,n,r){var i;if(t.appliesToType){var s;if('contacts'===t.appliesTo){if(!n.contact)return;s='contact'===n.contact.type?n.contact.contact_type:n.contact.type}else{if(!r)return;s=r.form}if(-1===t.appliesToType.indexOf(s))return}if('scheduled_tasks'===t.appliesTo||!t.appliesIf||t.appliesIf(n,r))if('scheduled_tasks'===t.appliesTo){if(r&&t.appliesIf){if(!r.scheduled_tasks)return;for(i=0;i<r.scheduled_tasks.length;i++)t.appliesIf(n,r,i)&&d(i)}}else d();function c(t,e,a){var o;return(o='function'==typeof t.contactLabel?t.contactLabel(e,a):t.contactLabel)?{name:o}:e.contact}function d(i){var s,d,p,f,u=null;for(s=0;s<t.events.length;s++){if((d=t.events[s]).dueDate)u=d.dueDate(d,n,r,i);else if(r)u=void 0!==i?new Date(e.addDate(new Date(r.scheduled_tasks[i].due),d.days)):new Date(e.addDate(new Date(r.reported_date),d.days));else if(d.dueDate)u=d.dueDate(d,n);else{var y=n.contact&&n.contact.reported_date?new Date(n.contact.reported_date):new Date;u=new Date(e.addDate(y,d.days))}e.isTimely(u,d)&&(f={_id:(r?r._id:n.contact&&n.contact._id)+'~'+(d.id||s)+'~'+t.name,deleted:!(!(n.contact&&n.contact.deleted||r)||!r.deleted),doc:n,contact:c(t,n,r),icon:t.icon,date:u,readyStart:d.start||0,readyEnd:d.end||0,title:t.title,resolved:t.resolvedIf(n,r,d,u,i),actions:t.actions.map(l)},void 0!==i&&(f._id+='-'+i),'function'==typeof(p=t.priority)&&(p=p(n,r)),p&&(f.priority=p.level,f.priorityLabel=p.label),o('task',new a(f)))}}function l(t){var e={source:'task',source_id:!!r?r._id:n.contact&&n.contact._id,contact:n.contact};return t.modifyContent&&t.modifyContent(e,n,r),{type:'report',form:t.form,label:t.label||'Follow up',content:e}}}t.exports=function(t,e,a,r,i){if(t)for(var s,c=0;c<t.length;++c)switch(s=t[c],o(s),s.appliesTo){case'reports':case'scheduled_tasks':for(var d=0;d<e.reports.length;++d)n(s,a,r,i,e,e.reports[d]);break;case'contacts':e.contact&&n(s,a,r,i,e);break;default:throw new Error('Unrecognised task.appliesTo: '+s.appliesTo)}}},function(t,e,a){var o=a(0);function n(t,e,a,o,n,r){var i=!!r;if(n.contact){var s=n.contact.contact_type||n.contact.type,c=i?r.form:s;if(!(t.appliesToType&&t.appliesToType.indexOf(c)<0)&&(!t.appliesIf||t.appliesIf(n,r)))for(var d=i?r:n.contact,l=function(t,e,a){var o;return o='function'==typeof t.idType?t.idType(e,a):'report'===t.idType?a&&a._id:e.contact&&e.contact._id,Array.isArray(o)||(o=[o]),o}(t,n,r),p=!t.passesIf||!!t.passesIf(n,r),f=function(t,e,a,o){if('function'==typeof t.date)return t.date(a,o);if(void 0===t.date||'now'===t.date)return e.now().getTime();if('reported'===t.date)return o?o.reported_date:a.contact.reported_date;throw new Error('Unrecognised value for target.date: '+t.date)}(t,a,n,r),u=t.groupBy&&t.groupBy(n,r),y=0;y<l.length;++y){var m=new e({_id:l[y]+'~'+t.id,contact:n.contact,deleted:!!d.deleted,type:t.id,pass:p,groupBy:u,date:f});t.emitCustom?t.emitCustom(v,m,n,r):v(m)}}function v(t){o('target',t)}}t.exports=function(t,e,a,r,i){for(var s=0;s<t.length;++s){var c=t[s];switch(o(c),c.appliesTo){case'contacts':n(c,r,a,i,e);break;case'reports':for(var d=0;d<e.reports.length;++d){n(c,r,a,i,e,e.reports[d])}break;default:throw new Error('Unrecognised target.appliesTo: '+c.appliesTo)}}}}]); }\n}",
+    "rules": "define Target { _id: null, contact: null, deleted: null, type: null, pass: null, date: null, groupBy: null }\ndefine Contact { contact: null, reports: null, tasks: null }\ndefine Task { _id: null, deleted: null, doc: null, contact: null, icon: null, date: null, readyStart: null, readyEnd: null, title: null, fields: null, resolved: null, priority: null, priorityLabel: null, reports: null, actions: null }\nrule GenerateEvents {\n  when { c: Contact } then { !function(t){var e={};function a(o){if(e[o])return e[o].exports;var n=e[o]={i:o,l:!1,exports:{}};return t[o].call(n.exports,n,n.exports,a),n.l=!0,n.exports}a.m=t,a.c=e,a.d=function(t,e,o){a.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},a.r=function(t){'undefined'!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:'Module'}),Object.defineProperty(t,'__esModule',{value:!0})},a.t=function(t,e){if(1&e&&(t=a(t)),8&e)return t;if(4&e&&'object'==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(a.r(o),Object.defineProperty(o,'default',{enumerable:!0,value:t}),2&e&&'string'!=typeof t)for(var n in t)a.d(o,n,function(e){return t[e]}.bind(null,n));return o},a.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return a.d(e,'a',e),e},a.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},a.p='',a(a.s=1)}([function(t,e){t.exports=function(t){var e={};!function t(e,a){var o=Object.keys(e);for(var n in o){var r=o[n];switch(typeof e[r]){case'object':t(e[r],a);break;case'function':e[r]=e[r].bind(a)}}}(t,e),e.definition=function t(e){var a=Object.assign({},e);var o=Object.keys(a);for(var n in o){var r=o[n];if(Array.isArray(a[r])){a[r]=a[r].slice(0);for(var i=0;i<a[r].length;++i)'object'==typeof a[r][i]&&(a[r][i]=t(a[r][i]))}else'object'==typeof a[r]&&(a[r]=t(a[r]))}return a}(t)}},function(t,e,a){var o=a(2),n=a(3),r=a(4);a(5)(n,c,Utils,Target,emit),r(o,c,Utils,Task,emit),emit('_complete',{_id:!0})},function(t,e){t.exports=[{name:'day2-sms',icon:'treatment',title:'task.day2-sms.title',appliesTo:'contacts',appliesToType:['person'],appliesIf:t=>t.contact.randomization&&'texting'===t.contact.randomization,resolvedIf:(t,e,a,o)=>Utils.isFormSubmittedInWindow(t.reports,'day2_sms',Utils.addDate(o,-a.start).getTime(),Utils.addDate(o,a.end+1).getTime()),actions:[{form:'day2_sms',label:'Follow up client'}],events:[{id:'sms-followup-day-2',days:2,start:0,end:365}]},{name:'day7-sms',icon:'treatment',title:'task.day7-sms.title',appliesTo:'contacts',appliesToType:['person'],appliesIf:t=>t.contact.randomization&&'texting'===t.contact.randomization,resolvedIf:(t,e,a,o)=>Utils.isFormSubmittedInWindow(t.reports,'day7_sms',Utils.addDate(o,-a.start).getTime(),Utils.addDate(o,a.end+1).getTime()),actions:[{form:'day7_sms',label:'Follow up client'}],events:[{id:'sms-followup-day-7',days:7,start:0,end:365}]},{name:'followup-day-14',icon:'treatment',title:'task.followup-day-14.title',appliesTo:'contacts',appliesToType:['person'],appliesIf:t=>!!t.contact.randomization,resolvedIf:t=>t.reports.some((function(t){return'client_visit'===t.form&&'day14'===t.fields.visit})),actions:[{form:'client_visit',label:'14 Day Follow up client'}],events:[{id:'followup-day-14',days:14,start:2,end:365}]},{name:'ae-referral',icon:'treatment',title:'task.ae-referral.title',appliesTo:'reports',appliesToType:['potential_ae'],appliesIf:(t,e)=>'yes'===Utils.getField(e,'note.client_return'),resolvedIf:(t,e,a,o)=>Utils.isFormSubmittedInWindow(t.reports,'referral_confirmation',Utils.addDate(o,-a.start).getTime(),Utils.addDate(o,a.end+1).getTime()),actions:[{form:'referral_confirmation',label:'SMS Referral'}],events:[{id:'ae-referral',days:2,start:2,end:365}]},{name:'no-contact',icon:'off',title:'task.no-contact.title',appliesTo:'reports',appliesToType:['enroll'],resolvedIf:(t,e,a,o)=>{const n=Utils.isFormSubmittedInWindow(t.reports,'no_contact',Utils.addDate(o,-a.start).getTime(),Utils.addDate(o,a.end+1).getTime()),r=['0','1'].some(a=>Utils.isFormSubmittedInWindow(t.reports,a,e.reported_date,Utils.addDate(o,1).getTime()));return n||r},actions:[{form:'no_contact',label:'No Contact',modifyContent:function(t){t.is_task=!0}}],events:[{days:8,start:0,end:365}]}]},function(t,e){t.exports=[]},function(t,e,a){var o=a(0);function n(t,e,a,o,n,r){var i;if(t.appliesToType){var s;if('contacts'===t.appliesTo){if(!n.contact)return;s='contact'===n.contact.type?n.contact.contact_type:n.contact.type}else{if(!r)return;s=r.form}if(-1===t.appliesToType.indexOf(s))return}if('scheduled_tasks'===t.appliesTo||!t.appliesIf||t.appliesIf(n,r))if('scheduled_tasks'===t.appliesTo){if(r&&t.appliesIf){if(!r.scheduled_tasks)return;for(i=0;i<r.scheduled_tasks.length;i++)t.appliesIf(n,r,i)&&d(i)}}else d();function c(t,e,a){var o;return(o='function'==typeof t.contactLabel?t.contactLabel(e,a):t.contactLabel)?{name:o}:e.contact}function d(i){var s,d,p,f,u=null;for(s=0;s<t.events.length;s++){if((d=t.events[s]).dueDate)u=d.dueDate(d,n,r,i);else if(r)u=void 0!==i?new Date(e.addDate(new Date(r.scheduled_tasks[i].due),d.days)):new Date(e.addDate(new Date(r.reported_date),d.days));else if(d.dueDate)u=d.dueDate(d,n);else{var y=n.contact&&n.contact.reported_date?new Date(n.contact.reported_date):new Date;u=new Date(e.addDate(y,d.days))}e.isTimely(u,d)&&(f={_id:(r?r._id:n.contact&&n.contact._id)+'~'+(d.id||s)+'~'+t.name,deleted:!(!(n.contact&&n.contact.deleted||r)||!r.deleted),doc:n,contact:c(t,n,r),icon:t.icon,date:u,readyStart:d.start||0,readyEnd:d.end||0,title:t.title,resolved:t.resolvedIf(n,r,d,u,i),actions:t.actions.map(l)},void 0!==i&&(f._id+='-'+i),'function'==typeof(p=t.priority)&&(p=p(n,r)),p&&(f.priority=p.level,f.priorityLabel=p.label),o('task',new a(f)))}}function l(t){var e={source:'task',source_id:!!r?r._id:n.contact&&n.contact._id,contact:n.contact};return t.modifyContent&&t.modifyContent(e,n,r),{type:'report',form:t.form,label:t.label||'Follow up',content:e}}}t.exports=function(t,e,a,r,i){if(t)for(var s,c=0;c<t.length;++c)switch(s=t[c],o(s),s.appliesTo){case'reports':case'scheduled_tasks':for(var d=0;d<e.reports.length;++d)n(s,a,r,i,e,e.reports[d]);break;case'contacts':e.contact&&n(s,a,r,i,e);break;default:throw new Error('Unrecognised task.appliesTo: '+s.appliesTo)}}},function(t,e,a){var o=a(0);function n(t,e,a,o,n,r){var i=!!r;if(n.contact){var s=n.contact.contact_type||n.contact.type,c=i?r.form:s;if(!(t.appliesToType&&t.appliesToType.indexOf(c)<0)&&(!t.appliesIf||t.appliesIf(n,r)))for(var d=i?r:n.contact,l=function(t,e,a){var o;return o='function'==typeof t.idType?t.idType(e,a):'report'===t.idType?a&&a._id:e.contact&&e.contact._id,Array.isArray(o)||(o=[o]),o}(t,n,r),p=!t.passesIf||!!t.passesIf(n,r),f=function(t,e,a,o){if('function'==typeof t.date)return t.date(a,o);if(void 0===t.date||'now'===t.date)return e.now().getTime();if('reported'===t.date)return o?o.reported_date:a.contact.reported_date;throw new Error('Unrecognised value for target.date: '+t.date)}(t,a,n,r),u=t.groupBy&&t.groupBy(n,r),y=0;y<l.length;++y){var m=new e({_id:l[y]+'~'+t.id,contact:n.contact,deleted:!!d.deleted,type:t.id,pass:p,groupBy:u,date:f});t.emitCustom?t.emitCustom(v,m,n,r):v(m)}}function v(t){o('target',t)}}t.exports=function(t,e,a,r,i){for(var s=0;s<t.length;++s){var c=t[s];switch(o(c),c.appliesTo){case'contacts':n(c,r,a,i,e);break;case'reports':for(var d=0;d<e.reports.length;++d){n(c,r,a,i,e,e.reports[d])}break;default:throw new Error('Unrecognised target.appliesTo: '+c.appliesTo)}}}}]); }\n}",
     "targets": {
       "enabled": true,
       "items": []
@@ -482,7 +513,7 @@
     }
   },
   "_version": "3.9.0",
-  "contact_summary": "var ContactSummary = {}; !function(e,t){if('object'==typeof exports&&'object'==typeof module)module.exports=t();else if('function'==typeof define&&define.amd)define([],t);else{var n=t();for(var r in n)('object'==typeof exports?exports:e)[r]=n[r]}}(ContactSummary,(function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){'undefined'!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:'Module'}),Object.defineProperty(e,'__esModule',{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&'object'==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,'default',{enumerable:!0,value:e}),2&t&&'string'!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,'a',t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p='',n(n.s=0)}([function(e,t,n){var r=n(1),o=n(2);e.exports=o(r,contact,reports)},function(e,t){const n=contact,r=lineage,o=()=>'patient'===n.role||!n.role,l=[{appliesToType:['person'],label:'person.field.phone',value:n.phone,width:6,filter:'phone'},{appliesToType:['person'],appliesIf:o,label:'person.field.group',value:'person.field.group.'+n.randomization,width:6,translate:!0},{appliesToType:['person'],appliesIf:o,label:'person.field.vmmc_no',value:n.vmmc_no,width:6},{appliesToType:['person'],appliesIf:o,label:'person.field.study_no',value:n.study_no,width:6},{appliesToType:['person'],appliesIf:o,label:'person.field.language',value:'person.field.language.'+n.language_preference,width:6,translate:!0},{appliesToType:['person','nurse'],label:'contact.parent',value:r,filter:'lineage'},{appliesToType:['district_hospital','health_center'],label:'Contact',value:n.contact&&n.contact.name,width:6},{appliesToType:['district_hospital','health_center'],label:'person.field.phone',value:n.contact&&n.contact.phone,width:6},{appliesToType:['district_hospital','health_center'],label:'External ID',value:n.external_id,width:4},{appliesToType:['district_hospital','health_center'],appliesIf:function(){return n.parent&&r[0]},label:'contact.parent',value:r,filter:'lineage'}];e.exports={fields:l}},function(e,t){function n(e){return Array.isArray(e)?e:[e]}function r(e,t,n){if(e.appliesIf(n)){var r='function'==typeof e.fields?e.fields(n):e.fields.filter((function(e){switch(typeof e.appliesIf){case'undefined':return!0;case'function':return e.appliesIf(n);default:return e.appliesIf}})).map((function(e){var t={};return o(e,t,'label'),o(e,t,'value'),o(e,t,'translate'),o(e,t,'filter'),o(e,t,'width'),o(e,t,'icon'),e.context&&(t.context={},o(e.context,t.context,'count'),o(e.context,t.context,'total')),t}));return e.modifyContext&&e.modifyContext(t,n),{label:e.label,fields:r}}function o(e,t,r){switch(typeof e[r]){case'undefined':return;case'function':t[r]=e[r](n);break;default:t[r]=e[r]}}}e.exports=function(e,t,o){var l=e.fields||[],i=e.context||{},a=e.cards||[],p=t&&(t.contact_type||t.type),s={cards:[],fields:l.filter((function(e){var t=n(e.appliesToType),r=t.filter((function(e){return e&&'!'===e.charAt(0)}));if((t.includes(p)||r.length>0&&!r.includes('!'+p))&&(!e.appliesIf||e.appliesIf()))return delete e.appliesToType,delete e.appliesIf,!0}))};return a.forEach((function(e){var t,l,a,c,f=n(e.appliesToType);if(f.includes('report')&&f.length>1)throw new Error('You cannot set appliesToType to an array which includes the type \\'report\\' and another type.');if(f.includes('report'))for(t=0;t<o.length;++t)l=o[t],!(c=l)||c.errors&&c.errors.length||(a=r(e,i,l))&&s.cards.push(a);else{if(!f.includes(p))return;(a=r(e,i))&&s.cards.push(a)}})),s.context=i,s}}])})); return ContactSummary;",
+  "contact_summary": "var ContactSummary = {}; !function(e,t){if('object'==typeof exports&&'object'==typeof module)module.exports=t();else if('function'==typeof define&&define.amd)define([],t);else{var n=t();for(var r in n)('object'==typeof exports?exports:e)[r]=n[r]}}(ContactSummary,(function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){'undefined'!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:'Module'}),Object.defineProperty(e,'__esModule',{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&'object'==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,'default',{enumerable:!0,value:e}),2&t&&'string'!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,'a',t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p='',n(n.s=0)}([function(e,t,n){var r=n(1),o=n(2);e.exports=o(r,contact,reports)},function(e,t){const n=contact,r=lineage,o=()=>'patient'===n.role||!n.role,l=[{appliesToType:['person'],label:'person.field.phone',value:n.phone,width:6,filter:'phone'},{appliesToType:['person'],appliesIf:o,label:'person.field.group',value:'person.field.group.'+n.randomization,width:6,translate:!0},{appliesToType:['person'],appliesIf:o,label:'person.field.vmmc_no',value:n.vmmc_no,width:6},{appliesToType:['person'],appliesIf:o,label:'person.field.study_no',value:n.study_no,width:6},{appliesToType:['person'],appliesIf:o,label:'person.field.language',value:'person.field.language.'+n.language_preference,width:6,translate:!0},{appliesToType:['person','nurse'],label:'contact.parent',value:r,filter:'lineage'},{appliesToType:['district_hospital','health_center'],label:'Contact',value:n.contact&&n.contact.name,width:6},{appliesToType:['district_hospital','health_center'],label:'person.field.phone',value:n.contact&&n.contact.phone,width:6},{appliesToType:['district_hospital','health_center'],label:'External ID',value:n.external_id,width:4},{appliesToType:['district_hospital','health_center'],appliesIf:function(){return n.parent&&r[0]},label:'contact.parent',value:r,filter:'lineage'}];e.exports={fields:l}},function(e,t){function n(e){return Array.isArray(e)?e:[e]}function r(e,t){switch(typeof e){case'undefined':return!0;case'function':return e(t);default:return e}}function o(e,t,n){if(r(e.appliesIf,n)){var o='function'==typeof e.fields?e.fields(n):e.fields.filter((function(e){return r(e.appliesIf,n)})).map((function(e){var t={};return l(e,t,'label'),l(e,t,'value'),l(e,t,'translate'),l(e,t,'filter'),l(e,t,'width'),l(e,t,'icon'),e.context&&(t.context={},l(e.context,t.context,'count'),l(e.context,t.context,'total')),t}));return e.modifyContext&&e.modifyContext(t,n),{label:e.label,fields:o}}function l(e,t,r){switch(typeof e[r]){case'undefined':return;case'function':t[r]=e[r](n);break;default:t[r]=e[r]}}}e.exports=function(e,t,r){var l=e.fields||[],i=e.context||{},a=e.cards||[],p=t&&(t.contact_type||t.type),c={cards:[],fields:l.filter((function(e){var t=n(e.appliesToType),r=t.filter((function(e){return e&&'!'===e.charAt(0)}));if((t.includes(p)||r.length>0&&!r.includes('!'+p))&&(!e.appliesIf||e.appliesIf()))return delete e.appliesToType,delete e.appliesIf,!0}))};return a.forEach((function(e){var t,l,a,u,f=n(e.appliesToType);if(f.includes('report')&&f.length>1)throw new Error('You cannot set appliesToType to an array which includes the type \\'report\\' and another type.');if(f.includes('report'))for(t=0;t<r.length;++t)l=r[t],!(u=l)||u.errors&&u.errors.length||(a=o(e,i,l))&&c.cards.push(a);else{if(!f.includes(p))return;(a=o(e,i))&&c.cards.push(a)}})),c.context=i,c}}])})); return ContactSummary;",
   "place_hierarchy_types": [
     "district_hospital",
     "health_center"

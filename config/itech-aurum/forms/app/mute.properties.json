@@ -1,6 +1,6 @@
 {
   "context": {
-    "expression": "!contact.muted && contact.role === 'patient'",
+    "expression": "!contact.muted && contact.role === 'patient' && user.parent.type === 'district_hospital'",
     "person": true,
     "place": false
   },

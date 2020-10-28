@@ -141,8 +141,7 @@
     ],
     "can_create_people": [
       "national_admin",
-      "super_nurse",
-      "district_admin"
+      "super_nurse"
     ],
     "can_create_places": [
       "national_admin"

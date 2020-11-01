@@ -83,7 +83,7 @@
       </group>
     </group>
     <group ref="/r/note">
-      <label>This form is NOT for AEs recorded in the Day 2 or Day 7 SMS Received forms. Study Nurse will use this form to record every other potential AE report, even if multiple per client, including: 1) A client sends a YES SMS to note a potential AE; 2) A client sends a question about a symptom via SMS; and 3) A client requests a follow-up call.</label>
+      <label>Study Nurse will use this form to record every potential AE reported, even if multiple per client, including: 1) A client sends a YES SMS to note a potential AE; 2) A client sends a question about a symptom via SMS; and 3) A client requests a follow-up call.</label>
       <select1 ref="/r/note/days_post_mc">
         <label>Day post MC that an AE was reported by client.</label>
         <item>

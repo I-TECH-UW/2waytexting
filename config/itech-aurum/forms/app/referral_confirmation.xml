@@ -25,8 +25,8 @@
           </inputs>
           <patient_name/>
           <phone/>
-          <patient_id/>
-          <c_reported_date/>
+          <patient_id tag="hidden"/>
+          <c_reported_date tag="hidden"/>
           <first_visit/>
           <note/>
           <return/>

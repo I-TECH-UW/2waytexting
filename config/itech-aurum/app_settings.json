@@ -463,7 +463,7 @@
           "expr": "'1cd8f9d5-e16c-4e7c-a5a6-6220d71a8a29'"
         },
         "urns": {
-          "expr": "[ 'tel:' + doc.fields.phone ]",
+          "expr": "[ 'tel:' + doc.tasks[0].messages[0].to ]",
           "optional": false
         }
       }

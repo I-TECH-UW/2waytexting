@@ -23,10 +23,10 @@
             </contact>
           </inputs>
           <patient_name/>
-          <patient_id/>
+          <patient_id tag="hidden"/>
           <phone/>
           <n>
-            <n_header/>
+            <n_header tag="hidden"/>
             <client_ok/>
             <additional_notes_text/>
             <additional_notes/>

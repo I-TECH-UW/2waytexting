@@ -27,8 +27,8 @@
             </contact>
           </inputs>
           <patient_name/>
-          <patient_uuid db-doc-ref=" /enroll/person "/>
-          <place_id/>
+          <patient_uuid db-doc-ref=" /enroll/person " tag="hidden"/>
+          <place_id tag="hidden"/>
           <phone/>
           <language_preference/>
           <randomization/>
@@ -85,9 +85,9 @@
       <bind calculate="../../../../inputs/contact/parent/_id" nodeset="/enroll/person/parent/parent/_id" type="string"/>
       <bind calculate="&quot;person&quot;" nodeset="/enroll/person/type" type="string"/>
       <bind calculate="&quot;patient&quot;" nodeset="/enroll/person/role" type="string"/>
-      <bind constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please enter valid VMMC Client name" nodeset="/enroll/person/name" required="true()" type="string"/>
-      <bind constraint="regex(., '^[0-9\-]+$')" jr:constraintMsg="Please enter valid VMMC Client Number" nodeset="/enroll/person/vmmc_no" required="true()" type="string"/>
-      <bind constraint="regex(., '^[0-9\-]+$')" jr:constraintMsg="Please enter valid 2wT Study Number" nodeset="/enroll/person/study_no" required="true()" type="string"/>
+      <bind constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please enter valid VMMC client name" nodeset="/enroll/person/name" required="true()" type="string"/>
+      <bind constraint="regex(., '^[A-Z]{2}[0-9]{4}$')" jr:constraintMsg="Please enter valid VMMC client number" nodeset="/enroll/person/vmmc_no" required="true()" type="string"/>
+      <bind constraint="regex(., '^[0-9]+$')" jr:constraintMsg="Please enter valid 2wT study number" nodeset="/enroll/person/study_no" required="true()" type="string"/>
       <bind nodeset="/enroll/person/n_study" readonly="true()" type="string"/>
       <bind jr:requiredMsg="Please confirm consent" nodeset="/enroll/person/consent" required="true()" type="select1"/>
       <bind nodeset="/enroll/person/randomization" required="true()" type="select1"/>
@@ -150,9 +150,11 @@
       </input>
       <input appearance="number" ref="/enroll/person/vmmc_no">
         <label>VMMC Client No.</label>
+        <hint>e.g. WM0000</hint>
       </input>
       <input appearance="number" ref="/enroll/person/study_no">
         <label>2WT Study Number</label>
+        <hint>e.g. 0001</hint>
       </input>
       <input ref="/enroll/person/n_study">
         <label>Study coordinator to administer the following questions</label>

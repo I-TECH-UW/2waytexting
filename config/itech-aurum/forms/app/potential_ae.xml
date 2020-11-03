@@ -23,7 +23,7 @@
             </contact>
           </inputs>
           <patient_name/>
-          <patient_id/>
+          <patient_id tag="hidden"/>
           <phone/>
           <note>
             <g_post_mc>
@@ -89,7 +89,7 @@
       </group>
     </group>
     <group ref="/r/note">
-      <label>This form is NOT for AEs recorded in the Day 2 or Day 7 SMS Received forms. Study Nurse will use this form to record every other potential AE report, even if multiple per client, including: 1) A client sends a YES SMS to note a potential AE; 2) A client sends a question about a symptom via SMS; and 3) A client requests a follow-up call.</label>
+      <label>Study Nurse will use this form to record every potential AE reported, even if multiple per client, including: 1) A client sends a YES SMS to note a potential AE; 2) A client sends a question about a symptom via SMS; and 3) A client requests a follow-up call.</label>
       <group appearance="field-list" ref="/r/note/g_post_mc">
         <label></label>
         <select1 appearance="horizontal" ref="/r/note/g_post_mc/days_post_mc">

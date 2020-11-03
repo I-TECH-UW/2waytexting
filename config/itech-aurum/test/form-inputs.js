@@ -6,19 +6,9 @@ module.exports = {
     ]
   },
 
-  day2_sms: {
-    yes_no_ae: [
-      ['yes_no_ae'],
-      ['none']
-    ]
-  },
-
-  day7_sms: {
-    yes_no_ae: [
-      ['yes_no_ae'],
-      ['none']
-    ]
-  },
+  sms_followup: [
+    ['yes', 'additional comments']
+  ],
 
   client_visit: {
     day7: [

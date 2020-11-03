@@ -65,7 +65,7 @@
       </group>
     </group>
     <select ref="/r/confirm">
-      <label>Check below if you are sure that you want to stop sending automatic messages to this contact.</label>
+      <label>Check below if you are sure that you want to stop sending automatic messages to <output value=" /r/patient_name "/>.</label>
       <item>
         <label>Yes</label>
         <value>yes</value>

@@ -327,7 +327,24 @@
         },
         "code": "0"
       },
-      "fields": {},
+      "fields": {
+        "patient_name": {
+          "labels": {
+            "tiny": {
+              "en": "patient_name"
+            },
+            "description": {
+              "en": "Patient name"
+            },
+            "short": {
+              "en": "Patient name"
+            }
+          },
+          "position": 0,
+          "type": "string",
+          "required": false
+        }
+    },
       "use_sentinel": true
     },
     "1": {
@@ -338,9 +355,25 @@
         "code": "1",
         "icon": "risk"
       },
-      "fields": {},
-      "use_sentinel": true
-    },
+      "fields": {
+        "patient_name": {
+          "labels": {
+            "tiny": {
+              "en": "patient_name"
+            },
+            "description": {
+              "en": "Patient name"
+            },
+            "short": {
+              "en": "Patient name"
+            }
+          },
+          "position": 0,
+          "type": "string",
+          "required": false
+        }
+    }
+  },
     "N": {
       "meta": {
         "label": {

@@ -30,5 +30,8 @@
     "medic-conf": "^3.2.0",
     "medic-conf-test-harness": "^0.1.31",
     "mocha": "^6.1.4"
+  },
+  "dependencies": {
+    "luxon": "^1.25.0"
   }
 }

@@ -111,15 +111,15 @@ module.exports = [
   },
 
   {
-    name: 'no-contact',
+    name: 'no-contact-8',
     icon: 'off',
-    title: 'task.no-contact.title',
+    title: 'task.day8-no-contact.title',
     appliesTo: 'reports',
     appliesToType: ['enroll'],
     resolvedIf: (contact, report, event, dueDate) => {
       const noContactAlreadySubmitted = Utils.isFormSubmittedInWindow(
         contact.reports,
-        'no_contact',
+        'day8_no_contact',
         Utils.addDate(dueDate, -event.start).getTime(),
         Utils.addDate(dueDate, event.end + 1).getTime()
       );
@@ -134,14 +134,51 @@ module.exports = [
       return noContactAlreadySubmitted || someReportSubmitted;
     },
     actions: [{
-      form: 'no_contact',
-      label: 'No Contact',
+      form: 'day8_no_contact',
+      label: 'No Contact until day 8',
       modifyContent: function (content) {
         content.is_task = true;
       }
     }],
     events: [{
       days: 8,
+      start: 0,
+      end: 365
+    }]
+  },
+
+  {
+    name: 'no-contact-14',
+    icon: 'off',
+    title: 'task.day14-no-contact.title',
+    appliesTo: 'reports',
+    appliesToType: ['enroll'],
+    resolvedIf: (contact, report, event, dueDate) => {
+      const noContactAlreadySubmitted = Utils.isFormSubmittedInWindow(
+        contact.reports,
+        'day14_no_contact',
+        Utils.addDate(dueDate, -event.start).getTime(),
+        Utils.addDate(dueDate, event.end + 1).getTime()
+      );
+
+      const someReportSubmitted = ['0', '1'].some((rep) => Utils.isFormSubmittedInWindow(
+        contact.reports,
+        rep,
+        report.reported_date,
+        Utils.addDate(dueDate, 1).getTime())
+      );
+
+      return noContactAlreadySubmitted || someReportSubmitted;
+    },
+    actions: [{
+      form: 'day14_no_contact',
+      label: 'No Contact until day 14',
+      modifyContent: function (content) {
+        content.is_task = true;
+      }
+    }],
+    events: [{
+      days: 14,
       start: 0,
       end: 365
     }]

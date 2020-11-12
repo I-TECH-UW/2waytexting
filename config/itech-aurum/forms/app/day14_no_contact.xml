@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <h:head>
-    <h:title>No Contact</h:title>
+    <h:title>Follow up for no contact: Day 14</h:title>
     <model>
       <instance>
-        <r delimiter="#" id="no_contact" prefix="J1!no_contact!" version="2020-03-06 00:00:00">
+        <r delimiter="#" id="day14_no_contact" prefix="J1!day14_no_contact!" version="2020-03-06 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -79,11 +79,10 @@
     <group appearance="field-list" ref="/r/n">
       <label></label>
       <input ref="/r/n/n_header">
-        <label>&lt;h4 style="color: #337ab7;"&gt;If there is no sms text response from the client on day 8, Super Nurse makes contact via phone to the client and/or the next kin to find out if they are okay, this form reports on the outcomes of the actions of the super nurse and can lead to either&lt;br/&gt;
-1) Client reached but does not need care
-2) Client reached but needs care, and review
-3) Client not reached and needs tracing
-&lt;/h4&gt;</label>
+        <label>&lt;h4 style="color: #337ab7;"&gt;&lt;p&gt;This is a critical task! If there is no SMS text response from the client by day 14, healthcare worker reviews messages, call logs, and visits. If no contact, healthcare worker initiates active tracing –first by phone, then by next of kin, then by home visit. This form reports on the outcomes of those actions with three possible outcomes:&lt;/p&gt;
+&lt;p&gt;1) Client reached but does NOT need care;&lt;/p&gt;
+&lt;p&gt;2) Client reached and NEEDS in-person review;&lt;/p&gt; 
+&lt;p&gt;3) Client not reached after all attempts and is considered LTFU&lt;/p&gt;&lt;/h4&gt;</label>
       </input>
       <select1 ref="/r/n/client_ok">
         <label>Is VMMC Client okay?</label>

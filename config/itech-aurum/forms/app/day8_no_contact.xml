@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Follow up for no contact: Day 8</h:title>
+    <model>
+      <instance>
+        <r delimiter="#" id="day8_no_contact" prefix="J1!day8_no_contact!" version="2020-03-06 00:00:00">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <source>user</source>
+            <source_id/>
+            <contact>
+              <_id/>
+              <name/>
+              <phone/>
+            </contact>
+          </inputs>
+          <patient_name/>
+          <patient_id tag="hidden"/>
+          <phone/>
+          <n>
+            <n_header tag="hidden"/>
+            <client_ok/>
+            <additional_notes_text/>
+            <additional_notes/>
+          </n>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </r>
+      </instance>
+      <instance id="contact-summary"/>
+      <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
+      <bind nodeset="/r/inputs/source" type="string"/>
+      <bind nodeset="/r/inputs/source_id" type="string"/>
+      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/name" type="string"/>
+      <bind nodeset="/r/inputs/contact/phone" type="string"/>
+      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
+      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
+      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
+      <bind nodeset="/r/n/n_header" readonly="true()" type="string"/>
+      <bind nodeset="/r/n/client_ok" required="true()" type="select1"/>
+      <bind calculate="if(selected( /r/n/client_ok , &quot;unknown&quot;), &quot;Trace client and add additional notes &quot;, if(selected( /r/n/client_ok , &quot;no&quot;),&quot;Review Client and add additional notes&quot;, &quot;Please add additional notes&quot;))" nodeset="/r/n/additional_notes_text" required="false()" type="string"/>
+      <bind nodeset="/r/n/additional_notes" required="false()" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group appearance="field-list" ref="/r/inputs">
+      <label>Patient</label>
+      <input appearance="hidden" ref="/r/inputs/source">
+        <label>Source</label>
+      </input>
+      <input appearance="hidden" ref="/r/inputs/source_id">
+        <label>Source ID</label>
+      </input>
+      <group ref="/r/inputs/contact">
+        <label>Contact</label>
+        <input appearance="db-object" ref="/r/inputs/contact/_id">
+          <label>What is the patient's name?</label>
+          <hint>Select a person from list</hint>
+        </input>
+        <input appearance="hidden" ref="/r/inputs/contact/name">
+          <label>Patient Name</label>
+        </input>
+        <input appearance="hidden" ref="/r/inputs/contact/phone">
+          <label>Phone Number</label>
+        </input>
+      </group>
+    </group>
+    <group appearance="field-list" ref="/r/n">
+      <label></label>
+      <input ref="/r/n/n_header">
+        <label>&lt;h4 style="color: #337ab7;"&gt;&lt;p&gt;If there is no SMS text response from the client by day 8, healthcare worker reviews messages, call logs, and visits. If no contact, healthcare worker tries to contact via phone to the client and/or the next kin to find out if they are okay. This form reports on the outcomes of those actions with three possible outcomes:&lt;/p&gt;
+&lt;p&gt;1) Client reached but does NOT need care;&lt;/p&gt;
+&lt;p&gt;2) Client reached and NEEDS in-person review;&lt;/p&gt; 
+&lt;p&gt;3) Client not reached and needs tracing&lt;/p&gt;&lt;/h4&gt;</label>
+      </input>
+      <select1 ref="/r/n/client_ok">
+        <label>Is VMMC Client okay?</label>
+        <item>
+          <label>Yes, no follow-up needed</label>
+          <value>yes</value>
+        </item>
+        <item>
+          <label>No, client needs care</label>
+          <value>no</value>
+        </item>
+        <item>
+          <label>Unknown, client not reached</label>
+          <value>unknown</value>
+        </item>
+      </select1>
+      <input ref="/r/n/additional_notes">
+        <label><output value=" /r/n/additional_notes_text "/></label>
+      </input>
+    </group>
+  </h:body>
+</h:html>

@@ -33,25 +33,16 @@
             <value>Winnie Mandela Clinic</value>
           </text>
           <text id="static_instance-sites-1">
-            <value>Tsakane Clinic</value>
-          </text>
-          <text id="static_instance-sites-2">
-            <value>Katlehong Clinic</value>
-          </text>
-          <text id="static_instance-sites-3">
-            <value>Mobile</value>
-          </text>
-          <text id="static_instance-sites-4">
             <value>Bafokeng</value>
           </text>
-          <text id="static_instance-sites-5">
+          <text id="static_instance-sites-2">
             <value>Letlhabile</value>
           </text>
-          <text id="static_instance-sites-6">
+          <text id="static_instance-sites-3">
             <value>Mogwase Clinic</value>
           </text>
-          <text id="static_instance-sites-7">
-            <value>Mobile</value>
+          <text id="static_instance-sites-4">
+            <value>Bapong Clinic</value>
           </text>
           <text id="static_instance-visit-0">
             <value>Circumcision</value>
@@ -209,43 +200,28 @@
         <root>
           <item>
             <itextId>static_instance-sites-0</itextId>
-            <district>ekurhuleni</district>
             <name>winnie_mandela</name>
+            <district>ekurhuleni</district>
           </item>
           <item>
             <itextId>static_instance-sites-1</itextId>
-            <district>ekurhuleni</district>
-            <name>tsakane</name>
+            <name>bafokeng</name>
+            <district>bojanala</district>
           </item>
           <item>
             <itextId>static_instance-sites-2</itextId>
-            <district>ekurhuleni</district>
-            <name>katlehong</name>
+            <name>letlhabile</name>
+            <district>bojanala</district>
           </item>
           <item>
             <itextId>static_instance-sites-3</itextId>
-            <district>ekurhuleni</district>
-            <name>mobile-e</name>
+            <name>mogwase</name>
+            <district>bojanala</district>
           </item>
           <item>
             <itextId>static_instance-sites-4</itextId>
+            <name>bapong</name>
             <district>bojanala</district>
-            <name>bafokeng</name>
-          </item>
-          <item>
-            <itextId>static_instance-sites-5</itextId>
-            <district>bojanala</district>
-            <name>letlhabile</name>
-          </item>
-          <item>
-            <itextId>static_instance-sites-6</itextId>
-            <district>bojanala</district>
-            <name>mogwase</name>
-          </item>
-          <item>
-            <itextId>static_instance-sites-7</itextId>
-            <district>bojanala</district>
-            <name>mobile-b</name>
           </item>
         </root>
       </instance>
@@ -267,7 +243,7 @@
       <bind nodeset="/r/location/site" relevant="not( /r/location/district  = '')" required="true()" type="select1"/>
       <bind nodeset="/r/reviewer" required="true()" type="select1"/>
       <bind nodeset="/r/ae_severity" required="true()" type="select1"/>
-      <bind constraint="regex(., '^(AN|BL|IN|OT|PA|SD|SX|WD|OA)-[A-C]$')" jr:constraintMsg="Please enter valid AE Code" nodeset="/r/ae_code" relevant="selected( /r/ae_severity , 'mild') or selected( /r/ae_severity , 'moderate') or selected( /r/ae_severity , 'severe')" type="string"/>
+      <bind constraint="regex(., '^(AN|BL|IN|OT|PA|SD|SX|WD|OA)-[A-C]$') or regex(., '^(an|bl|in|ot|pa|sd|sx|wd|oa)-[a-c]$')" jr:constraintMsg="Please enter valid AE Code" nodeset="/r/ae_code" relevant="selected( /r/ae_severity , 'mild') or selected( /r/ae_severity , 'moderate') or selected( /r/ae_severity , 'severe')" type="string"/>
       <bind nodeset="/r/care_provider" type="string"/>
       <bind nodeset="/r/comments" type="string"/>
       <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>

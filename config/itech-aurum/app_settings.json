@@ -460,7 +460,7 @@
           "optional": false
         },
         "extra.date": {
-          "expr": "new Date(doc.reported_date).getDate()+'-'+ (new Date(doc.reported_date).getMonth()+1) +'-' + new Date(doc.reported_date).getFullYear()+ ' ' + new Date(doc.reported_date).getHours() + ':' +  new Date(doc.reported_date).getMinutes()",
+          "expr": "doc.reported_date/1000",
           "optional": false
         },
         "extra.name": {

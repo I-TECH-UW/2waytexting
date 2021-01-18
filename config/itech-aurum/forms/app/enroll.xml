@@ -87,7 +87,7 @@
       <bind calculate="&quot;patient&quot;" nodeset="/enroll/person/role" type="string"/>
       <bind constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please enter valid VMMC client name" nodeset="/enroll/person/name" required="true()" type="string"/>
       <bind constraint="regex(., '^[A-Za-z0-9]{1,7}$')" jr:constraintMsg="Please enter valid VMMC client number" nodeset="/enroll/person/vmmc_no" required="true()" type="string"/>
-      <bind constraint="regex(., '^[0-9]+$')" jr:constraintMsg="Please enter valid 2wT study number" nodeset="/enroll/person/study_no" required="true()" type="string"/>
+      <bind constraint="regex(., '^[0-9]{4}$')" jr:constraintMsg="Please enter valid 2wT study number" nodeset="/enroll/person/study_no" required="true()" type="string"/>
       <bind nodeset="/enroll/person/n_study" readonly="true()" type="string"/>
       <bind jr:requiredMsg="Please confirm consent" nodeset="/enroll/person/consent" required="true()" type="select1"/>
       <bind nodeset="/enroll/person/randomization" required="true()" type="select1"/>

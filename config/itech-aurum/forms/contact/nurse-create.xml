@@ -20,7 +20,7 @@
       <bind nodeset="/data/nurse/parent" type="string"/>
       <bind nodeset="/data/nurse/type" type="string"/>
       <bind nodeset="/data/nurse/role" type="string"/>
-      <bind constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space." nodeset="/data/nurse/name" required="true()" type="string"/>
+      <bind nodeset="/data/nurse/name" required="true()" type="string"/>
       <bind calculate="true()" nodeset="/data/nurse/is_nurse" type="string"/>
       <bind calculate="concat('uuid:', uuid())" nodeset="/data/meta/instanceID" readonly="true()" type="string"/>
     </model>

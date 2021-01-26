@@ -617,6 +617,7 @@
       "create_key": "contact.type.person.new",
       "edit_key": "contact.type.person.edit",
       "primary_contact_key": "clinic.field.contact",
+      "edit_form": "form:contact:person:edit",
       "parents": [
         "district_hospital",
         "health_center",

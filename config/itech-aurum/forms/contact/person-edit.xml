@@ -6,18 +6,10 @@
       <instance>
         <data delimiter="#" id="contact:person:edit" prefix="J1!contact:person:edit!" version="2017-10-16 00:00:00">
           <person>
-            <parent>PARENT</parent>
-            <type>person</type>
-            <name/>
             <vmmc_no/>
             <study_no/>
-            <enrollment_date/>
-            <n/>
-            <consent/>
-            <randomization/>
-            <phone/>
-            <language_preference/>
             <mobile_company/>
+            <mobile_other/>
             <transport_cost/>
             <clinic_trip>
               <hours/>
@@ -32,18 +24,10 @@
           </meta>
         </data>
       </instance>
-      <bind nodeset="/data/person/parent" type="string"/>
-      <bind nodeset="/data/person/type" type="string"/>
-      <bind nodeset="/data/person/name" required="true()" type="string"/>
-      <bind constraint="regex(., '[0-9]{5,9}')" jr:constraintMsg="Must be 5 – 9 numeric digits" nodeset="/data/person/vmmc_no" required="true()" type="string"/>
-      <bind constraint="regex(., '[0-9]{5,9}')" jr:constraintMsg="Must be 5 – 9 numeric digits" nodeset="/data/person/study_no" required="true()" type="string"/>
-      <bind constraint=". &lt;= today()" jr:constraintMsg="Enrollment date must not be in the future I.e today or before" nodeset="/data/person/enrollment_date" required="true()" type="date"/>
-      <bind nodeset="/data/person/n" readonly="true()" type="string"/>
-      <bind nodeset="/data/person/consent" required="true()" type="select1"/>
-      <bind nodeset="/data/person/randomization" required="true()" type="select1"/>
-      <bind constraint="regex(., '^\+?\d{3,15}$')" nodeset="/data/person/phone" required="true()" type="string"/>
-      <bind nodeset="/data/person/language_preference" required="true()" type="select1"/>
+      <bind constraint="regex(., '^[A-Za-z0-9]{1,7}$')" jr:constraintMsg="Please enter valid VMMC client number" nodeset="/data/person/vmmc_no" required="true()" type="string"/>
+      <bind constraint="regex(., '^[0-9]{4}$')" jr:constraintMsg="Please enter valid 2wT study number" nodeset="/data/person/study_no" required="true()" type="string"/>
       <bind nodeset="/data/person/mobile_company" required="true()" type="select1"/>
+      <bind nodeset="/data/person/mobile_other" relevant="selected(../mobile_company, 'other')" type="string"/>
       <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/data/person/transport_cost" required="true()" type="decimal"/>
       <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/data/person/clinic_trip/hours" type="int"/>
       <bind constraint=". &gt;= 0 and . &lt; 60" jr:constraintMsg="Must be between 0 and 59" nodeset="/data/person/clinic_trip/minutes" type="int"/>
@@ -55,79 +39,41 @@
   </h:head>
   <h:body class="pages">
     <group appearance="field-list" ref="/data/person">
-      <input appearance="hidden" ref="/data/person/parent">
-        <label>Parent</label>
-      </input>
-      <input appearance="hidden" ref="/data/person/type">
-        <label>Person Type</label>
-        <hint>mandatory</hint>
-      </input>
-      <input ref="/data/person/name">
-        <label>Client Name</label>
-      </input>
+      <label></label>
       <input ref="/data/person/vmmc_no">
         <label>VMMC Client Number</label>
+        <hint>e.g. WM0000</hint>
       </input>
       <input ref="/data/person/study_no">
         <label>2WT Study Number</label>
+        <hint>e.g. 0001</hint>
       </input>
-      <input ref="/data/person/enrollment_date">
-        <label>Enrollment Date</label>
-      </input>
-      <input ref="/data/person/n">
-        <label>Study coordinator to administer the following questions</label>
-      </input>
-      <select1 ref="/data/person/consent">
-        <label>Confirmation of consent</label>
-        <item>
-          <label>Yes</label>
-          <value>yes</value>
-        </item>
-        <item>
-          <label>No</label>
-          <value>no</value>
-        </item>
-      </select1>
-      <select1 ref="/data/person/randomization">
-        <label>Result of randomization</label>
-        <item>
-          <label>Texting</label>
-          <value>texting</value>
-        </item>
-        <item>
-          <label>Routine care</label>
-          <value>routine</value>
-        </item>
-      </select1>
-      <input ref="/data/person/phone">
-        <label>Mobile phone number</label>
-      </input>
-      <select1 ref="/data/person/language_preference">
-        <label>What is this client's language of preference for the texts?</label>
-        <item>
-          <label>English</label>
-          <value>english</value>
-        </item>
-        <item>
-          <label>Shona</label>
-          <value>shona</value>
-        </item>
-      </select1>
       <select1 ref="/data/person/mobile_company">
         <label>What is your cell phone company?</label>
         <item>
-          <label>Econet</label>
-          <value>econet</value>
+          <label>MTN</label>
+          <value>mtn</value>
         </item>
         <item>
-          <label>Net.One</label>
-          <value>netone</value>
+          <label>Vodacom</label>
+          <value>vodacom</value>
         </item>
         <item>
-          <label>Telecel</label>
-          <value>telecel</value>
+          <label>Cell C</label>
+          <value>cellc</value>
+        </item>
+        <item>
+          <label>Telcom</label>
+          <value>telcom</value>
+        </item>
+        <item>
+          <label>Other</label>
+          <value>other</value>
         </item>
       </select1>
+      <input ref="/data/person/mobile_other">
+        <label>Please enter your cell phone company</label>
+      </input>
       <input ref="/data/person/transport_cost">
         <label>How much did you pay in transportation to come to the clinic?</label>
       </input>
@@ -148,6 +94,10 @@
         <item>
           <label>Daily</label>
           <value>daily</value>
+        </item>
+        <item>
+          <label>Weekly</label>
+          <value>weekly</value>
         </item>
         <item>
           <label>Monthly</label>

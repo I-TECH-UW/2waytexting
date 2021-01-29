@@ -4,7 +4,9 @@ const thisLineage = lineage;
 const allReports = reports;
 
 const isPatient = () => (thisContact.role === 'patient' || !thisContact.role);
-
+const context = {
+    isContact: 'yes'
+};
 
 
 const fields = [
@@ -66,6 +68,7 @@ const cards = [
 ];
 
 module.exports = {
+    context: context,
     fields: fields,
     cards: cards
 };

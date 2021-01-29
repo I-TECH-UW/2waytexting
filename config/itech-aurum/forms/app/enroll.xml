@@ -32,6 +32,12 @@
           <phone/>
           <language_preference/>
           <randomization/>
+          <ctx/>
+          <editing/>
+          <forbid>
+            <n_edit/>
+            <no_edit>0</no_edit>
+          </forbid>
           <person db-doc="true">
             <parent>
               <_id/>
@@ -81,6 +87,11 @@
       <bind calculate="../person/phone" nodeset="/enroll/phone" type="string"/>
       <bind calculate="../person/language_preference" nodeset="/enroll/language_preference" type="string"/>
       <bind calculate="../person/randomization" nodeset="/enroll/randomization" type="string"/>
+      <bind calculate="instance('contact-summary')/context/isContact" nodeset="/enroll/ctx" type="string"/>
+      <bind calculate="if( /enroll/ctx  = 'yes', 'no', 'yes')" nodeset="/enroll/editing" type="string"/>
+      <bind nodeset="/enroll/forbid" relevant="../editing = 'yes'"/>
+      <bind nodeset="/enroll/forbid/n_edit" readonly="true()" type="string"/>
+      <bind constraint=". = 1" nodeset="/enroll/forbid/no_edit" type="int"/>
       <bind calculate="../../../inputs/contact/_id" nodeset="/enroll/person/parent/_id" type="string"/>
       <bind calculate="../../../../inputs/contact/parent/_id" nodeset="/enroll/person/parent/parent/_id" type="string"/>
       <bind calculate="&quot;person&quot;" nodeset="/enroll/person/type" type="string"/>
@@ -136,6 +147,14 @@
           </input>
         </group>
       </group>
+    </group>
+    <group appearance="field-list" ref="/enroll/forbid">
+      <input ref="/enroll/forbid/n_edit">
+        <label>&lt;span style="color:red;"&gt;You can not edit this form. Please cancel.&lt;/span&gt;</label>
+      </input>
+      <input appearance="hidden" ref="/enroll/forbid/no_edit">
+        <label></label>
+      </input>
     </group>
     <group appearance="field-list" ref="/enroll/person">
       <label></label>

@@ -149,6 +149,7 @@
       </group>
     </group>
     <group appearance="field-list" ref="/enroll/forbid">
+      <label></label>
       <input ref="/enroll/forbid/n_edit">
         <label>&lt;span style="color:red;"&gt;You can not edit this form. Please cancel.&lt;/span&gt;</label>
       </input>

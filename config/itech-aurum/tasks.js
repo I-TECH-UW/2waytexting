@@ -12,7 +12,7 @@ module.exports = [
       return Utils.isFormSubmittedInWindow(
         contact.reports,
         'day2_sms',
-        Utils.addDate(dueDate, -event.start).getTime(),
+        contact.contact.reported_date,
         Utils.addDate(dueDate, event.end + 1).getTime()
       );
     },
@@ -41,7 +41,7 @@ module.exports = [
       return Utils.isFormSubmittedInWindow(
         contact.reports,
         'day7_sms',
-        Utils.addDate(dueDate, -event.start).getTime(),
+        contact.contact.reported_date,
         Utils.addDate(dueDate, event.end + 1).getTime()
       );
     },
@@ -94,7 +94,7 @@ module.exports = [
       return Utils.isFormSubmittedInWindow(
         contact.reports,
         'referral_confirmation',
-        Utils.addDate(dueDate, -event.start).getTime(),
+        report.reported_date,
         Utils.addDate(dueDate, event.end + 1).getTime()
       );
     },
@@ -120,7 +120,7 @@ module.exports = [
       const noContactAlreadySubmitted = Utils.isFormSubmittedInWindow(
         contact.reports,
         'day8_no_contact',
-        Utils.addDate(dueDate, -event.start).getTime(),
+        report.reported_date,
         Utils.addDate(dueDate, event.end + 1).getTime()
       );
 
@@ -157,7 +157,7 @@ module.exports = [
       const noContactAlreadySubmitted = Utils.isFormSubmittedInWindow(
         contact.reports,
         'day14_no_contact',
-        Utils.addDate(dueDate, -event.start).getTime(),
+        report.reported_date,
         Utils.addDate(dueDate, event.end + 1).getTime()
       );
 

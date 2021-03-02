@@ -5,14 +5,14 @@
     <model>
       <instance>
         <data delimiter="#" id="contact:health_center:create" prefix="J1!contact:health_center:create!" version="2018-10-11  12-08">
-          <i />
+          <i/>
           <meta tag="hidden">
-            <instanceID />
+            <instanceID/>
           </meta>
         </data>
       </instance>
-      <bind nodeset="/data/i" required="true()" type="int" />
-      <bind calculate="concat('uuid:', uuid())" nodeset="/data/meta/instanceID" readonly="true()" type="string" />
+      <bind nodeset="/data/i" required="true()" type="int"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/data/meta/instanceID" readonly="true()" type="string"/>
     </model>
   </h:head>
   <h:body class="pages">

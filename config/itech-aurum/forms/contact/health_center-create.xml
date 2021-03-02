@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <h:head>
     <h:title>Creating health center is disabled click cancel to exit</h:title>
     <model>
       <instance>
-        <data id="contact:health_center:create" prefix="J1!contact:health_center:create!" delimiter="#" version="2018-10-11  12-08">
-          <i/>
+        <data delimiter="#" id="contact:health_center:create" prefix="J1!contact:health_center:create!" version="2018-10-11  12-08">
+          <i />
           <meta tag="hidden">
-            <instanceID/>
+            <instanceID />
           </meta>
         </data>
       </instance>
-      <bind nodeset="/data/i" type="int" required="true()"/>
-      <bind nodeset="/data/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
+      <bind nodeset="/data/i" required="true()" type="int" />
+      <bind calculate="concat('uuid:', uuid())" nodeset="/data/meta/instanceID" readonly="true()" type="string" />
     </model>
   </h:head>
   <h:body class="pages">

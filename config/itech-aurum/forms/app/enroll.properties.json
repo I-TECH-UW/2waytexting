@@ -4,5 +4,7 @@
     "person": false,
     "place": true,
     "expression": "['clinic', 'health_center', 'district_hospital'].indexOf(contact.type) !== -1"
-  }
+  },
+  "subject_key": "enroll.report.title",
+  "title": "Enrollment Form"
 }

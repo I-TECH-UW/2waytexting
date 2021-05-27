@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
     <h:title>VMMC Client Visit</h:title>
     <model>
@@ -71,7 +71,7 @@
         </translation>
       </itext>
       <instance>
-        <r delimiter="#" id="client_visit" prefix="J1!client_visit!" version="2017-09-30 00:00:00">
+        <r id="client_visit" prefix="J1!client_visit!" delimiter="#" version="2017-09-30 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -228,25 +228,25 @@
       <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
       <bind nodeset="/r/inputs/source" type="string"/>
       <bind nodeset="/r/inputs/source_id" type="string"/>
-      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/_id" type="db:person" required="true()"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
-      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
-      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
-      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
+      <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
+      <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
+      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
       <bind nodeset="/r/n" readonly="true()" type="string"/>
-      <bind nodeset="/r/visit" required="true()" type="select1"/>
-      <bind nodeset="/r/phone_credit" relevant="selected( /r/visit , 'day14')" required="true()" type="select1"/>
-      <bind nodeset="/r/explanation" relevant="selected( /r/phone_credit , 'no')" required="true()" type="string"/>
-      <bind constraint=". &lt; today()" jr:constraintMsg="Please select current or previous date" nodeset="/r/visit_date" required="true()" type="date"/>
-      <bind nodeset="/r/location/district" required="true()" type="select1"/>
-      <bind nodeset="/r/location/site" relevant="not( /r/location/district  = '')" required="true()" type="select1"/>
-      <bind nodeset="/r/reviewer" required="true()" type="select1"/>
-      <bind nodeset="/r/ae_severity" required="true()" type="select1"/>
-      <bind constraint="regex(., '^(AN|BL|IN|OT|PA|SD|SX|WD|OA)-[A-C]$') or regex(., '^(an|bl|in|ot|pa|sd|sx|wd|oa)-[a-c]$')" jr:constraintMsg="Please enter valid AE Code" nodeset="/r/ae_code" relevant="selected( /r/ae_severity , 'mild') or selected( /r/ae_severity , 'moderate') or selected( /r/ae_severity , 'severe')" type="string"/>
+      <bind nodeset="/r/visit" type="select1" required="true()"/>
+      <bind nodeset="/r/phone_credit" type="select1" required="true()" relevant="selected( /r/visit , 'day14')"/>
+      <bind nodeset="/r/explanation" type="string" required="true()" relevant="selected( /r/phone_credit , 'no')"/>
+      <bind nodeset="/r/visit_date" type="date" jr:constraintMsg="Please select current or previous date" required="true()" constraint=". &lt; today()"/>
+      <bind nodeset="/r/location/district" type="select1" required="true()"/>
+      <bind nodeset="/r/location/site" type="select1" required="true()" relevant="not( /r/location/district  = '')"/>
+      <bind nodeset="/r/reviewer" type="select1" required="true()"/>
+      <bind nodeset="/r/ae_severity" type="select1" required="true()"/>
+      <bind nodeset="/r/ae_code" type="string" jr:constraintMsg="Please enter valid AE Code" constraint="regex(., '^(AN|BL|IN|OT|PA|SD|SX|WD|OA)-[A-C]$') or regex(., '^(an|bl|in|ot|pa|sd|sx|wd|oa)-[a-c]$')" relevant="selected( /r/ae_severity , 'mild') or selected( /r/ae_severity , 'moderate') or selected( /r/ae_severity , 'severe')"/>
       <bind nodeset="/r/care_provider" type="string"/>
       <bind nodeset="/r/comments" type="string"/>
-      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+      <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
   <h:body class="pages">

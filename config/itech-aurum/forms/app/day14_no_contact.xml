@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
     <h:title>Follow up for no contact: Day 14</h:title>
     <model>
       <instance>
-        <r delimiter="#" id="day14_no_contact" prefix="J1!day14_no_contact!" version="2020-03-06 00:00:00">
+        <r id="day14_no_contact" prefix="J1!day14_no_contact!" delimiter="#" version="2020-03-06 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -40,17 +40,17 @@
       <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
       <bind nodeset="/r/inputs/source" type="string"/>
       <bind nodeset="/r/inputs/source_id" type="string"/>
-      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/_id" type="db:person" required="true()"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
-      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
-      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
-      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
+      <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
+      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
+      <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
       <bind nodeset="/r/n/n_header" readonly="true()" type="string"/>
-      <bind nodeset="/r/n/client_ok" required="true()" type="select1"/>
-      <bind calculate="if(selected( /r/n/client_ok , &quot;unknown&quot;), &quot;Trace client and add additional notes &quot;, if(selected( /r/n/client_ok , &quot;no&quot;),&quot;Review Client and add additional notes&quot;, &quot;Please add additional notes&quot;))" nodeset="/r/n/additional_notes_text" required="false()" type="string"/>
-      <bind nodeset="/r/n/additional_notes" required="false()" type="string"/>
-      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+      <bind nodeset="/r/n/client_ok" type="select1" required="true()"/>
+      <bind nodeset="/r/n/additional_notes_text" type="string" required="false()" calculate="if(selected( /r/n/client_ok , &quot;unknown&quot;), &quot;Trace client and add additional notes &quot;, if(selected( /r/n/client_ok , &quot;no&quot;),&quot;Review Client and add additional notes&quot;, &quot;Please add additional notes&quot;))"/>
+      <bind nodeset="/r/n/additional_notes" type="string" required="false()"/>
+      <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
   <h:body class="pages">

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
     <h:title>Received SMS: potential AE</h:title>
     <model>
       <instance>
-        <r delimiter="#" id="potential_ae" prefix="J1!potential_ae!" version="2017-09-30 00:00:00">
+        <r id="potential_ae" prefix="J1!potential_ae!" delimiter="#" version="2017-09-30 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -51,24 +51,24 @@
       <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
       <bind nodeset="/r/inputs/source" type="string"/>
       <bind nodeset="/r/inputs/source_id" type="string"/>
-      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/_id" type="db:person" required="true()"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
-      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
-      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
-      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
-      <bind jr:requiredMsg="Please select one option" nodeset="/r/note/g_post_mc/days_post_mc" required="true()" type="select1"/>
-      <bind nodeset="/r/note/g_post_mc/specify" relevant="selected( /r/note/g_post_mc/days_post_mc , 'other')" required="true()" type="string"/>
-      <bind jr:requiredMsg="Please select all options that apply" nodeset="/r/note/g_symptoms/symptoms" required="true()" type="select"/>
-      <bind nodeset="/r/note/g_symptoms/other_symptom" relevant="selected( /r/note/g_symptoms/symptoms , 'other')" required="true()" type="string"/>
+      <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
+      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
+      <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
+      <bind nodeset="/r/note/g_post_mc/days_post_mc" type="select1" required="true()" jr:requiredMsg="Please select one option"/>
+      <bind nodeset="/r/note/g_post_mc/specify" type="string" required="true()" relevant="selected( /r/note/g_post_mc/days_post_mc , 'other')"/>
+      <bind nodeset="/r/note/g_symptoms/symptoms" type="select" required="true()" jr:requiredMsg="Please select all options that apply"/>
+      <bind nodeset="/r/note/g_symptoms/other_symptom" type="string" required="true()" relevant="selected( /r/note/g_symptoms/symptoms , 'other')"/>
       <bind nodeset="/r/note/followup_request" type="select1"/>
       <bind nodeset="/r/note/followup_method" type="select1"/>
       <bind nodeset="/r/note/ae" type="select1"/>
-      <bind nodeset="/r/note/severity" relevant="selected( /r/note/ae , 'yes')" required="true()" type="select1"/>
+      <bind nodeset="/r/note/severity" type="select1" required="true()" relevant="selected( /r/note/ae , 'yes')"/>
       <bind nodeset="/r/note/info" type="string"/>
       <bind nodeset="/r/note/client_return" type="select1"/>
-      <bind nodeset="/r/note/explanation" relevant="selected( /r/note/client_return , 'no')" type="string"/>
-      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+      <bind nodeset="/r/note/explanation" type="string" relevant="selected( /r/note/client_return , 'no')"/>
+      <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
   <h:body class="pages">

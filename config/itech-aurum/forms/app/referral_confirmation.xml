@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
     <h:title>Confirm Clinic Visit Following SMS Referral</h:title>
     <model>
       <instance>
-        <r delimiter="#" id="referral_confirmation" prefix="J1!referral_confirmation!" version="2017-09-30 00:00:00">
+        <r id="referral_confirmation" prefix="J1!referral_confirmation!" delimiter="#" version="2017-09-30 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -43,22 +43,22 @@
       <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
       <bind nodeset="/r/inputs/source" type="string"/>
       <bind nodeset="/r/inputs/source_id" type="string"/>
-      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/_id" type="db:person" required="true()"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
       <bind nodeset="/r/inputs/contact/reported_date" type="string"/>
-      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
-      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
-      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
-      <bind calculate="../inputs/contact/reported_date" nodeset="/r/c_reported_date" type="string"/>
-      <bind calculate="today()" nodeset="/r/first_visit" type="string"/>
+      <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
+      <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
+      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
+      <bind nodeset="/r/c_reported_date" type="string" calculate="../inputs/contact/reported_date"/>
+      <bind nodeset="/r/first_visit" type="string" calculate="today()"/>
       <bind nodeset="/r/note" readonly="true()" type="string"/>
-      <bind nodeset="/r/return" required="true()" type="select1"/>
-      <bind constraint=". &lt;= today()" jr:constraintMsg="Please select current or previous date" nodeset="/r/visit_date" relevant="selected( /r/return , 'yes')" required="true()" type="date"/>
-      <bind nodeset="/r/trace" relevant="selected( /r/return , 'no')" required="true()" type="select1"/>
-      <bind nodeset="/r/explanation" relevant="selected( /r/trace , 'no')" required="true()" type="string"/>
-      <bind nodeset="/r/comments" relevant="selected( /r/trace , 'yes')" type="string"/>
-      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+      <bind nodeset="/r/return" type="select1" required="true()"/>
+      <bind nodeset="/r/visit_date" type="date" required="true()" relevant="selected( /r/return , 'yes')" jr:constraintMsg="Please select current or previous date" constraint=". &lt;= today()"/>
+      <bind nodeset="/r/trace" type="select1" required="true()" relevant="selected( /r/return , 'no')"/>
+      <bind nodeset="/r/explanation" type="string" required="true()" relevant="selected( /r/trace , 'no')"/>
+      <bind nodeset="/r/comments" type="string" relevant="selected( /r/trace , 'yes')"/>
+      <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
   <h:body class="pages">

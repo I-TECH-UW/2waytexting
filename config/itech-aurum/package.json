@@ -7,11 +7,10 @@
   },
   "scripts": {
     "eslint": "eslint **.js",
-    "test": "npm run compile-forms && npm run compile-app-settings && npm run unittest",
-    "unittest": "cross-env TZ=Africa/Johannesburg mocha test/**/*.spec.js --timeout 15000 --slow 500",
+    "test": "npm run eslint && npm run compile-forms && npm run compile-app-settings && npm run unittest",
+    "unittest": "cross-env TZ=Africa/Johannesburg mocha test/{,**}/*.spec.js --timeout 15000 --slow 500",
     "compile-app-settings": "npx medic-conf compile-app-settings",
     "compile-forms": "npx medic-conf convert-app-forms convert-contact-forms",
-    "travis": "npm run test",
     "deploy-app-forms": "npx medic-conf --url=$url convert-app-forms upload-app-forms",
     "deploy-contact-forms": "npx medic-conf --url=$url convert-contact-forms upload-contact-forms",
     "deploy-app-settings": "npx medic-conf --url=$url compile-app-settings upload-app-settings",

@@ -1,15 +1,74 @@
 {
-    "user": {
-      "_id": "site_nurse_uuid",
-      "name": "Site Nurse",
-      "type": "user-settings",
+  "subject": "patient_id",
+  "user": "super_nurse_uuid",
+
+  "ownedBySubject": true,
+  
+  "content": {
+    "source": "user",
+    "source_id": ""
+  },
+
+  "docs": [
+    {
+      "_id": "super_nurse_uuid",
+      "name": "Super Nurse",
+      "type": "contact",
+      "contact_type": "nurse",
       "role": "site_nurse",
-      "roles": ["site_nurse"],
-      "contact_id": "site_nurse_uuid",
-      "facility_id": "site_id"
+      "patient_id": "site_nurse_id",
+      "parent": {
+        "_id": "health_center_id",
+        "parent": {
+          "_id": "district_hospital_id"
+        }
+      }
     },
-    "content": {
-      "source": "user",
-      "source_id": ""
+    
+    {
+      "_id": "health_center_id",
+      "type": "health_center",
+      "name": "Site A",
+      "reported_date": "2000-01-01",
+      "parent": {
+        "_id": "district_hospital_id"
+      },
+      "contact": {
+        "_id": "site_nurse_uuid"
+      }
+    },
+
+    {
+      "_id": "patient_id",
+      "type": "person",
+      "role": "patient",
+      "name": "Client A",
+      "vmmc_no": "WM0001",
+      "study_no": "0001",
+      "n_study": "",
+      "consent": "yes",
+      "randomization": "texting",
+      "phone": "+27000000000",
+      "confirm": "",
+      "language_preference": "english",
+      "mobile_company": "mtn",
+      "transport_cost": "0",
+      "clinic_trip": {
+        "hours": "0",
+        "minutes": "0"
+      },
+      "food_cost": "0",
+      "wage_period": "none",
+      "reported_date": 946677600000,
+      "parent": {
+        "_id": "clinic_id",
+        "parent": {
+          "_id": "health_center_id",
+          "parent": {
+            "_id": "district_hospital_id"
+          }
+        }
+      }
     }
-  }
+  ]
+}

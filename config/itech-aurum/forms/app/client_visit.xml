@@ -33,10 +33,10 @@
             <value>Winnie Mandela Clinic</value>
           </text>
           <text id="static_instance-sites-1">
-            <value>Bafokeng</value>
+            <value>Bafokeng Clinic</value>
           </text>
           <text id="static_instance-sites-2">
-            <value>Letlhabile</value>
+            <value>Mobile Unit</value>
           </text>
           <text id="static_instance-sites-3">
             <value>Mogwase Clinic</value>
@@ -236,14 +236,14 @@
       <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
       <bind nodeset="/r/n" readonly="true()" type="string"/>
       <bind nodeset="/r/visit" type="select1" required="true()"/>
-      <bind nodeset="/r/phone_credit" type="select1" required="true()" relevant="selected( /r/visit , 'day14')"/>
-      <bind nodeset="/r/explanation" type="string" required="true()" relevant="selected( /r/phone_credit , 'no')"/>
-      <bind nodeset="/r/visit_date" type="date" jr:constraintMsg="Please select current or previous date" required="true()" constraint=". &lt; today()"/>
+      <bind nodeset="/r/phone_credit" type="select1" relevant="selected( /r/visit , 'day14')" required="true()"/>
+      <bind nodeset="/r/explanation" type="string" relevant="selected( /r/phone_credit , 'no')" required="true()"/>
+      <bind nodeset="/r/visit_date" type="date" required="true()" jr:constraintMsg="Please select current or previous date" constraint=". &lt; today()"/>
       <bind nodeset="/r/location/district" type="select1" required="true()"/>
-      <bind nodeset="/r/location/site" type="select1" required="true()" relevant="not( /r/location/district  = '')"/>
+      <bind nodeset="/r/location/site" type="select1" relevant="not( /r/location/district  = '')" required="true()"/>
       <bind nodeset="/r/reviewer" type="select1" required="true()"/>
       <bind nodeset="/r/ae_severity" type="select1" required="true()"/>
-      <bind nodeset="/r/ae_code" type="string" jr:constraintMsg="Please enter valid AE Code" constraint="regex(., '^(AN|BL|IN|OT|PA|SD|SX|WD|OA)-[A-C]$') or regex(., '^(an|bl|in|ot|pa|sd|sx|wd|oa)-[a-c]$')" relevant="selected( /r/ae_severity , 'mild') or selected( /r/ae_severity , 'moderate') or selected( /r/ae_severity , 'severe')"/>
+      <bind nodeset="/r/ae_code" type="string" relevant="selected( /r/ae_severity , 'mild') or selected( /r/ae_severity , 'moderate') or selected( /r/ae_severity , 'severe')" jr:constraintMsg="Please enter valid AE Code" constraint="regex(., '^(AN|BL|IN|OT|PA|SD|SX|WD|OA)-[A-C]$') or regex(., '^(an|bl|in|ot|pa|sd|sx|wd|oa)-[a-c]$')"/>
       <bind nodeset="/r/care_provider" type="string"/>
       <bind nodeset="/r/comments" type="string"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>

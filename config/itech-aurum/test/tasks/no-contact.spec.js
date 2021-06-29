@@ -8,7 +8,7 @@ const harness = new TestHarness();
 const { enroll, suspected_ae_reported } = require('../reports');
 const { no_contact } = require('../form-inputs');
 
-describe('No contact task', () => {
+xdescribe('No contact task', () => {
   before(async () => { return await harness.start(); });
   after(async () => { return await harness.stop(); });
   beforeEach(async () => {

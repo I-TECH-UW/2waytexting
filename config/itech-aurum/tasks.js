@@ -6,6 +6,9 @@ module.exports = [
     appliesTo: 'contacts',
     appliesToType: ['person'],
     appliesIf: (contact) => {
+      if (contact.contact.muted) {
+        return false;
+      }
       return contact.contact.randomization && contact.contact.randomization === 'texting';
     },
     resolvedIf: (contact, report, event, dueDate) => {
@@ -35,6 +38,9 @@ module.exports = [
     appliesTo: 'contacts',
     appliesToType: ['person'],
     appliesIf: (contact) => {
+      if (contact.contact.muted) {
+        return false;
+      }
       return contact.contact.randomization && contact.contact.randomization === 'texting';
     },
     resolvedIf: (contact, report, event, dueDate) => {
@@ -64,6 +70,9 @@ module.exports = [
     appliesTo: 'contacts',
     appliesToType: ['person'],
     appliesIf: (contact) => {
+      if (contact.contact.muted) {
+        return false;
+      }
       return !!contact.contact.randomization;
     },
     resolvedIf: (contact) => {
@@ -89,7 +98,12 @@ module.exports = [
     title: 'task.ae-referral.title',
     appliesTo: 'reports',
     appliesToType: ['potential_ae'],
-    appliesIf: (contact, report) => { return Utils.getField(report, 'note.client_return') === 'yes'; },
+    appliesIf: (contact, report) => {
+      if (contact.contact.muted) {
+        return false;
+      }
+      return Utils.getField(report, 'note.client_return') === 'yes'; 
+    },
     resolvedIf: (contact, report, event, dueDate) => {
       return Utils.isFormSubmittedInWindow(
         contact.reports,
@@ -116,6 +130,11 @@ module.exports = [
     title: 'task.day8-no-contact.title',
     appliesTo: 'reports',
     appliesToType: ['enroll'],
+    appliesIf: (contact) => {
+      if (contact.contact.muted) {
+        return false;
+      }
+    },
     resolvedIf: (contact, report, event, dueDate) => {
       const noContactAlreadySubmitted = Utils.isFormSubmittedInWindow(
         contact.reports,
@@ -153,6 +172,11 @@ module.exports = [
     title: 'task.day14-no-contact.title',
     appliesTo: 'reports',
     appliesToType: ['enroll'],
+    appliesIf: (contact) => {
+      if (contact.contact.muted) {
+        return false;
+      }
+    },
     resolvedIf: (contact, report, event, dueDate) => {
       const noContactAlreadySubmitted = Utils.isFormSubmittedInWindow(
         contact.reports,

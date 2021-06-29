@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
     <h:title>Enroll New Person</h:title>
     <model>
       <instance>
-        <enroll delimiter="#" id="enroll" prefix="J1!enroll!" version="2020-03-10 00:00:00">
+        <enroll id="enroll" prefix="J1!enroll!" delimiter="#" version="2020-03-10 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -27,7 +27,7 @@
             </contact>
           </inputs>
           <patient_name/>
-          <patient_uuid db-doc-ref=" /enroll/person " tag="hidden"/>
+          <patient_uuid tag="hidden" db-doc-ref=" /enroll/person "/>
           <place_id tag="hidden"/>
           <phone/>
           <language_preference/>
@@ -77,43 +77,43 @@
       <bind nodeset="/enroll/inputs/source" type="string"/>
       <bind nodeset="/enroll/inputs/source_id" type="string"/>
       <bind nodeset="/enroll/inputs/is_task" type="string"/>
-      <bind nodeset="/enroll/inputs/contact/_id" required="true()" type="db:person"/>
+      <bind nodeset="/enroll/inputs/contact/_id" type="db:person" required="true()"/>
       <bind nodeset="/enroll/inputs/contact/name" type="string"/>
       <bind nodeset="/enroll/inputs/contact/phone" type="string"/>
       <bind nodeset="/enroll/inputs/contact/parent/_id" type="string"/>
-      <bind calculate="../person/name" nodeset="/enroll/patient_name" type="string"/>
-      <bind calculate="person" nodeset="/enroll/patient_uuid" type="string"/>
-      <bind calculate="../inputs/contact/_id" nodeset="/enroll/place_id" type="string"/>
-      <bind calculate="../person/phone" nodeset="/enroll/phone" type="string"/>
-      <bind calculate="../person/language_preference" nodeset="/enroll/language_preference" type="string"/>
-      <bind calculate="../person/randomization" nodeset="/enroll/randomization" type="string"/>
-      <bind calculate="instance('contact-summary')/context/isContact" nodeset="/enroll/ctx" type="string"/>
-      <bind calculate="if( /enroll/ctx  = 'yes', 'no', 'yes')" nodeset="/enroll/editing" type="string"/>
+      <bind nodeset="/enroll/patient_name" type="string" calculate="../person/name"/>
+      <bind nodeset="/enroll/patient_uuid" type="string" calculate="person"/>
+      <bind nodeset="/enroll/place_id" type="string" calculate="../inputs/contact/_id"/>
+      <bind nodeset="/enroll/phone" type="string" calculate="../person/phone"/>
+      <bind nodeset="/enroll/language_preference" type="string" calculate="../person/language_preference"/>
+      <bind nodeset="/enroll/randomization" type="string" calculate="../person/randomization"/>
+      <bind nodeset="/enroll/ctx" type="string" calculate="instance('contact-summary')/context/isContact"/>
+      <bind nodeset="/enroll/editing" type="string" calculate="if( /enroll/ctx  = 'yes', 'no', 'yes')"/>
       <bind nodeset="/enroll/forbid" relevant="../editing = 'yes'"/>
       <bind nodeset="/enroll/forbid/n_edit" readonly="true()" type="string"/>
-      <bind constraint=". = 1" nodeset="/enroll/forbid/no_edit" type="int"/>
-      <bind calculate="../../../inputs/contact/_id" nodeset="/enroll/person/parent/_id" type="string"/>
-      <bind calculate="../../../../inputs/contact/parent/_id" nodeset="/enroll/person/parent/parent/_id" type="string"/>
-      <bind calculate="&quot;person&quot;" nodeset="/enroll/person/type" type="string"/>
-      <bind calculate="&quot;patient&quot;" nodeset="/enroll/person/role" type="string"/>
-      <bind constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please enter valid VMMC client name" nodeset="/enroll/person/name" required="true()" type="string"/>
-      <bind constraint="regex(., '^[A-Za-z0-9]{1,7}$')" jr:constraintMsg="Please enter valid VMMC client number" nodeset="/enroll/person/vmmc_no" required="true()" type="string"/>
-      <bind constraint="regex(., '^[0-9]{4}$')" jr:constraintMsg="Please enter valid 2wT study number" nodeset="/enroll/person/study_no" required="true()" type="string"/>
+      <bind nodeset="/enroll/forbid/no_edit" type="int" constraint=". = 1"/>
+      <bind nodeset="/enroll/person/parent/_id" type="string" calculate="../../../inputs/contact/_id"/>
+      <bind nodeset="/enroll/person/parent/parent/_id" type="string" calculate="../../../../inputs/contact/parent/_id"/>
+      <bind nodeset="/enroll/person/type" type="string" calculate="&quot;person&quot;"/>
+      <bind nodeset="/enroll/person/role" type="string" calculate="&quot;patient&quot;"/>
+      <bind nodeset="/enroll/person/name" type="string" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please enter valid VMMC client name" required="true()"/>
+      <bind nodeset="/enroll/person/vmmc_no" type="string" constraint="regex(., '^[A-Za-z0-9\-]{1,11}$')" jr:constraintMsg="Please enter valid VMMC client number" required="true()"/>
+      <bind nodeset="/enroll/person/study_no" type="string" constraint="regex(., '^[0-9]{4}$')" jr:constraintMsg="Please enter valid 2wT study number" required="true()"/>
       <bind nodeset="/enroll/person/n_study" readonly="true()" type="string"/>
-      <bind jr:requiredMsg="Please confirm consent" nodeset="/enroll/person/consent" required="true()" type="select1"/>
-      <bind nodeset="/enroll/person/randomization" required="true()" type="select1"/>
-      <bind constraint="regex(., '^\+27[0-9]{9}$') or selected( /enroll/person/confirm , 'yes')" jr:constraintMsg="Please enter a valid mobile number" nodeset="/enroll/person/phone" required="true()" type="string"/>
+      <bind nodeset="/enroll/person/consent" type="select1" required="true()" jr:requiredMsg="Please confirm consent"/>
+      <bind nodeset="/enroll/person/randomization" type="select1" required="true()"/>
+      <bind nodeset="/enroll/person/phone" type="string" constraint="regex(., '^\+27[0-9]{9}$') or selected( /enroll/person/confirm , 'yes')" jr:constraintMsg="Please enter a valid mobile number" required="true()"/>
       <bind nodeset="/enroll/person/confirm" type="select"/>
-      <bind nodeset="/enroll/person/language_preference" required="true()" type="select1"/>
-      <bind nodeset="/enroll/person/mobile_company" required="true()" type="select1"/>
-      <bind nodeset="/enroll/person/mobile_other" relevant="selected(../mobile_company, 'other')" required="false()" type="string"/>
-      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/enroll/person/transport_cost" required="true()" type="int"/>
-      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/enroll/person/clinic_trip/hours" type="int"/>
-      <bind constraint=". &gt;= 0 and . &lt; 60" jr:constraintMsg="Must be between 0 and 59" nodeset="/enroll/person/clinic_trip/minutes" type="int"/>
-      <bind constraint=". &gt;= 0" jr:constraintMsg="Please enter a valid amount" nodeset="/enroll/person/food_cost" required="true()" type="int"/>
-      <bind jr:requiredMsg="Please select a wage period" nodeset="/enroll/person/wage_period" required="true()" type="select1"/>
-      <bind constraint=". &gt;= 0" jr:constraintMsg="Please enter a valid amount" nodeset="/enroll/person/wage_amount" relevant=" /enroll/person/wage_period  = 'daily' or  /enroll/person/wage_period  = 'monthly'" required="true()" type="int"/>
-      <bind calculate="concat('uuid:', uuid())" nodeset="/enroll/meta/instanceID" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/person/language_preference" type="select1" required="true()"/>
+      <bind nodeset="/enroll/person/mobile_company" type="select1" required="true()"/>
+      <bind nodeset="/enroll/person/mobile_other" type="string" relevant="selected(../mobile_company, 'other')" required="false()"/>
+      <bind nodeset="/enroll/person/transport_cost" type="int" constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" required="true()"/>
+      <bind nodeset="/enroll/person/clinic_trip/hours" type="int" constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0"/>
+      <bind nodeset="/enroll/person/clinic_trip/minutes" type="int" constraint=". &gt;= 0 and . &lt; 60" jr:constraintMsg="Must be between 0 and 59"/>
+      <bind nodeset="/enroll/person/food_cost" type="int" constraint=". &gt;= 0" jr:constraintMsg="Please enter a valid amount" required="true()"/>
+      <bind nodeset="/enroll/person/wage_period" type="select1" required="true()" jr:requiredMsg="Please select a wage period"/>
+      <bind nodeset="/enroll/person/wage_amount" type="int" relevant=" /enroll/person/wage_period  = 'daily' or  /enroll/person/wage_period  = 'monthly'" constraint=". &gt;= 0" jr:constraintMsg="Please enter a valid amount" required="true()"/>
+      <bind nodeset="/enroll/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
   <h:body class="pages">
@@ -170,11 +170,11 @@
       </input>
       <input appearance="number" ref="/enroll/person/vmmc_no">
         <label>VMMC Client No.</label>
-        <hint>e.g. WM0000</hint>
+        <hint>If a Client visited Winnie Mandela clinic on 16th April, the VMMC Client Number would be WM1604-XXXX</hint>
       </input>
       <input appearance="number" ref="/enroll/person/study_no">
         <label>2WT Study Number</label>
-        <hint>e.g. 0001</hint>
+        <hint>For Winnie Mandela (Urban): Start from 1001 For Bojanala (rural): Start from 2001</hint>
       </input>
       <input ref="/enroll/person/n_study">
         <label>Study coordinator to administer the following questions</label>

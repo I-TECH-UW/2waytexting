@@ -85,7 +85,7 @@
 &lt;p&gt;3) Client not reached and needs tracing&lt;/p&gt;&lt;/h4&gt;</label>
       </input>
       <select1 ref="/r/n/client_ok">
-        <label>Is VMMC Client okay?</label>
+        <label>Unknown, Client LTFU</label>
         <item>
           <label>Yes, no follow-up needed</label>
           <value>yes</value>

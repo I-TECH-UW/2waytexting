@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
     <h:title>Edit Person</h:title>
     <model>
       <instance>
-        <data delimiter="#" id="contact:person:edit" prefix="J1!contact:person:edit!" version="2017-10-16 00:00:00">
+        <data id="contact:person:edit" prefix="J1!contact:person:edit!" delimiter="#" version="2017-10-16 00:00:00">
           <person>
+            <name/>
             <vmmc_no/>
             <study_no/>
             <mobile_company/>
@@ -24,22 +25,26 @@
           </meta>
         </data>
       </instance>
-      <bind constraint="regex(., '^[A-Za-z0-9]{1,7}$')" jr:constraintMsg="Please enter valid VMMC client number" nodeset="/data/person/vmmc_no" required="true()" type="string"/>
-      <bind constraint="regex(., '^[0-9]{4}$')" jr:constraintMsg="Please enter valid 2wT study number" nodeset="/data/person/study_no" required="true()" type="string"/>
-      <bind nodeset="/data/person/mobile_company" required="true()" type="select1"/>
-      <bind nodeset="/data/person/mobile_other" relevant="selected(../mobile_company, 'other')" type="string"/>
-      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/data/person/transport_cost" required="true()" type="decimal"/>
-      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/data/person/clinic_trip/hours" type="int"/>
-      <bind constraint=". &gt;= 0 and . &lt; 60" jr:constraintMsg="Must be between 0 and 59" nodeset="/data/person/clinic_trip/minutes" type="int"/>
-      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/data/person/food_cost" required="true()" type="decimal"/>
-      <bind nodeset="/data/person/wage_period" required="true()" type="select1"/>
-      <bind constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0" nodeset="/data/person/wage_amount" relevant=" /data/person/wage_period  = 'daily' or  /data/person/wage_period  = 'monthly'" required="true()" type="decimal"/>
-      <bind calculate="concat('uuid:', uuid())" nodeset="/data/meta/instanceID" readonly="true()" type="string"/>
+      <bind nodeset="/data/person/name" type="string" required="true()" jr:constraintMsg="Please enter client full name"/>
+      <bind nodeset="/data/person/vmmc_no" type="string" required="true()" jr:constraintMsg="Please enter valid VMMC client number" constraint="regex(., '^[A-Za-z0-9]{1,7}$')"/>
+      <bind nodeset="/data/person/study_no" type="string" required="true()" jr:constraintMsg="Please enter valid 2wT study number" constraint="regex(., '^[0-9]{4}$')"/>
+      <bind nodeset="/data/person/mobile_company" type="select1" required="true()"/>
+      <bind nodeset="/data/person/mobile_other" type="string" relevant="selected(../mobile_company, 'other')"/>
+      <bind nodeset="/data/person/transport_cost" type="decimal" required="true()" jr:constraintMsg="Must be greater than or equal to 0" constraint=". &gt;= 0"/>
+      <bind nodeset="/data/person/clinic_trip/hours" type="int" jr:constraintMsg="Must be greater than or equal to 0" constraint=". &gt;= 0"/>
+      <bind nodeset="/data/person/clinic_trip/minutes" type="int" jr:constraintMsg="Must be between 0 and 59" constraint=". &gt;= 0 and . &lt; 60"/>
+      <bind nodeset="/data/person/food_cost" type="decimal" required="true()" jr:constraintMsg="Must be greater than or equal to 0" constraint=". &gt;= 0"/>
+      <bind nodeset="/data/person/wage_period" type="select1" required="true()"/>
+      <bind nodeset="/data/person/wage_amount" type="decimal" required="true()" jr:constraintMsg="Must be greater than or equal to 0" relevant=" /data/person/wage_period  = 'daily' or  /data/person/wage_period  = 'monthly'" constraint=". &gt;= 0"/>
+      <bind nodeset="/data/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
   <h:body class="pages">
     <group appearance="field-list" ref="/data/person">
       <label></label>
+      <input ref="/data/person/name">
+        <label>Patient Name</label>
+      </input>
       <input ref="/data/person/vmmc_no">
         <label>VMMC Client Number</label>
         <hint>e.g. WM0000</hint>

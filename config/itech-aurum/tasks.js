@@ -131,8 +131,8 @@ module.exports = [
     appliesTo: 'reports',
     appliesToType: ['enroll'],
     appliesIf: (contact) => {
-      if (contact.contact.muted) {
-        return false;
+      if (!contact.contact.muted) {
+        return true;
       }
     },
     resolvedIf: (contact, report, event, dueDate) => {

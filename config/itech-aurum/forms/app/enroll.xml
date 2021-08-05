@@ -96,23 +96,23 @@
       <bind nodeset="/enroll/person/parent/parent/_id" type="string" calculate="../../../../inputs/contact/parent/_id"/>
       <bind nodeset="/enroll/person/type" type="string" calculate="&quot;person&quot;"/>
       <bind nodeset="/enroll/person/role" type="string" calculate="&quot;patient&quot;"/>
-      <bind nodeset="/enroll/person/name" type="string" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" required="true()" jr:constraintMsg="Please enter valid VMMC client name"/>
-      <bind nodeset="/enroll/person/vmmc_no" type="string" constraint="regex(., '^[A-Za-z0-9\-]{1,11}$')" required="true()" jr:constraintMsg="Please enter valid VMMC client number"/>
-      <bind nodeset="/enroll/person/study_no" type="string" constraint="regex(., '^[0-9]{4}$')" required="true()" jr:constraintMsg="Please enter valid 2wT study number"/>
+      <bind nodeset="/enroll/person/name" type="string" jr:constraintMsg="Please enter valid VMMC client name" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" required="true()"/>
+      <bind nodeset="/enroll/person/vmmc_no" type="string" jr:constraintMsg="Please enter valid VMMC client number" constraint="regex(., '^[A-Za-z0-9\-]{1,11}$')" required="true()"/>
+      <bind nodeset="/enroll/person/study_no" type="string" jr:constraintMsg="Please enter valid 2wT study number" constraint="regex(., '^[0-9]{4}$')" required="true()"/>
       <bind nodeset="/enroll/person/n_study" readonly="true()" type="string"/>
-      <bind nodeset="/enroll/person/consent" type="select1" jr:requiredMsg="Please confirm consent" required="true()"/>
+      <bind nodeset="/enroll/person/consent" type="select1" required="true()" jr:requiredMsg="Please confirm consent"/>
       <bind nodeset="/enroll/person/randomization" type="select1" required="true()"/>
-      <bind nodeset="/enroll/person/phone" type="string" constraint="regex(., '^\+27[0-9]{9}$') or selected( /enroll/person/confirm , 'yes')" required="true()" jr:constraintMsg="Please enter a valid mobile number"/>
+      <bind nodeset="/enroll/person/phone" type="string" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., '^\+27[0-9]{9}$') or selected( /enroll/person/confirm , 'yes')" required="true()"/>
       <bind nodeset="/enroll/person/confirm" type="select"/>
       <bind nodeset="/enroll/person/language_preference" type="select1" required="true()"/>
       <bind nodeset="/enroll/person/mobile_company" type="select1" required="true()"/>
       <bind nodeset="/enroll/person/mobile_other" type="string" relevant="selected(../mobile_company, 'other')" required="false()"/>
-      <bind nodeset="/enroll/person/transport_cost" type="int" constraint=". &gt;= 0" required="true()" jr:constraintMsg="Must be greater than or equal to 0"/>
-      <bind nodeset="/enroll/person/clinic_trip/hours" type="int" constraint=". &gt;= 0" jr:constraintMsg="Must be greater than or equal to 0"/>
-      <bind nodeset="/enroll/person/clinic_trip/minutes" type="int" constraint=". &gt;= 0 and . &lt; 60" jr:constraintMsg="Must be between 0 and 59"/>
-      <bind nodeset="/enroll/person/food_cost" type="int" constraint=". &gt;= 0" required="true()" jr:constraintMsg="Please enter a valid amount"/>
-      <bind nodeset="/enroll/person/wage_period" type="select1" jr:requiredMsg="Please select a wage period" required="true()"/>
-      <bind nodeset="/enroll/person/wage_amount" type="int" relevant=" /enroll/person/wage_period  = 'daily' or  /enroll/person/wage_period  = 'monthly'" constraint=". &gt;= 0" required="true()" jr:constraintMsg="Please enter a valid amount"/>
+      <bind nodeset="/enroll/person/transport_cost" type="int" jr:constraintMsg="Must be greater than or equal to 0" constraint=". &gt;= 0" required="true()"/>
+      <bind nodeset="/enroll/person/clinic_trip/hours" type="int" jr:constraintMsg="Must be greater than or equal to 0" constraint=". &gt;= 0"/>
+      <bind nodeset="/enroll/person/clinic_trip/minutes" type="int" jr:constraintMsg="Must be between 0 and 59" constraint=". &gt;= 0 and . &lt; 60"/>
+      <bind nodeset="/enroll/person/food_cost" type="int" jr:constraintMsg="Please enter a valid amount" constraint=". &gt;= 0" required="true()"/>
+      <bind nodeset="/enroll/person/wage_period" type="select1" required="true()" jr:requiredMsg="Please select a wage period"/>
+      <bind nodeset="/enroll/person/wage_amount" type="int" relevant=" /enroll/person/wage_period  != 'none'" constraint=". &gt;= 0" jr:constraintMsg="Please enter a valid amount" required="true()"/>
       <bind nodeset="/enroll/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>

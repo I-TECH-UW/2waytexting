@@ -44,11 +44,11 @@
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
-      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
+      <bind nodeset="/r/patient_id" type="string" calculate="../inputs/contact/_id" required="true()"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
       <bind nodeset="/r/n/n_header" readonly="true()" type="string"/>
       <bind nodeset="/r/n/client_ok" type="select1" required="true()"/>
-      <bind nodeset="/r/n/additional_notes_text" type="string" required="false()" calculate="if(selected( /r/n/client_ok , &quot;unknown&quot;), &quot;Trace client and add additional notes &quot;, if(selected( /r/n/client_ok , &quot;no&quot;),&quot;Review Client and add additional notes&quot;, &quot;Please add additional notes&quot;))"/>
+      <bind nodeset="/r/n/additional_notes_text" type="string" calculate="if(selected( /r/n/client_ok , &quot;unknown&quot;), &quot;Trace client and add additional notes &quot;, if(selected( /r/n/client_ok , &quot;no&quot;),&quot;Review Client and add additional notes&quot;, &quot;Please add additional notes&quot;))" required="false()"/>
       <bind nodeset="/r/n/additional_notes" type="string" required="false()"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
@@ -85,7 +85,7 @@
 &lt;p&gt;3) Client not reached after all attempts and is considered LTFU&lt;/p&gt;&lt;/h4&gt;</label>
       </input>
       <select1 ref="/r/n/client_ok">
-        <label>Unknown, Client LTFU</label>
+        <label>Is VMMC Client okay?</label>
         <item>
           <label>Yes, no follow-up needed</label>
           <value>yes</value>
@@ -95,7 +95,7 @@
           <value>no</value>
         </item>
         <item>
-          <label>Unknown, client not reached</label>
+          <label>Unknown, Client LTFU</label>
           <value>unknown</value>
         </item>
       </select1>

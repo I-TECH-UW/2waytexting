@@ -28,7 +28,6 @@
           </inputs>
           <patient_name/>
           <patient_uuid tag="hidden" db-doc-ref=" /enroll/person "/>
-          <place_id tag="hidden"/>
           <phone/>
           <language_preference/>
           <randomization/>
@@ -83,7 +82,6 @@
       <bind nodeset="/enroll/inputs/contact/parent/_id" type="string"/>
       <bind nodeset="/enroll/patient_name" type="string" calculate="../person/name"/>
       <bind nodeset="/enroll/patient_uuid" type="string" calculate="person"/>
-      <bind nodeset="/enroll/place_id" type="string" calculate="../inputs/contact/_id"/>
       <bind nodeset="/enroll/phone" type="string" calculate="../person/phone"/>
       <bind nodeset="/enroll/language_preference" type="string" calculate="../person/language_preference"/>
       <bind nodeset="/enroll/randomization" type="string" calculate="../person/randomization"/>

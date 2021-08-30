@@ -81,7 +81,7 @@ module.exports = [
       });
     },
     actions: [{
-      form: 'client_visit',
+      form: 'day14_no_contact',
       label: '14 Day Follow up client',
     }],
     events: [{
@@ -131,7 +131,7 @@ module.exports = [
     appliesTo: 'reports',
     appliesToType: ['enroll'],
     appliesIf: (contact) => {
-      if (!contact.contact.muted) {
+      if (!contact.contact.muted && contact.contact.randomization === 'texting') {
         return true;
       }
     },

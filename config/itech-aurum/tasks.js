@@ -147,10 +147,9 @@ module.exports = [
         report.reported_date,
         Utils.addDate(dueDate, 1).getTime())
       );
-
-      const isAfter14days = Utils.addDate(report.reported_date, 14).getTime() < new Date().getTime();
-
-      return noContactAlreadySubmitted || someReportSubmitted || isAfter14days;
+      
+      const isAfter10days = new Date().getTime() > Utils.addDate(dueDate, 3).getTime();
+      return (isAfter10days || noContactAlreadySubmitted || someReportSubmitted);
     },
     actions: [{
       form: 'day8_no_contact',

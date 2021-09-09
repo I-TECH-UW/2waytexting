@@ -30,10 +30,10 @@ describe('Day 2 SMS Task', () => {
     expect(tasks[0].emission.contact).to.include({ name: 'Client A' });
   });
 
-  it('Day 2 SMS Received task should show until Day 365+2 only', async () => {
+  it('Day 2 SMS Received task should show until Day 30+2 only', async () => {
     let tasks = await harness.getTasks();
     expect(tasks).to.be.empty;
-    harness.flush(367);
+    harness.flush(32);
     tasks = await harness.getTasks({ title: 'task.day2-sms.title' });
     expect(tasks).to.have.property('length', 1);
     expect(tasks[0].emission.contact).to.include({ name: 'Client A' });

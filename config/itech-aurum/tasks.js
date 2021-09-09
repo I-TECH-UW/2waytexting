@@ -27,7 +27,7 @@ module.exports = [
       id: 'sms-followup-day-2',
       days: 2,
       start: 0,
-      end: 365
+      end: 30
     }]
   },
 
@@ -65,7 +65,7 @@ module.exports = [
 
   {
     name: 'followup-day-14',
-    icon: 'treatment',
+    icon: 'follow-up',
     title: 'task.followup-day-14.title',
     appliesTo: 'contacts',
     appliesToType: ['person'],
@@ -77,18 +77,30 @@ module.exports = [
     },
     resolvedIf: (contact) => {
       return contact.reports.some(function (rep) {
-        return rep.form === 'client_visit' && rep.fields.visit === 'day14';
+         if (rep.form === 'client_visit' && rep.fields.visit === 'day14') {
+           return true;
+         }
+         if (rep.form === 'day14_in-person_followup') {
+           return true;
+         }
+          // The aurum team had requested that this task is not generated
+          // for men errolled after the 1st of sept, 2021
+         if (rep.reported_date < new Date('2021-09-21').getTime()) {
+           return true;
+         }
+
+         return false;
       });
     },
     actions: [{
-      form: 'day14_no_contact',
+      form: 'day14_in-person_followup',
       label: '14 Day Follow up client',
     }],
     events: [{
       id: 'followup-day-14',
       days: 14,
       start: 2,
-      end: 365
+      end: 30
     }]
   },
 
@@ -189,7 +201,11 @@ module.exports = [
         Utils.addDate(dueDate, 1).getTime())
       );
 
-      return noContactAlreadySubmitted || someReportSubmitted;
+      const clientVisited = contact.reports.some(function (rep) {
+        return rep.form === 'client_visit' && rep.fields.visit === 'day14';
+      });
+
+      return noContactAlreadySubmitted || someReportSubmitted || clientVisited;
     },
     actions: [{
       form: 'day14_no_contact',

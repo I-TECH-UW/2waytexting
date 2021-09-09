@@ -32,7 +32,7 @@ describe('Followup Day 14 Task', () => {
   });
 
   it('Followup Day 14 task should only show up until Day 14 + 365', async () => {
-    harness.flush(14 + 365);
+    harness.flush(14 + 30);
     let tasks = await harness.getTasks({ title: 'task.followup-day-14.title' });
     expect(tasks).to.have.property('length', 1);
     harness.flush(1);

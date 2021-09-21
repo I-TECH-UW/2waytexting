@@ -85,7 +85,7 @@ module.exports = [
          }
           // The aurum team had requested that this task is not generated
           // for men errolled after the 1st of sept, 2021
-         if (rep.reported_date < new Date('2021-09-21').getTime()) {
+         if (rep.reported_date < new Date('2021-09-01').getTime()) {
            return true;
          }
 

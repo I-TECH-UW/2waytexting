@@ -33,15 +33,21 @@
             <value>Winnie Mandela Clinic</value>
           </text>
           <text id="static_instance-sites-1">
-            <value>Bafokeng Clinic</value>
+            <value>Katlegong North Clinic</value>
           </text>
           <text id="static_instance-sites-2">
-            <value>Mobile Unit</value>
+            <value>Tsakane Clinic</value>
           </text>
           <text id="static_instance-sites-3">
-            <value>Mogwase Clinic</value>
+            <value>Bafokeng Clinic</value>
           </text>
           <text id="static_instance-sites-4">
+            <value>Mobile Unit</value>
+          </text>
+          <text id="static_instance-sites-5">
+            <value>Mogwase Clinic</value>
+          </text>
+          <text id="static_instance-sites-6">
             <value>Bapong Clinic</value>
           </text>
           <text id="static_instance-visit-0">
@@ -205,21 +211,31 @@
           </item>
           <item>
             <itextId>static_instance-sites-1</itextId>
+            <name>katlegong_north</name>
+            <district>ekurhuleni</district>
+          </item>
+          <item>
+            <itextId>static_instance-sites-2</itextId>
+            <name>tsakane</name>
+            <district>ekurhuleni</district>
+          </item>
+          <item>
+            <itextId>static_instance-sites-3</itextId>
             <name>bafokeng</name>
             <district>bojanala</district>
           </item>
           <item>
-            <itextId>static_instance-sites-2</itextId>
+            <itextId>static_instance-sites-4</itextId>
             <name>letlhabile</name>
             <district>bojanala</district>
           </item>
           <item>
-            <itextId>static_instance-sites-3</itextId>
+            <itextId>static_instance-sites-5</itextId>
             <name>mogwase</name>
             <district>bojanala</district>
           </item>
           <item>
-            <itextId>static_instance-sites-4</itextId>
+            <itextId>static_instance-sites-6</itextId>
             <name>bapong</name>
             <district>bojanala</district>
           </item>
@@ -233,12 +249,12 @@
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
-      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
+      <bind nodeset="/r/patient_id" type="string" calculate="../inputs/contact/_id" required="true()"/>
       <bind nodeset="/r/n" readonly="true()" type="string"/>
       <bind nodeset="/r/visit" type="select1" required="true()"/>
       <bind nodeset="/r/phone_credit" type="select1" relevant="selected( /r/visit , 'day14')" required="true()"/>
       <bind nodeset="/r/explanation" type="string" relevant="selected( /r/phone_credit , 'no')" required="true()"/>
-      <bind nodeset="/r/visit_date" type="date" required="true()" jr:constraintMsg="Please select current or previous date" constraint=". &lt; today()"/>
+      <bind nodeset="/r/visit_date" type="date" constraint=". &lt; today()" jr:constraintMsg="Please select current or previous date" required="true()"/>
       <bind nodeset="/r/location/district" type="select1" required="true()"/>
       <bind nodeset="/r/location/site" type="select1" relevant="not( /r/location/district  = '')" required="true()"/>
       <bind nodeset="/r/reviewer" type="select1" required="true()"/>

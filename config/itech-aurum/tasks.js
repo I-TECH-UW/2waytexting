@@ -184,7 +184,7 @@ module.exports = [
     appliesTo: 'reports',
     appliesToType: ['enroll'],
     appliesIf: (contact) => {
-      return !contact.contact.muted && contact.contact.randomization !== 'routine'; 
+      return !contact.contact.muted && contact.contact.randomization === 'texting'; 
     },
     resolvedIf: (contact, report, event, dueDate) => {
       const noContactAlreadySubmitted = Utils.isFormSubmittedInWindow(

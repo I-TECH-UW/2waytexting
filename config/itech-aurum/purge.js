@@ -1,7 +1,7 @@
 module.exports = {
-  text_expression: 'at 6 pm on Friday',
+  text_expression: 'at 12 am on Monday',
   run_every_days: 2,
-  cron: '0 1 * * FRI',
+  cron: '0 0 * * MON',
   fn: function(userCtx, contact, reports, messages) {
         const old = Date.now() - (1000 * 60 * 60 * 24 * 90);
         const oldMessages = Date.now() - (1000 * 60 * 60 * 24 * 90);

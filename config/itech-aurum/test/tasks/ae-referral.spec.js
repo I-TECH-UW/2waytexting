@@ -38,12 +38,12 @@ describe('AE referral task', () => {
     expect(tasks).to.have.property('length', 0);
   });
 
-  it('AE Referral task should only show up until Day 2 + 365 after the report', async () => {
+  xit('AE Referral task should only show up until Day 2 + 30 after the report', async () => {
     const formFilled = await harness.fillForm('potential_ae', ...potential_ae.day5_pain_called);
     expect(formFilled.errors).to.be.empty;
     let tasks = await harness.getTasks({ title: 'task.ae-referral.title' });
     expect(tasks).to.have.property('length', 1);
-    harness.flush(367);
+    harness.flush(30);
     tasks = await harness.getTasks({ title: 'task.ae-referral.title' });
     expect(tasks).to.have.property('length', 1);
     harness.flush(1);

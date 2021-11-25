@@ -1,3 +1,5 @@
+const TASK_LIFESPAN = 30;
+
 module.exports = [
   {
     name: 'day2-sms',
@@ -27,7 +29,7 @@ module.exports = [
       id: 'sms-followup-day-2',
       days: 2,
       start: 0,
-      end: 30
+      end: TASK_LIFESPAN
     }]
   },
 
@@ -59,7 +61,7 @@ module.exports = [
       id: 'sms-followup-day-7',
       days: 7,
       start: 0,
-      end: 365
+      end: TASK_LIFESPAN
     }]
   },
 
@@ -100,7 +102,7 @@ module.exports = [
       id: 'followup-day-14',
       days: 14,
       start: 2,
-      end: 30
+      end: TASK_LIFESPAN
     }]
   },
 
@@ -132,7 +134,7 @@ module.exports = [
       id: 'ae-referral',
       days: 2,
       start: 2,
-      end: 365
+      end: TASK_LIFESPAN
     }]
   },
 
@@ -173,7 +175,7 @@ module.exports = [
     events: [{
       days: 8,
       start: 0,
-      end: 365
+      end: TASK_LIFESPAN
     }]
   },
 
@@ -217,7 +219,7 @@ module.exports = [
     events: [{
       days: 14,
       start: 0,
-      end: 365
+      end: TASK_LIFESPAN
     }]
   }
 

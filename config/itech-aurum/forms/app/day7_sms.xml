@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
     <h:title>Day 7 SMS Received</h:title>
     <model>
       <instance>
-        <r delimiter="#" id="day7_sms" prefix="J1!day7_sms!" version="2017-09-30 00:00:00">
+        <r id="day7_sms" prefix="J1!day7_sms!" delimiter="#" version="2017-09-30 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -41,12 +41,12 @@
       <bind nodeset="/r/inputs/contact/_id" type="db:person"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
-      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
-      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
-      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
-      <bind nodeset="/r/patient_sms/response" required="true()" type="select1"/>
-      <bind nodeset="/r/patient_sms/comments" required="true()" type="string"/>
-      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+      <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
+      <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
+      <bind nodeset="/r/patient_id" type="string" calculate="../inputs/contact/_id" required="true()"/>
+      <bind nodeset="/r/patient_sms/response" type="select1" required="true()"/>
+      <bind nodeset="/r/patient_sms/comments" type="string" required="true()"/>
+      <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
   <h:body class="pages">

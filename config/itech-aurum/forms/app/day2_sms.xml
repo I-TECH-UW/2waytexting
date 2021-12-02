@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
     <h:title>Day 2 SMS Received</h:title>
     <model>
       <instance>
-        <r delimiter="#" id="day2_sms" prefix="J1!day2_sms!" version="2017-09-30 00:00:00">
+        <r id="day2_sms" prefix="J1!day2_sms!" delimiter="#" version="2017-09-30 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -25,10 +25,8 @@
           <patient_name/>
           <phone/>
           <patient_id tag="hidden"/>
-          <patient_sms>
-            <response/>
-            <comments/>
-          </patient_sms>
+          <response/>
+          <comments/>
           <meta tag="hidden">
             <instanceID/>
           </meta>
@@ -41,12 +39,12 @@
       <bind nodeset="/r/inputs/contact/_id" type="db:person"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
-      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
-      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
-      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
-      <bind nodeset="/r/patient_sms/response" required="true()" type="select1"/>
-      <bind nodeset="/r/patient_sms/comments" required="true()" type="string"/>
-      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+      <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
+      <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
+      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
+      <bind nodeset="/r/response" type="select1" required="true()"/>
+      <bind nodeset="/r/comments" type="string" required="true()"/>
+      <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
   <h:body class="pages">
@@ -72,22 +70,19 @@
         </input>
       </group>
     </group>
-    <group appearance="field-list" ref="/r/patient_sms">
-      <label></label>
-      <select1 ref="/r/patient_sms/response">
-        <label>Did the patient respond via SMS?</label>
-        <item>
-          <label>Yes</label>
-          <value>yes</value>
-        </item>
-        <item>
-          <label>No, Referred for tracing</label>
-          <value>no</value>
-        </item>
-      </select1>
-      <input ref="/r/patient_sms/comments">
-        <label>Additional Comments</label>
-      </input>
-    </group>
+    <select1 ref="/r/response">
+      <label>Did the patient respond via SMS?</label>
+      <item>
+        <label>Yes</label>
+        <value>yes</value>
+      </item>
+      <item>
+        <label>No, Referred for tracing</label>
+        <value>no</value>
+      </item>
+    </select1>
+    <input ref="/r/comments">
+      <label>Additional Comments</label>
+    </input>
   </h:body>
 </h:html>

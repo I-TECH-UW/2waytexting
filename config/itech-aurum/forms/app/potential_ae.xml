@@ -26,14 +26,10 @@
           <patient_id tag="hidden"/>
           <phone/>
           <note>
-            <g_post_mc>
-              <days_post_mc/>
-              <specify/>
-            </g_post_mc>
-            <g_symptoms>
-              <symptoms/>
-              <other_symptom/>
-            </g_symptoms>
+            <days_post_mc/>
+            <specify_days_post_mc/>
+            <symptoms/>
+            <other_symptom/>
             <followup_request/>
             <followup_method/>
             <ae/>
@@ -57,10 +53,10 @@
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
       <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
-      <bind nodeset="/r/note/g_post_mc/days_post_mc" type="select1" required="true()" jr:requiredMsg="Please select one option"/>
-      <bind nodeset="/r/note/g_post_mc/specify" type="string" required="true()" relevant="selected( /r/note/g_post_mc/days_post_mc , 'other')"/>
-      <bind nodeset="/r/note/g_symptoms/symptoms" type="select" required="true()" jr:requiredMsg="Please select all options that apply"/>
-      <bind nodeset="/r/note/g_symptoms/other_symptom" type="string" required="true()" relevant="selected( /r/note/g_symptoms/symptoms , 'other')"/>
+      <bind nodeset="/r/note/days_post_mc" type="select1" required="true()" jr:requiredMsg="Please select one option"/>
+      <bind nodeset="/r/note/specify_days_post_mc" type="string" required="true()" relevant="selected( /r/note/days_post_mc , 'other')"/>
+      <bind nodeset="/r/note/symptoms" type="select" required="true()" jr:requiredMsg="Please select all options that apply"/>
+      <bind nodeset="/r/note/other_symptom" type="string" required="true()" relevant="selected( /r/note/symptoms , 'other')"/>
       <bind nodeset="/r/note/followup_request" type="select1"/>
       <bind nodeset="/r/note/followup_method" type="select1"/>
       <bind nodeset="/r/note/ae" type="select1"/>
@@ -90,112 +86,106 @@
     </group>
     <group ref="/r/note">
       <label>Study Nurse will use this form to record every potential AE reported, even if multiple per client, including: 1) A client sends a YES SMS to note a potential AE; 2) A client sends a question about a symptom via SMS; and 3) A client requests a follow-up call.</label>
-      <group appearance="field-list" ref="/r/note/g_post_mc">
-        <label></label>
-        <select1 appearance="horizontal" ref="/r/note/g_post_mc/days_post_mc">
-          <label>Day post MC that an AE was reported by client.</label>
-          <item>
-            <label>1</label>
-            <value>1</value>
-          </item>
-          <item>
-            <label>2</label>
-            <value>2</value>
-          </item>
-          <item>
-            <label>3</label>
-            <value>3</value>
-          </item>
-          <item>
-            <label>4</label>
-            <value>4</value>
-          </item>
-          <item>
-            <label>5</label>
-            <value>5</value>
-          </item>
-          <item>
-            <label>6</label>
-            <value>6</value>
-          </item>
-          <item>
-            <label>7</label>
-            <value>7</value>
-          </item>
-          <item>
-            <label>8</label>
-            <value>8</value>
-          </item>
-          <item>
-            <label>9</label>
-            <value>9</value>
-          </item>
-          <item>
-            <label>10</label>
-            <value>10</value>
-          </item>
-          <item>
-            <label>11</label>
-            <value>11</value>
-          </item>
-          <item>
-            <label>12</label>
-            <value>12</value>
-          </item>
-          <item>
-            <label>13</label>
-            <value>13</value>
-          </item>
-          <item>
-            <label>14</label>
-            <value>14</value>
-          </item>
-          <item>
-            <label>Other</label>
-            <value>other</value>
-          </item>
-        </select1>
-        <input ref="/r/note/g_post_mc/specify">
-          <label>Please specify</label>
-        </input>
-      </group>
-      <group appearance="field-list" ref="/r/note/g_symptoms">
-        <label></label>
-        <select ref="/r/note/g_symptoms/symptoms">
-          <label>What symptoms did the client report?</label>
-          <item>
-            <label>Bleeding</label>
-            <value>bleeding</value>
-          </item>
-          <item>
-            <label>Swelling</label>
-            <value>swelling</value>
-          </item>
-          <item>
-            <label>Pus</label>
-            <value>pus</value>
-          </item>
-          <item>
-            <label>Pain</label>
-            <value>pain</value>
-          </item>
-          <item>
-            <label>Wound opening</label>
-            <value>wound_opening</value>
-          </item>
-          <item>
-            <label>Redness</label>
-            <value>redness</value>
-          </item>
-          <item>
-            <label>Other</label>
-            <value>other</value>
-          </item>
-        </select>
-        <input ref="/r/note/g_symptoms/other_symptom">
-          <label>Specify other</label>
-        </input>
-      </group>
+      <select1 appearance="horizontal" ref="/r/note/days_post_mc">
+        <label>Day post MC that an AE was reported by client.</label>
+        <item>
+          <label>1</label>
+          <value>1</value>
+        </item>
+        <item>
+          <label>2</label>
+          <value>2</value>
+        </item>
+        <item>
+          <label>3</label>
+          <value>3</value>
+        </item>
+        <item>
+          <label>4</label>
+          <value>4</value>
+        </item>
+        <item>
+          <label>5</label>
+          <value>5</value>
+        </item>
+        <item>
+          <label>6</label>
+          <value>6</value>
+        </item>
+        <item>
+          <label>7</label>
+          <value>7</value>
+        </item>
+        <item>
+          <label>8</label>
+          <value>8</value>
+        </item>
+        <item>
+          <label>9</label>
+          <value>9</value>
+        </item>
+        <item>
+          <label>10</label>
+          <value>10</value>
+        </item>
+        <item>
+          <label>11</label>
+          <value>11</value>
+        </item>
+        <item>
+          <label>12</label>
+          <value>12</value>
+        </item>
+        <item>
+          <label>13</label>
+          <value>13</value>
+        </item>
+        <item>
+          <label>14</label>
+          <value>14</value>
+        </item>
+        <item>
+          <label>Other</label>
+          <value>other</value>
+        </item>
+      </select1>
+      <input ref="/r/note/specify_days_post_mc">
+        <label>Please specify</label>
+      </input>
+      <select ref="/r/note/symptoms">
+        <label>What symptoms did the client report?</label>
+        <item>
+          <label>Bleeding</label>
+          <value>bleeding</value>
+        </item>
+        <item>
+          <label>Swelling</label>
+          <value>swelling</value>
+        </item>
+        <item>
+          <label>Pus</label>
+          <value>pus</value>
+        </item>
+        <item>
+          <label>Pain</label>
+          <value>pain</value>
+        </item>
+        <item>
+          <label>Wound opening</label>
+          <value>wound_opening</value>
+        </item>
+        <item>
+          <label>Redness</label>
+          <value>redness</value>
+        </item>
+        <item>
+          <label>Other</label>
+          <value>other</value>
+        </item>
+      </select>
+      <input ref="/r/note/other_symptom">
+        <label>Specify other</label>
+      </input>
       <select1 ref="/r/note/followup_request">
         <label>Did the client request interactive text or phone call follow up?</label>
         <item>

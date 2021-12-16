@@ -2,12 +2,12 @@ module.exports = {
   enroll: {
     texting: [
       [],
-      ['Client A', 'WM0001', '0001', 'yes', 'texting', '+27000000000', '', 'english', 'mtn', '0', '0', '0', '0', 'none']
+      ['Client A', 'WM0001', '0001', 'yes', 'texting', '+27000000000', '+27000000001', '', 'english', 'mtn', '0', '0', '0', '0', 'none']
     ]
   },
 
   sms_followup: [
-    ['yes', 'additional comments']
+    ['yes']
   ],
 
   client_visit: {

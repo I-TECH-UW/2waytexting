@@ -8,7 +8,7 @@ const tasks = require('../../tasks');
 const harness = new TestHarness({ user: 'super_nurse_uuid' });
 const { sms_followup } = require('../form-inputs');
 
-describe('Day 7 SMS Task', () => {
+xdescribe('Day 7 SMS Task', () => {
   before(async () => { return await harness.start(); });
   after(async () => { return await harness.stop(); });
   beforeEach(async () => {

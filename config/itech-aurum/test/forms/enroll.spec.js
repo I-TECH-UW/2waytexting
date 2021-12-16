@@ -7,7 +7,7 @@ const TestHarness = require('medic-conf-test-harness');
 const harness = new TestHarness({ subject: 'health_center_id' });
 const { enroll } = require('../form-inputs');
 
-describe('Enrollment', () => {
+xdescribe('Enrollment', () => {
   before(async () => { return await harness.start(); });
   after(async () => { return await harness.stop(); });
   beforeEach(async () => {
@@ -29,6 +29,7 @@ describe('Enrollment', () => {
       consent: 'yes',
       randomization: 'texting',
       phone: '+27000000000',
+      alt_phone: '+27000000001',
       confirm: '',
       language_preference: 'english',
       mobile_company: 'mtn',

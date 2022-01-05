@@ -457,8 +457,8 @@
           "expr": "'a4c1f171-24f9-427b-aafe-4dbf1f85857b'"
         },
         "urns": {
-          "expr": "[ 'tel:' + doc.fields.phone, 'tel:' + doc.fields.alt_phone ]",
-          "optional": true
+          "expr": "[ 'tel:' + doc.fields.phone ]",
+          "optional": false
         },
         "extra.language": {
           "expr": "doc.fields.language_preference",

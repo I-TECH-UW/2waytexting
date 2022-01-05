@@ -458,7 +458,7 @@
         },
         "urns": {
           "expr": "[ 'tel:' + doc.fields.phone, 'tel:' + doc.fields.alt_phone ]",
-          "optional": false
+          "optional": true
         },
         "extra.language": {
           "expr": "doc.fields.language_preference",

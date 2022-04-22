@@ -1,5 +1,5 @@
 {
-  "name": "itech-aurum",
+  "name": "zazic-scale-up",
   "version": "0.1.0",
   "description": "",
   "directories": {
@@ -8,30 +8,22 @@
   "scripts": {
     "eslint": "eslint **.js",
     "test": "npm run eslint && npm run compile-forms && npm run compile-app-settings && npm run unittest",
-    "unittest": "cross-env TZ=Africa/Johannesburg mocha test/{,**}/*.spec.js --timeout 15000 --slow 500",
+    "unittest": "TZ=Africa/Johannesburg mocha test/{,**}/*.spec.js --timeout 15000 --slow 500",
     "compile-app-settings": "npx medic-conf compile-app-settings",
-    "compile-forms": "npx medic-conf convert-app-forms convert-contact-forms",
-    "deploy-app-forms": "npx medic-conf --url=$url convert-app-forms upload-app-forms",
-    "deploy-contact-forms": "npx medic-conf --url=$url convert-contact-forms upload-contact-forms",
-    "deploy-app-settings": "npx medic-conf --url=$url compile-app-settings upload-app-settings",
-    "deploy-translations": "npx medic-conf --url=$url upload-custom-translations",
-    "deploy-resources": "npx medic-conf --url=$url upload-resources",
-    "deploy": "npm run deploy-translations && npm run deploy-app-forms && npm run deploy-contact-forms && npm run deploy-app-settings && npm run deploy-resources"
+    "compile-forms": "npx medic-conf convert-app-forms convert-contact-forms"
   },
   "devDependencies": {
-    "@medic/eslint-config": "^1.1.0",
     "chai": "^4.2.0",
-    "chai-exclude": "^2.0.3",
+    "chai-exclude": "^1.0.8",
     "chai-like": "^1.1.1",
     "chai-things": "^0.2.0",
-    "cross-env": "^7.0.2",
-    "eslint": "^7.4.0",
-    "eslint-plugin-json": "^2.0.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-json": "^2.1.1",
     "medic-conf": "^3.6.0",
     "medic-conf-test-harness": "^2.1.3",
-    "mocha": "^6.1.4"
-  },
-  "dependencies": {
-    "luxon": "^1.25.0"
+    "mocha": "^5.1.1",
+    "moment": "^2.25.3",
+    "npm-run-all": "^4.1.5",
+    "sinon": "^9.0.2"
   }
 }

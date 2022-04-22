@@ -1,8 +1,0 @@
-{
-  "icon": "clinic",
-  "context": {
-    "person": true,
-    "place": false,
-    "expression": "!contact.muted && contact.role === 'patient'"
-  }
-}

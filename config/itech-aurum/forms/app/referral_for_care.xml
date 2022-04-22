@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
-    <h:title>Follow up for no contact: Day 8</h:title>
+    <h:title>Referral for Care</h:title>
     <model>
       <instance>
-        <r id="day8_no_contact" prefix="J1!day8_no_contact!" delimiter="#" version="2020-03-06 00:00:00">
+        <r id="referral_for_care" prefix="J1!referral_for_care!" delimiter="#" version="2020-03-06 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -23,12 +23,11 @@
             </contact>
           </inputs>
           <patient_name/>
-          <patient_id tag="hidden"/>
+          <patient_id/>
           <phone/>
           <n>
-            <n_header tag="hidden"/>
-            <client_ok/>
-            <additional_notes_text/>
+            <symptoms_list/>
+            <symptoms_other/>
             <additional_notes/>
           </n>
           <meta tag="hidden">
@@ -46,9 +45,8 @@
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
       <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
-      <bind nodeset="/r/n/n_header" readonly="true()" type="string"/>
-      <bind nodeset="/r/n/client_ok" type="select1" required="true()"/>
-      <bind nodeset="/r/n/additional_notes_text" type="string" required="false()" calculate="if(selected( /r/n/client_ok , &quot;unknown&quot;), &quot;Trace client and add additional notes &quot;, if(selected( /r/n/client_ok , &quot;no&quot;),&quot;Review Client and add additional notes&quot;, &quot;Please add additional notes&quot;))"/>
+      <bind nodeset="/r/n/symptoms_list" type="select" required="true()"/>
+      <bind nodeset="/r/n/symptoms_other" type="string" required="true()" relevant="selected( /r/n/symptoms_list , 'other')"/>
       <bind nodeset="/r/n/additional_notes" type="string" required="false()"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
@@ -77,30 +75,43 @@
       </group>
     </group>
     <group appearance="field-list" ref="/r/n">
-      <label></label>
-      <input ref="/r/n/n_header">
-        <label>&lt;h4 style="color: #337ab7;"&gt;&lt;p&gt;If there is no SMS text response from the client by day 8, healthcare worker reviews messages, call logs, and visits. If no contact, healthcare worker tries to contact via phone to the client and/or the next kin to find out if they are okay. This form reports on the outcomes of those actions with three possible outcomes:&lt;/p&gt;
-&lt;p&gt;1) Client reached but does NOT need care;&lt;/p&gt;
-&lt;p&gt;2) Client reached and NEEDS in-person review;&lt;/p&gt; 
-&lt;p&gt;3) Client not reached and needs tracing&lt;/p&gt;&lt;/h4&gt;</label>
+      <label>Used to refer potential adverse events to the site nurse for attention</label>
+      <select ref="/r/n/symptoms_list">
+        <label>What is the client experiencing</label>
+        <item>
+          <label>Bleeding</label>
+          <value>bleeding</value>
+        </item>
+        <item>
+          <label>Swelling</label>
+          <value>swellling</value>
+        </item>
+        <item>
+          <label>Pus</label>
+          <value>pus</value>
+        </item>
+        <item>
+          <label>Pain</label>
+          <value>pain</value>
+        </item>
+        <item>
+          <label>Redness</label>
+          <value>redness</value>
+        </item>
+        <item>
+          <label>Wound opening</label>
+          <value>wound</value>
+        </item>
+        <item>
+          <label>Other</label>
+          <value>other</value>
+        </item>
+      </select>
+      <input ref="/r/n/symptoms_other">
+        <label>Specify other</label>
       </input>
-      <select1 ref="/r/n/client_ok">
-        <label>Unknown, Client LTFU</label>
-        <item>
-          <label>Yes, no follow-up needed</label>
-          <value>yes</value>
-        </item>
-        <item>
-          <label>No, client needs care</label>
-          <value>no</value>
-        </item>
-        <item>
-          <label>Unknown, client not reached</label>
-          <value>unknown</value>
-        </item>
-      </select1>
       <input ref="/r/n/additional_notes">
-        <label><output value=" /r/n/additional_notes_text "/></label>
+        <label>Please add additional notes</label>
       </input>
     </group>
   </h:body>

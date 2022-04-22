@@ -1,0 +1,8 @@
+{
+  "icon": "clipboard",
+  "context": {
+    "person": true,
+    "place": false,
+    "expression": "!contact || (contact.type === 'person' && user.parent && user.parent.parent)"
+  }
+}

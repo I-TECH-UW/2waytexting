@@ -1,226 +1,134 @@
-const TASK_LIFESPAN = 30;
-
 module.exports = [
-  {
-    name: 'day2-sms',
-    icon: 'treatment',
-    title: 'task.day2-sms.title',
-    appliesTo: 'contacts',
-    appliesToType: ['person'],
-    appliesIf: (contact) => {
-      if (contact.contact.muted) {
-        return false;
-      }
-      return contact.contact.randomization && contact.contact.randomization === 'texting';
+    {
+        name: 'client-review-request',
+        icon: 'man-risk',
+        title: 'task.client-review-request.title',
+        appliesTo: 'reports',
+        appliesToType: ['no_contact', 'referral_for_care'],
+        appliesIf: (contact, report) => {
+            return report.form === 'referral_for_care' ||
+                report.form === 'no_contact' && Utils.getField(report, 'n.client_ok') !== 'yes';
+        },
+        resolvedIf: (contact, report, event, dueDate) => {
+            return Utils.isFormSubmittedInWindow(
+                contact.reports,
+                'client_review',
+                Utils.addDate(dueDate, -event.start).getTime(),
+                Utils.addDate(dueDate, event.end + 1).getTime()
+            );
+        },
+        actions: [{
+            form: 'client_review',
+            label: 'Client review',
+            modifyContent: function (content, contact, report) {
+                if (report.form === 'no_contact') {
+                    content.is_no_contact_ctx = true;
+                }
+                else {
+                    content.is_referral_for_care_ctx = true;
+                }
+            }
+        }],
+        events: [{
+            days: 0,
+            start: 1,
+            end: 365
+        }]
     },
-    resolvedIf: (contact, report, event, dueDate) => {
-      return Utils.isFormSubmittedInWindow(
-        contact.reports,
-        'day2_sms',
-        contact.contact.reported_date,
-        Utils.addDate(dueDate, event.end + 1).getTime()
-      );
-    },
-    actions: [{
-      form: 'day2_sms',
-      label: 'Follow up client'
-    }],
-    events: [{
-      id: 'sms-followup-day-2',
-      days: 2,
-      start: 0,
-      end: TASK_LIFESPAN
-    }]
-  },
+    {
+        name: 'no-contact',
+        icon: 'off',
+        title: 'task.no-contact.title',
+        appliesTo: 'reports',
+        appliesToType: ['enroll'],
+        contactLabel: function (contact) {
+            return  contact.contact.name + ' (' + contact.contact.enrollment_location + ')';
+        }, 
+        appliesIf: (contact, report) => report.form === 'enroll',
+        resolvedIf: (contact, report, event, dueDate) => {
+            const no_contact_submitted = Utils.isFormSubmittedInWindow(
+                contact.reports,
+                'no_contact',
+                Utils.addDate(dueDate, -event.start).getTime(),
+                Utils.addDate(dueDate, event.end + 1).getTime()
+            );
 
-  {
-    name: 'day7-sms',
-    icon: 'treatment',
-    title: 'task.day7-sms.title',
-    appliesTo: 'contacts',
-    appliesToType: ['person'],
-    appliesIf: (contact) => {
-      if (contact.contact.muted) {
-        return false;
-      }
-      return contact.contact.randomization && contact.contact.randomization === 'texting';
-    },
-    resolvedIf: (contact, report, event, dueDate) => {
-      return Utils.isFormSubmittedInWindow(
-        contact.reports,
-        'day7_sms',
-        contact.contact.reported_date,
-        Utils.addDate(dueDate, event.end + 1).getTime()
-      );
-    },
-    actions: [{
-      form: 'day7_sms',
-      label: 'Follow up client'
-    }],
-    events: [{
-      id: 'sms-followup-day-7',
-      days: 7,
-      start: 0,
-      end: TASK_LIFESPAN
-    }]
-  },
+            const report_0_submitted = Utils.isFormSubmittedInWindow(
+                contact.reports,
+                '0',
+                report.reported_date,
+                Utils.addDate(dueDate, 1).getTime()
+            );
 
-  {
-    name: 'followup-day-14',
-    icon: 'follow-up',
-    title: 'task.followup-day-14.title',
-    appliesTo: 'contacts',
-    appliesToType: ['person'],
-    appliesIf: (contact) => {
-      if (contact.contact.muted) {
-        return false;
-      }
-      return !!contact.contact.randomization;
+            const report_1_submitted = Utils.isFormSubmittedInWindow(
+                contact.reports,
+                '1',
+                report.reported_date,
+                Utils.addDate(dueDate, 1).getTime()
+            );
+
+            return no_contact_submitted || report_0_submitted || report_1_submitted;
+        },
+        actions: [{
+            form: 'no_contact',
+            label: 'No Contact',
+            modifyContent: function (content) {
+                content.is_task = true;
+            }
+        }],
+        events: [{
+            days: 8,
+            start: 0,
+            end: 365
+        }]
     },
-    resolvedIf: (contact) => {
-      return contact.reports.some(function (rep) {
-         if (rep.form === 'client_visit' && rep.fields.visit === 'day14') {
-           return true;
-         }
-         if (rep.form === 'day14_in-person_followup') {
-           return true;
-         }
-          // The aurum team had requested that this task is not generated
-          // for men errolled after the 1st of sept, 2021
-         if (rep.reported_date < new Date('2021-09-01').getTime()) {
-           return true;
-         }
+    {
+        name: 'no-contact-minor',
+        icon: 'off',
+        title: 'task.no-contact-minor.title',
+        appliesTo: 'reports',
+        appliesToType: ['enroll'],
+        contactLabel: function (contact) {
+            return  contact.contact.name + ' (' + contact.contact.enrollment_location + ')';
+        }, 
+        appliesIf: (contact, report) => {
+            return report.form === 'enroll' && contact.contact.is_minor;
+        },
+        resolvedIf: (contact, report, event, dueDate) => {
+            const no_contact_submitted = Utils.isFormSubmittedInWindow(
+                contact.reports,
+                'no_contact',
+                Utils.addDate(dueDate, -event.start).getTime(),
+                Utils.addDate(dueDate, event.end + 1).getTime()
+            );
 
-         return false;
-      });
-    },
-    actions: [{
-      form: 'day14_in-person_followup',
-      label: '14 Day Follow up client',
-    }],
-    events: [{
-      id: 'followup-day-14',
-      days: 14,
-      start: 2,
-      end: TASK_LIFESPAN
-    }]
-  },
+            const report_0_submitted = Utils.isFormSubmittedInWindow(
+                contact.reports,
+                '0',
+                report.reported_date,
+                Utils.addDate(dueDate, 1).getTime()
+            );
 
-  {
-    name: 'ae-referral',
-    icon: 'treatment',
-    title: 'task.ae-referral.title',
-    appliesTo: 'reports',
-    appliesToType: ['potential_ae'],
-    appliesIf: (contact, report) => {
-      if (contact.contact.muted) {
-        return false;
-      }
-      return Utils.getField(report, 'note.client_return') === 'yes'; 
-    },
-    resolvedIf: (contact, report, event, dueDate) => {
-      return Utils.isFormSubmittedInWindow(
-        contact.reports,
-        'referral_confirmation',
-        report.reported_date,
-        Utils.addDate(dueDate, event.end + 1).getTime()
-      );
-    },
-    actions: [{
-      form: 'referral_confirmation',
-      label: 'SMS Referral',
-    }],
-    events: [{
-      id: 'ae-referral',
-      days: 2,
-      start: 2,
-      end: TASK_LIFESPAN
-    }]
-  },
+            const report_1_submitted = Utils.isFormSubmittedInWindow(
+                contact.reports,
+                '1',
+                report.reported_date,
+                Utils.addDate(dueDate, 1).getTime()
+            );
 
-  {
-    name: 'no-contact-8',
-    icon: 'off',
-    title: 'task.day8-no-contact.title',
-    appliesTo: 'reports',
-    appliesToType: ['enroll'],
-    appliesIf: (contact) => {
-      return !contact.contact.muted && contact.contact.randomization !== 'routine';
-    },
-    resolvedIf: (contact, report, event, dueDate) => {
-      const noContactAlreadySubmitted = Utils.isFormSubmittedInWindow(
-        contact.reports,
-        'day8_no_contact',
-        report.reported_date,
-        Utils.addDate(dueDate, event.end + 1).getTime()
-      );
-
-      const someReportSubmitted = ['0', '1'].some((rep) => Utils.isFormSubmittedInWindow(
-        contact.reports,
-        rep,
-        report.reported_date,
-        Utils.addDate(dueDate, 1).getTime())
-      );
-      
-      const isAfter10days = new Date().getTime() > Utils.addDate(dueDate, 3).getTime();
-      return (isAfter10days || noContactAlreadySubmitted || someReportSubmitted);
-    },
-    actions: [{
-      form: 'day8_no_contact',
-      label: 'No Contact until day 8',
-      modifyContent: function (content) {
-        content.is_task = true;
-      }
-    }],
-    events: [{
-      days: 8,
-      start: 0,
-      end: TASK_LIFESPAN
-    }]
-  },
-
-  {
-    name: 'no-contact-14',
-    icon: 'off',
-    title: 'task.day14-no-contact.title',
-    appliesTo: 'reports',
-    appliesToType: ['enroll'],
-    appliesIf: (contact) => {
-      return !contact.contact.muted && contact.contact.randomization === 'texting'; 
-    },
-    resolvedIf: (contact, report, event, dueDate) => {
-      const noContactAlreadySubmitted = Utils.isFormSubmittedInWindow(
-        contact.reports,
-        'day14_no_contact',
-        report.reported_date,
-        Utils.addDate(dueDate, event.end + 1).getTime()
-      );
-
-      const someReportSubmitted = ['0', '1'].some((rep) => Utils.isFormSubmittedInWindow(
-        contact.reports,
-        rep,
-        report.reported_date,
-        Utils.addDate(dueDate, 1).getTime())
-      );
-
-      const clientVisited = contact.reports.some(function (rep) {
-        return rep.form === 'client_visit' && rep.fields.visit === 'day14';
-      });
-
-      return noContactAlreadySubmitted || someReportSubmitted || clientVisited;
-    },
-    actions: [{
-      form: 'day14_no_contact',
-      label: 'No Contact until day 14',
-      modifyContent: function (content) {
-        content.is_task = true;
-      }
-    }],
-    events: [{
-      days: 14,
-      start: 0,
-      end: TASK_LIFESPAN
-    }]
-  }
-
+            return no_contact_submitted || report_0_submitted || report_1_submitted;
+        },
+        actions: [{
+            form: 'no_contact',
+            label: 'No Contact Minor',
+            modifyContent: function (content) {
+                content.is_task = true;
+            }
+        }],
+        events: [{
+            days: 3,
+            start: 1,
+            end: 365
+        }]
+    }
 ];

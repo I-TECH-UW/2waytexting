@@ -1,9 +1,0 @@
-{
-  "icon": "follow-up",
-  "title": "Day 14 in-person followup",
-  "context": {
-    "person": true,
-    "place": false,
-    "expression": "!contact.muted && contact.role === 'patient'"
-  }
-}

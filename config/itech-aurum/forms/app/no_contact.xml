@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
-    <h:title>Follow up for no contact: Day 14</h:title>
+    <h:title>No Contact</h:title>
     <model>
       <instance>
-        <r id="day14_no_contact" prefix="J1!day14_no_contact!" delimiter="#" version="2020-03-06 00:00:00">
+        <r id="no_contact" prefix="J1!no_contact!" delimiter="#" version="2020-03-06 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -23,10 +23,10 @@
             </contact>
           </inputs>
           <patient_name/>
-          <patient_id tag="hidden"/>
+          <patient_id/>
           <phone/>
           <n>
-            <n_header tag="hidden"/>
+            <n_header/>
             <client_ok/>
             <additional_notes_text/>
             <additional_notes/>
@@ -48,7 +48,7 @@
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
       <bind nodeset="/r/n/n_header" readonly="true()" type="string"/>
       <bind nodeset="/r/n/client_ok" type="select1" required="true()"/>
-      <bind nodeset="/r/n/additional_notes_text" type="string" calculate="if(selected( /r/n/client_ok , &quot;unknown&quot;), &quot;Trace client and add additional notes &quot;, if(selected( /r/n/client_ok , &quot;no&quot;),&quot;Review Client and add additional notes&quot;, &quot;Please add additional notes&quot;))" required="false()"/>
+      <bind nodeset="/r/n/additional_notes_text" type="string" calculate="if( /r/n/client_ok =&quot;unknown&quot;, &quot;Trace client and add additional notes &quot;, if( /r/n/client_ok =&quot;no&quot;,&quot;Review Client and add additional notes&quot;, &quot;Please add additional notes&quot;))" required="false()"/>
       <bind nodeset="/r/n/additional_notes" type="string" required="false()"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
@@ -79,10 +79,11 @@
     <group appearance="field-list" ref="/r/n">
       <label></label>
       <input ref="/r/n/n_header">
-        <label>&lt;h4 style="color: #337ab7;"&gt;&lt;p&gt;This is a critical task! If there is no SMS text response from the client by day 14, healthcare worker reviews messages, call logs, and visits. If no contact, healthcare worker initiates active tracing –first by phone, then by next of kin, then by home visit. This form reports on the outcomes of those actions with three possible outcomes:&lt;/p&gt;
-&lt;p&gt;1) Client reached but does NOT need care;&lt;/p&gt;
-&lt;p&gt;2) Client reached and NEEDS in-person review;&lt;/p&gt; 
-&lt;p&gt;3) Client not reached after all attempts and is considered LTFU&lt;/p&gt;&lt;/h4&gt;</label>
+        <label>&lt;h4 style="color: #337ab7;"&gt;If there is no sms text response from the client on day 8, nurse makes contact via phone to the client and/or the next kin to find out if they are okay, this form reports on the outcomes of the actions of the nurse and can lead to either&lt;br/&gt;
+1) a client has been reached and is ok
+2) a client is has been reached and needs review
+3) client has not been reached
+&lt;/h4&gt;</label>
       </input>
       <select1 ref="/r/n/client_ok">
         <label>Is VMMC Client okay?</label>
@@ -95,7 +96,7 @@
           <value>no</value>
         </item>
         <item>
-          <label>Unknown, Client LTFU</label>
+          <label>Unknown, client not reached</label>
           <value>unknown</value>
         </item>
       </select1>

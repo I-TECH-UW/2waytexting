@@ -1,0 +1,8 @@
+{
+  "icon": "man-risk",
+  "context": {
+    "person": true,
+    "place": false,
+    "expression": "!contact || contact.type === 'person'"
+  }
+}

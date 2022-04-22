@@ -1,8 +1,8 @@
 {
-  "icon": "clipboard",
+  "icon": "risk-message",
   "context": {
     "person": true,
     "place": false,
-    "expression": "!contact.muted && contact.role === 'patient'"
+    "expression": ""
   }
 }

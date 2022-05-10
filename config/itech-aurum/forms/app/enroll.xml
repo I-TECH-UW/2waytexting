@@ -46,7 +46,9 @@
             </enrollment_facility>
             <enrollment_location/>
             <vmmc_no/>
-            <age_years/>
+            <age/>
+            <d_age/>
+            <dob/>
             <phone/>
             <alternative_phone/>
             <language_preference/>
@@ -73,14 +75,16 @@
       <bind nodeset="/enroll/person/parent/_id" type="string" calculate="../../../inputs/contact/_id"/>
       <bind nodeset="/enroll/person/parent/parent/_id" type="string" calculate="../../../../inputs/contact/parent/_id"/>
       <bind nodeset="/enroll/person/type" type="string" calculate="&quot;person&quot;" jr:constraintMsg="person"/>
-      <bind nodeset="/enroll/person/name" type="string" jr:constraintMsg="Please type in name characters e.g letters and space." required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
+      <bind nodeset="/enroll/person/name" type="string" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
       <bind nodeset="/enroll/person/enrollment_facility/_id" type="db:health_center" required="true()"/>
       <bind nodeset="/enroll/person/enrollment_facility/name" type="string"/>
-      <bind nodeset="/enroll/person/enrollment_location" type="string" jr:constraintMsg="This should be the place where the actual enrollment happened." required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
-      <bind nodeset="/enroll/person/vmmc_no" type="string" jr:constraintMsg="Please enter between 5 - 9 digits" required="true()" constraint="regex(., '^[0-9]{5,9}$')"/>
-      <bind nodeset="/enroll/person/age_years" type="decimal" jr:constraintMsg="Client should be from 15 to 75 years old" required="true()" constraint="(.) &gt;= 15 and (.) &lt;= 75"/>
-      <bind nodeset="/enroll/person/phone" type="string" jr:constraintMsg="Please enter a valid mobile number" required="true()" constraint="regex(., &quot;^(\+263)([0-9]{9})$&quot;)"/>
-      <bind nodeset="/enroll/person/alternative_phone" type="string" jr:constraintMsg="Please enter a valid mobile number" required="false()" constraint="regex(., &quot;^(\+263)([0-9]{9})$&quot;)"/>
+      <bind nodeset="/enroll/person/enrollment_location" type="string" jr:constraintMsg="This should be the place where the actual enrollment happened." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
+      <bind nodeset="/enroll/person/vmmc_no" type="string" required="true()" jr:constraintMsg="Please enter between 5 - 9 digits" constraint="regex(., '^[0-9]{5,9}$')"/>
+      <bind nodeset="/enroll/person/age" type="string" calculate="round(decimal-date-time(today()) - decimal-date-time( /enroll/person/dob ))"/>
+      <bind nodeset="/enroll/person/d_age" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/person/dob" type="date" required="true()" jr:constraintMsg="Client should be from 15 to 75 years old" constraint="( /enroll/person/age  / 365) &gt;= 15 and ( /enroll/person/age  / 365) &lt;= 75"/>
+      <bind nodeset="/enroll/person/phone" type="string" required="true()" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+263)([0-9]{9})$&quot;)"/>
+      <bind nodeset="/enroll/person/alternative_phone" type="string" required="false()" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+263)([0-9]{9})$&quot;)"/>
       <bind nodeset="/enroll/person/language_preference" type="select1" required="true()"/>
       <bind nodeset="/enroll/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
@@ -141,8 +145,11 @@
       <input appearance="number" ref="/enroll/person/vmmc_no">
         <label>VMMC Client Number</label>
       </input>
-      <input appearance="number" ref="/enroll/person/age_years">
-        <label>VMMC Client Age in Years</label>
+      <input ref="/enroll/person/d_age">
+        <label><output value=" /enroll/person/age "/> / 365</label>
+      </input>
+      <input appearance="number" ref="/enroll/person/dob">
+        <label>VMMC Client Date of Birth</label>
       </input>
       <input ref="/enroll/person/phone">
         <label>Client Mobile phone number</label>

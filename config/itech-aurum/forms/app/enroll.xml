@@ -19,18 +19,21 @@
             <is_task/>
             <contact>
               <_id/>
-              <name/>
-              <phone/>
+              <patient_phone/>
               <parent>
                 <_id/>
               </parent>
             </contact>
           </inputs>
-          <patient_name/>
-          <patient_uuid db-doc-ref=" /enroll/person "/>
-          <place_id/>
-          <phone/>
-          <language_preference/>
+          <r_patient_name/>
+          <patient_uuid tag="hidden" db-doc-ref=" /enroll/person "/>
+          <r_vmmc_no/>
+          <r_phone/>
+          <r_dob/>
+          <r_education/>
+          <r_enrollment_location/>
+          <r_language_preference/>
+          <s_facility_name_calc/>
           <person db-doc="true">
             <parent>
               <_id/>
@@ -46,13 +49,27 @@
             </enrollment_facility>
             <enrollment_location/>
             <vmmc_no/>
-            <age/>
-            <d_age/>
+            <education/>
             <dob/>
             <phone/>
             <alternative_phone/>
             <language_preference/>
+            <telegram_id/>
           </person>
+          <summary tag="hidden">
+            <task_label/>
+            <_warning/>
+            <patient_details/>
+            <s_patient_name/>
+            <s_facility_name/>
+            <s_enrollment_location/>
+            <s_vmmc_no/>
+            <s_education/>
+            <s_dob/>
+            <s_phone/>
+            <s_alternative_phone/>
+            <s_language_preference/>
+          </summary>
           <meta tag="hidden">
             <instanceID/>
           </meta>
@@ -64,28 +81,43 @@
       <bind nodeset="/enroll/inputs/source_id" type="string"/>
       <bind nodeset="/enroll/inputs/is_task" type="string"/>
       <bind nodeset="/enroll/inputs/contact/_id" type="db:person" required="true()"/>
-      <bind nodeset="/enroll/inputs/contact/name" type="string"/>
-      <bind nodeset="/enroll/inputs/contact/phone" type="string"/>
+      <bind nodeset="/enroll/inputs/contact/patient_phone" type="string"/>
       <bind nodeset="/enroll/inputs/contact/parent/_id" type="string"/>
-      <bind nodeset="/enroll/patient_name" type="string" calculate="../person/name"/>
+      <bind nodeset="/enroll/r_patient_name" type="string" calculate="../person/name"/>
       <bind nodeset="/enroll/patient_uuid" type="string" calculate="person"/>
-      <bind nodeset="/enroll/place_id" type="string" calculate="../inputs/contact/_id"/>
-      <bind nodeset="/enroll/phone" type="string" calculate="../person/phone"/>
-      <bind nodeset="/enroll/language_preference" type="string" calculate="../person/language_preference"/>
+      <bind nodeset="/enroll/r_vmmc_no" type="string" calculate="../person/vmmc_no"/>
+      <bind nodeset="/enroll/r_phone" type="string" calculate="../person/phone"/>
+      <bind nodeset="/enroll/r_dob" type="string" calculate="format-date( /enroll/person/dob , '&quot;%d-%m-%Y&quot;')"/>
+      <bind nodeset="/enroll/r_education" type="string" calculate="../person/education"/>
+      <bind nodeset="/enroll/r_enrollment_location" type="string" calculate="../person/enrollment_location"/>
+      <bind nodeset="/enroll/r_language_preference" type="string" calculate="../person/language_preference"/>
+      <bind nodeset="/enroll/s_facility_name_calc" type="string" calculate="../person/enrollment_facility/name"/>
       <bind nodeset="/enroll/person/parent/_id" type="string" calculate="../../../inputs/contact/_id"/>
       <bind nodeset="/enroll/person/parent/parent/_id" type="string" calculate="../../../../inputs/contact/parent/_id"/>
-      <bind nodeset="/enroll/person/type" type="string" calculate="&quot;person&quot;" jr:constraintMsg="person"/>
+      <bind nodeset="/enroll/person/type" type="string" jr:constraintMsg="person" calculate="&quot;person&quot;"/>
       <bind nodeset="/enroll/person/name" type="string" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
-      <bind nodeset="/enroll/person/enrollment_facility/_id" type="db:health_center" required="true()"/>
+      <bind nodeset="/enroll/person/enrollment_facility/_id" type="db:health_center"/>
       <bind nodeset="/enroll/person/enrollment_facility/name" type="string"/>
       <bind nodeset="/enroll/person/enrollment_location" type="string" jr:constraintMsg="This should be the place where the actual enrollment happened." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
       <bind nodeset="/enroll/person/vmmc_no" type="string" required="true()" jr:constraintMsg="Please enter between 5 - 9 digits" constraint="regex(., '^[0-9]{5,9}$')"/>
-      <bind nodeset="/enroll/person/age" type="string" calculate="round(decimal-date-time(today()) - decimal-date-time( /enroll/person/dob ))"/>
-      <bind nodeset="/enroll/person/d_age" readonly="true()" type="string"/>
-      <bind nodeset="/enroll/person/dob" type="date" required="true()" jr:constraintMsg="Client should be from 15 to 75 years old" constraint="( /enroll/person/age  / 365) &gt;= 15 and ( /enroll/person/age  / 365) &lt;= 75"/>
-      <bind nodeset="/enroll/person/phone" type="string" required="true()" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+263)([0-9]{9})$&quot;)"/>
-      <bind nodeset="/enroll/person/alternative_phone" type="string" required="false()" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+263)([0-9]{9})$&quot;)"/>
+      <bind nodeset="/enroll/person/education" type="select" required="true()"/>
+      <bind nodeset="/enroll/person/dob" type="date" required="true()" jr:constraintMsg="Client should be from 15 to 75 years old"/>
+      <bind nodeset="/enroll/person/phone" type="string" required="true()" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)"/>
+      <bind nodeset="/enroll/person/alternative_phone" type="string" required="false()" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)"/>
       <bind nodeset="/enroll/person/language_preference" type="select1" required="true()"/>
+      <bind nodeset="/enroll/person/telegram_id" type="string"/>
+      <bind nodeset="/enroll/summary/task_label" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/_warning" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/patient_details" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/s_patient_name" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/s_facility_name" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/s_enrollment_location" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/s_vmmc_no" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/s_education" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/s_dob" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/s_phone" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/s_alternative_phone" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/s_language_preference" readonly="true()" type="string"/>
       <bind nodeset="/enroll/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
@@ -107,10 +139,7 @@
           <label>What is the patient's name?</label>
           <hint>Select a patient from list</hint>
         </input>
-        <input appearance="hidden" ref="/enroll/inputs/contact/name">
-          <label>Patient Name</label>
-        </input>
-        <input appearance="hidden" ref="/enroll/inputs/contact/phone">
+        <input appearance="hidden" ref="/enroll/inputs/contact/patient_phone">
           <label>Phone Number</label>
         </input>
         <group ref="/enroll/inputs/contact/parent">
@@ -130,36 +159,42 @@
         </group>
       </group>
       <input ref="/enroll/person/name">
-        <label>VMMC Client Name</label>
+        <label>VMMC client name</label>
       </input>
       <group ref="/enroll/person/enrollment_facility">
         <label></label>
         <input appearance="db-object" ref="/enroll/person/enrollment_facility/_id">
-          <label>VMMC Enrollment Facility</label>
+          <label>VMMC enrollment facility</label>
         </input>
-        <input appearance="hidden" ref="/enroll/person/enrollment_facility/name"/>
+        <input appearance="hidden" ref="/enroll/person/enrollment_facility/name">
+          <label></label>
+        </input>
       </group>
       <input ref="/enroll/person/enrollment_location">
-        <label>Specify Enrollment Location</label>
+        <label>Specify enrollment location</label>
       </input>
       <input appearance="number" ref="/enroll/person/vmmc_no">
-        <label>VMMC Client Number</label>
+        <label>VMMC client number</label>
       </input>
-      <input ref="/enroll/person/d_age">
-        <label><output value=" /enroll/person/age "/> / 365</label>
-      </input>
+      <select ref="/enroll/person/education">
+        <label>Has client been educated about 2WT</label>
+        <item>
+          <label>Yes</label>
+          <value>Yes</value>
+        </item>
+      </select>
       <input appearance="number" ref="/enroll/person/dob">
-        <label>VMMC Client Date of Birth</label>
+        <label>VMMC client date of birth</label>
       </input>
       <input ref="/enroll/person/phone">
-        <label>Client Mobile phone number</label>
+        <label>Client mobile phone number</label>
         <hint>Should start with the country code
-+263 followed by Nine digits</hint>
++27 followed by Nine digits</hint>
       </input>
       <input ref="/enroll/person/alternative_phone">
-        <label>Alternative/Next of Kin's Mobile Number</label>
+        <label>Alternative/Next of kin's mobile number</label>
         <hint>Should start with the country code
-+263 followed by Nine digits</hint>
++27 followed by Nine digits</hint>
       </input>
       <select1 ref="/enroll/person/language_preference">
         <label>What is this client's language of preference for the texts?</label>
@@ -168,14 +203,52 @@
           <value>english</value>
         </item>
         <item>
-          <label>Shona</label>
-          <value>shona</value>
-        </item>
-        <item>
           <label>Ndebele</label>
           <value>ndebele</value>
         </item>
       </select1>
+      <input ref="/enroll/person/telegram_id">
+        <label>Telegram Id</label>
+      </input>
+    </group>
+    <group appearance="field-list summary" ref="/enroll/summary">
+      <label>Summary</label>
+      <input appearance="h1 blue" ref="/enroll/summary/task_label">
+        <label>Task Label</label>
+      </input>
+      <input ref="/enroll/summary/_warning">
+        <label>Be sure to submit form to complete enrollment</label>
+      </input>
+      <input appearance="h1 yellow fa-person" ref="/enroll/summary/patient_details">
+        <label>Patient Details &lt;I class="fa fa-user"&gt;&lt;/i&gt;</label>
+      </input>
+      <input ref="/enroll/summary/s_patient_name">
+        <label>&lt;b&gt;Name&lt;/b&gt;: <output value=" /enroll/r_patient_name "/></label>
+      </input>
+      <input ref="/enroll/summary/s_facility_name">
+        <label>&lt;b&gt;Facility&lt;/b&gt;: <output value=" /enroll/s_facility_name_calc "/></label>
+      </input>
+      <input ref="/enroll/summary/s_enrollment_location">
+        <label>&lt;b&gt;Enrollment location&lt;/b&gt;: <output value=" /enroll/person/enrollment_location "/></label>
+      </input>
+      <input ref="/enroll/summary/s_vmmc_no">
+        <label>&lt;b&gt;Client's VMMC No.&lt;/b&gt;: <output value=" /enroll/person/vmmc_no "/></label>
+      </input>
+      <input ref="/enroll/summary/s_education">
+        <label>&lt;b&gt;Was client educated about 2WT?&lt;b&gt;: <output value=" /enroll/person/education "/></label>
+      </input>
+      <input ref="/enroll/summary/s_dob">
+        <label>&lt;b&gt;Date of birth&lt;/b&gt;: <output value=" /enroll/r_dob "/></label>
+      </input>
+      <input ref="/enroll/summary/s_phone">
+        <label>&lt;b&gt;Phone number&lt;/b&gt;: <output value=" /enroll/person/phone "/></label>
+      </input>
+      <input ref="/enroll/summary/s_alternative_phone">
+        <label>&lt;b&gt;Alternative number&lt;/b&gt;: <output value=" /enroll/person/alternative_phone "/></label>
+      </input>
+      <input ref="/enroll/summary/s_language_preference">
+        <label>&lt;b&gt;Preferred language&lt;/b&gt;: <output value=" /enroll/person/language_preference "/></label>
+      </input>
     </group>
   </h:body>
 </h:html>

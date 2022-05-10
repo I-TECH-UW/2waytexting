@@ -1,5 +1,6 @@
 {
   "icon": "person",
+  "title": "Enrollment report",
   "context": {
     "person": false,
     "place": true,

@@ -23,13 +23,11 @@
             </contact>
           </inputs>
           <patient_name/>
-          <patient_id/>
+          <patient_id tag="hidden"/>
           <phone/>
-          <n>
-            <symptoms_list/>
-            <symptoms_other/>
-            <additional_notes/>
-          </n>
+          <symptoms_list/>
+          <symptoms_other/>
+          <additional_notes/>
           <meta tag="hidden">
             <instanceID/>
           </meta>
@@ -45,9 +43,9 @@
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
       <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
-      <bind nodeset="/r/n/symptoms_list" type="select" required="true()"/>
-      <bind nodeset="/r/n/symptoms_other" type="string" required="true()" relevant="selected( /r/n/symptoms_list , 'other')"/>
-      <bind nodeset="/r/n/additional_notes" type="string" required="false()"/>
+      <bind nodeset="/r/symptoms_list" type="select" required="true()"/>
+      <bind nodeset="/r/symptoms_other" type="string" relevant="selected( /r/symptoms_list , 'other')" required="true()"/>
+      <bind nodeset="/r/additional_notes" type="string" required="false()"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
@@ -74,45 +72,42 @@
         </input>
       </group>
     </group>
-    <group appearance="field-list" ref="/r/n">
-      <label>Used to refer potential adverse events to the site nurse for attention</label>
-      <select ref="/r/n/symptoms_list">
-        <label>What is the client experiencing</label>
-        <item>
-          <label>Bleeding</label>
-          <value>bleeding</value>
-        </item>
-        <item>
-          <label>Swelling</label>
-          <value>swellling</value>
-        </item>
-        <item>
-          <label>Pus</label>
-          <value>pus</value>
-        </item>
-        <item>
-          <label>Pain</label>
-          <value>pain</value>
-        </item>
-        <item>
-          <label>Redness</label>
-          <value>redness</value>
-        </item>
-        <item>
-          <label>Wound opening</label>
-          <value>wound</value>
-        </item>
-        <item>
-          <label>Other</label>
-          <value>other</value>
-        </item>
-      </select>
-      <input ref="/r/n/symptoms_other">
-        <label>Specify other</label>
-      </input>
-      <input ref="/r/n/additional_notes">
-        <label>Please add additional notes</label>
-      </input>
-    </group>
+    <select ref="/r/symptoms_list">
+      <label>What is the client experiencing</label>
+      <item>
+        <label>Bleeding</label>
+        <value>bleeding</value>
+      </item>
+      <item>
+        <label>Swelling</label>
+        <value>swellling</value>
+      </item>
+      <item>
+        <label>Pus</label>
+        <value>pus</value>
+      </item>
+      <item>
+        <label>Pain</label>
+        <value>pain</value>
+      </item>
+      <item>
+        <label>Redness</label>
+        <value>redness</value>
+      </item>
+      <item>
+        <label>Wound opening</label>
+        <value>wound</value>
+      </item>
+      <item>
+        <label>Other</label>
+        <value>other</value>
+      </item>
+    </select>
+    <input ref="/r/symptoms_other">
+      <label>Specify other</label>
+    </input>
+    <input ref="/r/additional_notes">
+      <label>Please add additional notes</label>
+    </input>
   </h:body>
 </h:html>

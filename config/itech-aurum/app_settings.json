@@ -476,7 +476,7 @@
       },
       "mapping": {
         "flow": {
-          "expr": "'44cdaa3e-2754-4d38-8e07-83fc7929d96a'"
+          "expr": "'8790d6b5-36e6-4ad7-81b7-bbb38756078c'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.fields.phone, 'telegram:' + doc.fields.telegram_id  ]",
@@ -534,7 +534,7 @@
       },
       "mapping": {
         "flow": {
-          "expr": "'95710718-0b06-484d-8aa0-7ef290fe2b9e'"
+          "expr": "'2b294481-3d7f-43d8-84ae-c5fc208a14db'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.fields.phone ]",
@@ -555,7 +555,7 @@
       },
       "mapping": {
         "flow": {
-          "expr": "'7b8295fa-3946-499b-ba59-5e73b8c3dd21'"
+          "expr": "'e9686f18-e86d-48a9-a71a-6191d2467db0'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.fields.phone ]",

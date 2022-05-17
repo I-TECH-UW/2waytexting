@@ -80,23 +80,23 @@
       <label></label>
       <input ref="/r/n/n_header">
         <label>&lt;h4 style="color: #337ab7;"&gt;If there is no sms text response from the client on day 8, nurse makes contact via phone to the client and/or the next kin to find out if they are okay, this form reports on the outcomes of the actions of the nurse and can lead to either&lt;br/&gt;
-1) a client has been reached and is ok
-2) a client is has been reached and needs review
-3) client has not been reached
+1) a client reached and is ok
+2) a client reached and NEEDS in-person review
+3) client not reached, needs tracing
 &lt;/h4&gt;</label>
       </input>
       <select1 ref="/r/n/client_ok">
         <label>Is VMMC Client okay?</label>
         <item>
-          <label>Yes, no follow-up needed</label>
+          <label>Client reached and reports no concerns (no follow-up needed)</label>
           <value>yes</value>
         </item>
         <item>
-          <label>No, client needs care</label>
+          <label>Client reached and needs in-person review (generate the Task for site-based in-person review)</label>
           <value>no</value>
         </item>
         <item>
-          <label>Unknown, client not reached</label>
+          <label>Client not reached (generates Task for site tracing)</label>
           <value>unknown</value>
         </item>
       </select1>

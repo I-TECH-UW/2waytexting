@@ -26,15 +26,16 @@
             </contact>
           </inputs>
           <r_patient_name/>
-          <patient_uuid tag="hidden" db-doc-ref=" /enroll/person "/>
+          <patient_uuid db-doc-ref=" /enroll/person " tag="hidden"/>
           <r_vmmc_no/>
           <r_phone/>
           <r_dob/>
           <r_education/>
-          <r_enrollment_location/>
+          <r_enrolled_by/>
           <r_language_preference/>
-          <s_facility_name_calc/>
-          <person db-doc="true">
+          <r_telegram_id tag="hidden"/>
+          <s_facility_name_calc tag="hidden"/>
+          <person tag="hidden" db-doc="true">
             <parent>
               <_id/>
               <parent>
@@ -47,13 +48,13 @@
               <_id/>
               <name/>
             </enrollment_facility>
-            <enrollment_location/>
             <vmmc_no/>
             <education/>
             <dob/>
             <phone/>
             <alternative_phone/>
             <language_preference/>
+            <enrolled_by/>
             <telegram_id/>
           </person>
           <summary tag="hidden">
@@ -62,13 +63,13 @@
             <patient_details/>
             <s_patient_name/>
             <s_facility_name/>
-            <s_enrollment_location/>
             <s_vmmc_no/>
             <s_education/>
             <s_dob/>
             <s_phone/>
             <s_alternative_phone/>
             <s_language_preference/>
+            <s_enrolled_by/>
           </summary>
           <meta tag="hidden">
             <instanceID/>
@@ -89,35 +90,37 @@
       <bind nodeset="/enroll/r_phone" type="string" calculate="../person/phone"/>
       <bind nodeset="/enroll/r_dob" type="string" calculate="format-date( /enroll/person/dob , '&quot;%d-%m-%Y&quot;')"/>
       <bind nodeset="/enroll/r_education" type="string" calculate="../person/education"/>
-      <bind nodeset="/enroll/r_enrollment_location" type="string" calculate="../person/enrollment_location"/>
+      <bind nodeset="/enroll/r_enrolled_by" type="string" calculate="../person/enrolled_by"/>
       <bind nodeset="/enroll/r_language_preference" type="string" calculate="../person/language_preference"/>
+      <bind nodeset="/enroll/r_telegram_id" type="string" calculate="../person/telegram_id"/>
       <bind nodeset="/enroll/s_facility_name_calc" type="string" calculate="../person/enrollment_facility/name"/>
       <bind nodeset="/enroll/person/parent/_id" type="string" calculate="../../../inputs/contact/_id"/>
       <bind nodeset="/enroll/person/parent/parent/_id" type="string" calculate="../../../../inputs/contact/parent/_id"/>
-      <bind nodeset="/enroll/person/type" type="string" jr:constraintMsg="person" calculate="&quot;person&quot;"/>
-      <bind nodeset="/enroll/person/name" type="string" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
+      <bind nodeset="/enroll/person/type" type="string" calculate="&quot;person&quot;" jr:constraintMsg="person"/>
+      <bind nodeset="/enroll/person/name" type="string" required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space."/>
+      <bind nodeset="/enroll/person/enrollment_facility" required="true()"/>
       <bind nodeset="/enroll/person/enrollment_facility/_id" type="db:health_center"/>
       <bind nodeset="/enroll/person/enrollment_facility/name" type="string"/>
-      <bind nodeset="/enroll/person/enrollment_location" type="string" jr:constraintMsg="This should be the place where the actual enrollment happened." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
-      <bind nodeset="/enroll/person/vmmc_no" type="string" required="true()" jr:constraintMsg="Please enter between 5 - 9 digits" constraint="regex(., '^[0-9]{5,9}$')"/>
+      <bind nodeset="/enroll/person/vmmc_no" type="string" required="true()" constraint="regex(., '^[0-9]{5,9}$')" jr:constraintMsg="Please enter between 5 - 9 digits"/>
       <bind nodeset="/enroll/person/education" type="select" required="true()"/>
       <bind nodeset="/enroll/person/dob" type="date" required="true()" jr:constraintMsg="Client should be from 15 to 75 years old"/>
-      <bind nodeset="/enroll/person/phone" type="string" required="true()" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)"/>
-      <bind nodeset="/enroll/person/alternative_phone" type="string" required="false()" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)"/>
+      <bind nodeset="/enroll/person/phone" type="string" required="true()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Please enter a valid mobile number"/>
+      <bind nodeset="/enroll/person/alternative_phone" type="string" required="false()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Please enter a valid mobile number"/>
       <bind nodeset="/enroll/person/language_preference" type="select1" required="true()"/>
+      <bind nodeset="/enroll/person/enrolled_by" type="string" required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Name of the person filling the form must be supplied"/>
       <bind nodeset="/enroll/person/telegram_id" type="string"/>
       <bind nodeset="/enroll/summary/task_label" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/_warning" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/patient_details" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_patient_name" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_facility_name" readonly="true()" type="string"/>
-      <bind nodeset="/enroll/summary/s_enrollment_location" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_vmmc_no" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_education" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_dob" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_phone" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_alternative_phone" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_language_preference" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/s_enrolled_by" readonly="true()" type="string"/>
       <bind nodeset="/enroll/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
@@ -170,11 +173,8 @@
           <label></label>
         </input>
       </group>
-      <input ref="/enroll/person/enrollment_location">
-        <label>Specify enrollment location</label>
-      </input>
       <input appearance="number" ref="/enroll/person/vmmc_no">
-        <label>VMMC client number</label>
+        <label>Client file number</label>
       </input>
       <select ref="/enroll/person/education">
         <label>Has client been educated about 2WT</label>
@@ -203,10 +203,18 @@
           <value>english</value>
         </item>
         <item>
-          <label>Ndebele</label>
-          <value>ndebele</value>
+          <label>Africaans</label>
+          <value>africaans</value>
+        </item>
+        <item>
+          <label>Setswana</label>
+          <value>setswana</value>
         </item>
       </select1>
+      <input ref="/enroll/person/enrolled_by">
+        <label>Enrolled By</label>
+        <hint>Please enter your name</hint>
+      </input>
       <input ref="/enroll/person/telegram_id">
         <label>Telegram Id</label>
       </input>
@@ -228,11 +236,8 @@
       <input ref="/enroll/summary/s_facility_name">
         <label>&lt;b&gt;Facility&lt;/b&gt;: <output value=" /enroll/s_facility_name_calc "/></label>
       </input>
-      <input ref="/enroll/summary/s_enrollment_location">
-        <label>&lt;b&gt;Enrollment location&lt;/b&gt;: <output value=" /enroll/person/enrollment_location "/></label>
-      </input>
       <input ref="/enroll/summary/s_vmmc_no">
-        <label>&lt;b&gt;Client's VMMC No.&lt;/b&gt;: <output value=" /enroll/person/vmmc_no "/></label>
+        <label>&lt;b&gt;Client file number&lt;/b&gt;: <output value=" /enroll/person/vmmc_no "/></label>
       </input>
       <input ref="/enroll/summary/s_education">
         <label>&lt;b&gt;Was client educated about 2WT?&lt;b&gt;: <output value=" /enroll/person/education "/></label>
@@ -248,6 +253,9 @@
       </input>
       <input ref="/enroll/summary/s_language_preference">
         <label>&lt;b&gt;Preferred language&lt;/b&gt;: <output value=" /enroll/person/language_preference "/></label>
+      </input>
+      <input ref="/enroll/summary/s_enrolled_by">
+        <label>&lt;b&gt;Enrolled by&lt;/b&gt;: <output value=" /enroll/person/enrolled_by "/></label>
       </input>
     </group>
   </h:body>

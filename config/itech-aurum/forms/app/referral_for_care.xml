@@ -44,7 +44,7 @@
       <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
       <bind nodeset="/r/symptoms_list" type="select" required="true()"/>
-      <bind nodeset="/r/symptoms_other" type="string" relevant="selected( /r/symptoms_list , 'other')" required="true()"/>
+      <bind nodeset="/r/symptoms_other" type="string" required="true()" relevant="selected( /r/symptoms_list , 'other')"/>
       <bind nodeset="/r/additional_notes" type="string" required="false()"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>

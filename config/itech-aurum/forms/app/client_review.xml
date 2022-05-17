@@ -78,22 +78,22 @@
       <bind nodeset="/r/n/return_client" relevant=" /r/n/client_came  = 'yes'"/>
       <bind nodeset="/r/n/return_client/health_center/_id" type="db:health_center" required="true()"/>
       <bind nodeset="/r/n/return_client/health_center/name" type="string"/>
-      <bind nodeset="/r/n/return_client/visit_date" type="date" required="true()" jr:constraintMsg="Date is not in the future: and not more than 4 weeks ago" constraint=". &lt;= today() and ((decimal-date-time(today()) - decimal-date-time(.)) &lt;= 28)"/>
+      <bind nodeset="/r/n/return_client/visit_date" type="date" constraint=". &lt;= today() and ((decimal-date-time(today()) - decimal-date-time(.)) &lt;= 28)" jr:constraintMsg="Date is not in the future: and not more than 4 weeks ago" required="true()"/>
       <bind nodeset="/r/n/return_client/ae_positive" type="select1" required="true()"/>
-      <bind nodeset="/r/n/return_client/ae_severity" type="select1" required="true()" relevant="../ae_positive = 'yes'"/>
-      <bind nodeset="/r/n/return_client/ae_type" type="string" required="true()" jr:constraintMsg="The AE Code should be captured in the same way they are recorded in the VMMC register" constraint="regex(., &quot;^[a-zA-Z\-]+$&quot;)" relevant="../ae_positive = 'yes'"/>
+      <bind nodeset="/r/n/return_client/ae_severity" type="select1" relevant="../ae_positive = 'yes'" required="true()"/>
+      <bind nodeset="/r/n/return_client/ae_type" type="string" constraint="regex(., &quot;^[a-zA-Z\-]+$&quot;)" relevant="../ae_positive = 'yes'" jr:constraintMsg="The AE Code should be captured in the same way they are recorded in the VMMC register" required="true()"/>
       <bind nodeset="/r/n/trace_client" relevant=" /r/n/client_came ='no'"/>
       <bind nodeset="/r/n/trace_client/tracing_method" type="select1" required="true()"/>
       <bind nodeset="/r/n/trace_client/client_traced" type="string" required="true()" calculate="if( /r/n/trace_client/tracing_method  = 'in_person', 'yes', if( /r/n/trace_client/tracing_method  = 'phone', 'yes', 'no'))"/>
-      <bind nodeset="/r/n/trace_client/client_not_traced_reason" type="string" required="true()" relevant=" /r/n/trace_client/client_traced  = 'no'"/>
-      <bind nodeset="/r/n/trace_client/client_ok" type="select1" required="true()" relevant=" /r/n/trace_client/client_traced  = 'yes'"/>
+      <bind nodeset="/r/n/trace_client/client_not_traced_reason" type="string" relevant=" /r/n/trace_client/client_traced  = 'no'" required="true()"/>
+      <bind nodeset="/r/n/trace_client/client_ok" type="select1" relevant=" /r/n/trace_client/client_traced  = 'yes'" required="true()"/>
       <bind nodeset="/r/n/trace_client/n_thanks" readonly="true()" type="string" relevant=" /r/n/trace_client/client_ok  = 'yes'"/>
       <bind nodeset="/r/n/trace_client/q_ae_positive" type="string" calculate="if( /r/n/trace_client/tracing_method  = &quot;in_person&quot;, &quot;Did nurse identify an AE?&quot;, &quot;Did nurse suspect an AE?&quot;)"/>
-      <bind nodeset="/r/n/trace_client/ae_positive" type="select1" required="true()" relevant=" /r/n/trace_client/client_ok  = 'no'"/>
-      <bind nodeset="/r/n/trace_client/ae_severity" type="select1" required="true()" relevant="../ae_positive = 'yes' and  /r/n/trace_client/tracing_method  = 'in_person'"/>
-      <bind nodeset="/r/n/trace_client/ae_type" type="string" required="true()" jr:constraintMsg="The AE Code should be captured in the same way they are recorded in the VMMC register" constraint="regex(., &quot;^[a-zA-Z\-]+$&quot;)" relevant="../ae_positive = 'yes' and  /r/n/trace_client/tracing_method  = 'in_person'"/>
+      <bind nodeset="/r/n/trace_client/ae_positive" type="select1" relevant=" /r/n/trace_client/client_ok  = 'no'" required="true()"/>
+      <bind nodeset="/r/n/trace_client/ae_severity" type="select1" relevant="../ae_positive = 'yes' and  /r/n/trace_client/tracing_method  = 'in_person'" required="true()"/>
+      <bind nodeset="/r/n/trace_client/ae_type" type="string" constraint="regex(., &quot;^[a-zA-Z\-]+$&quot;)" relevant="../ae_positive = 'yes' and  /r/n/trace_client/tracing_method  = 'in_person'" jr:constraintMsg="The AE Code should be captured in the same way they are recorded in the VMMC register" required="true()"/>
       <bind nodeset="/r/n/additional_comments" type="string" required="false()"/>
-      <bind nodeset="/r/n/nurse" type="string" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
+      <bind nodeset="/r/n/nurse" type="string" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space." required="true()"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>

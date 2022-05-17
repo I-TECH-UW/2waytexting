@@ -56,8 +56,8 @@
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
       <bind nodeset="/r/patient_id" type="string" calculate="../inputs/contact/_id" required="true()"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
-      <bind nodeset="/r/note/g_post_mc/days_post_mc" type="string" jr:requiredMsg="Please select one option" required="true()"/>
-      <bind nodeset="/r/note/g_symptoms/symptoms" type="select" jr:requiredMsg="Please select all options that apply" required="true()"/>
+      <bind nodeset="/r/note/g_post_mc/days_post_mc" type="string" required="true()" jr:requiredMsg="Please select one option"/>
+      <bind nodeset="/r/note/g_symptoms/symptoms" type="select" required="true()" jr:requiredMsg="Please select all options that apply"/>
       <bind nodeset="/r/note/g_symptoms/other_symptom" type="string" relevant="selected( /r/note/g_symptoms/symptoms , 'other')" required="true()"/>
       <bind nodeset="/r/note/followup_request" type="select1"/>
       <bind nodeset="/r/note/followup_method" type="select1"/>

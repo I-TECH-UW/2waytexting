@@ -29,6 +29,7 @@
           <patient_uuid db-doc-ref=" /enroll/person " tag="hidden"/>
           <r_vmmc_no/>
           <r_phone/>
+          <r_alternative_phone/>
           <r_dob/>
           <r_education/>
           <r_enrolled_by/>
@@ -88,6 +89,7 @@
       <bind nodeset="/enroll/patient_uuid" type="string" calculate="person"/>
       <bind nodeset="/enroll/r_vmmc_no" type="string" calculate="../person/vmmc_no"/>
       <bind nodeset="/enroll/r_phone" type="string" calculate="../person/phone"/>
+      <bind nodeset="/enroll/r_alternative_phone" type="string" calculate="../person/alternative_phone"/>
       <bind nodeset="/enroll/r_dob" type="string" calculate="format-date( /enroll/person/dob , '&quot;%d-%m-%Y&quot;')"/>
       <bind nodeset="/enroll/r_education" type="string" calculate="../person/education"/>
       <bind nodeset="/enroll/r_enrolled_by" type="string" calculate="../person/enrolled_by"/>
@@ -96,18 +98,18 @@
       <bind nodeset="/enroll/s_facility_name_calc" type="string" calculate="../person/enrollment_facility/name"/>
       <bind nodeset="/enroll/person/parent/_id" type="string" calculate="../../../inputs/contact/_id"/>
       <bind nodeset="/enroll/person/parent/parent/_id" type="string" calculate="../../../../inputs/contact/parent/_id"/>
-      <bind nodeset="/enroll/person/type" type="string" calculate="&quot;person&quot;" jr:constraintMsg="person"/>
-      <bind nodeset="/enroll/person/name" type="string" required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space."/>
+      <bind nodeset="/enroll/person/type" type="string" jr:constraintMsg="person" calculate="&quot;person&quot;"/>
+      <bind nodeset="/enroll/person/name" type="string" jr:constraintMsg="Please type in name characters e.g letters and space." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" required="true()"/>
       <bind nodeset="/enroll/person/enrollment_facility" required="true()"/>
       <bind nodeset="/enroll/person/enrollment_facility/_id" type="db:health_center"/>
       <bind nodeset="/enroll/person/enrollment_facility/name" type="string"/>
-      <bind nodeset="/enroll/person/vmmc_no" type="string" required="true()" constraint="regex(., '^[0-9]{5,9}$')" jr:constraintMsg="Please enter between 5 - 9 digits"/>
+      <bind nodeset="/enroll/person/vmmc_no" type="string" jr:constraintMsg="Please enter between 5 - 9 digits" required="true()"/>
       <bind nodeset="/enroll/person/education" type="select" required="true()"/>
-      <bind nodeset="/enroll/person/dob" type="date" required="true()" jr:constraintMsg="Client should be from 15 to 75 years old"/>
-      <bind nodeset="/enroll/person/phone" type="string" required="true()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Please enter a valid mobile number"/>
-      <bind nodeset="/enroll/person/alternative_phone" type="string" required="false()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Please enter a valid mobile number"/>
+      <bind nodeset="/enroll/person/dob" type="date" jr:constraintMsg="Client should be from 15 to 75 years old" required="true()"/>
+      <bind nodeset="/enroll/person/phone" type="string" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" required="true()"/>
+      <bind nodeset="/enroll/person/alternative_phone" type="string" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" required="false()"/>
       <bind nodeset="/enroll/person/language_preference" type="select1" required="true()"/>
-      <bind nodeset="/enroll/person/enrolled_by" type="string" required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Name of the person filling the form must be supplied"/>
+      <bind nodeset="/enroll/person/enrolled_by" type="string" jr:constraintMsg="Name of the person filling the form must be supplied" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" required="true()"/>
       <bind nodeset="/enroll/person/telegram_id" type="string"/>
       <bind nodeset="/enroll/summary/task_label" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/_warning" readonly="true()" type="string"/>
@@ -173,7 +175,7 @@
           <label></label>
         </input>
       </group>
-      <input appearance="number" ref="/enroll/person/vmmc_no">
+      <input ref="/enroll/person/vmmc_no">
         <label>Client file number</label>
       </input>
       <select ref="/enroll/person/education">
@@ -203,8 +205,8 @@
           <value>english</value>
         </item>
         <item>
-          <label>Africaans</label>
-          <value>africaans</value>
+          <label>Afrikaans</label>
+          <value>afrikaans</value>
         </item>
         <item>
           <label>Setswana</label>

@@ -1,11 +1,14 @@
 {
-  "icon": "patient",
+  "icon": "person",
+  "title": "New Enrollment",
   "context": {
     "person": false,
     "place": true,
     "expression": "['clinic', 'health_center', 'district_hospital'].indexOf(contact.type) !== -1"
   },
-  "subject_key": "enroll.report.title",
-  "title": "Enrollment Form",
-  "hidden_fields": ["ctx", "editing"]
+  "hidden_fields": [
+    "report.enroll.s_facility_name_calc",
+    "s_facility_name_calc",
+    "r_telegram_id"
+  ]
 }

@@ -1,0 +1,12 @@
+{
+  "icon": "treatment",
+  "context": {
+    "person": true,
+    "place": false,
+    "expression": "!contact || contact.type === 'person'"
+  },
+  "hidden_fields": [
+    "report.referral_for_care.patient_id",
+    "patient_id"
+  ]
+}

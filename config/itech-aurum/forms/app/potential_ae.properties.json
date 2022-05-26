@@ -1,8 +1,9 @@
 {
-  "icon": "clipboard",
+  "icon": "risk",
+  "title": "SMS Received: Potential AE",
   "context": {
     "person": true,
     "place": false,
-    "expression": "!contact.muted && contact.role === 'patient'"
+    "expression": ""
   }
 }

@@ -1,8 +1,0 @@
-{
-  "icon": "schedule",
-  "context": {
-    "person": true,
-    "place": false,
-    "expression": "false"
-  }
-}

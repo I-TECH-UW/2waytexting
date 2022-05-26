@@ -1,0 +1,7 @@
+{
+  "icon": "clipboard",
+  "context": {
+    "person": false,
+    "place": false
+  }
+}

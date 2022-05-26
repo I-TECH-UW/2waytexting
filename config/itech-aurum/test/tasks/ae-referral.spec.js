@@ -7,7 +7,7 @@ const TestHarness = require('medic-conf-test-harness');
 const harness = new TestHarness();
 const { potential_ae, referral_confirmation } = require('../form-inputs');
 
-describe('AE referral task', () => {
+xdescribe('AE referral task', () => {
   before(async () => { return await harness.start(); });
   after(async () => { return await harness.stop(); });
   beforeEach(async () => {

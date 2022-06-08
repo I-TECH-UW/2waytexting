@@ -1,5 +1,5 @@
 {
-  "icon": "risk",
+  "icon": "warning",
   "title": "SMS Received: Potential AE",
   "context": {
     "person": true,

@@ -54,12 +54,14 @@
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
-      <bind nodeset="/r/patient_id" type="string" calculate="../inputs/contact/_id" required="true()"/>
+      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
       <bind nodeset="/r/note/g_post_mc/days_post_mc" type="string" required="true()" jr:requiredMsg="Please select one option"/>
       <bind nodeset="/r/note/g_symptoms/symptoms" type="select" required="true()" jr:requiredMsg="Please select all options that apply"/>
       <bind nodeset="/r/note/g_symptoms/other_symptom" type="string" required="true()" relevant="selected( /r/note/g_symptoms/symptoms , 'other')"/>
-      <bind nodeset="/r/note/followup_request" type="select1"/>
+
+      <bind nodeset="/r/note/followup_request" type="select"/>
+
       <bind nodeset="/r/note/followup_method" type="select1"/>
       <bind nodeset="/r/note/ae" type="select1"/>
       <bind nodeset="/r/note/severity" type="select1" required="true()" relevant="selected( /r/note/ae , 'yes')"/>
@@ -131,7 +133,7 @@
           <label>Specify other</label>
         </input>
       </group>
-      <select1 ref="/r/note/followup_request">
+      <select ref="/r/note/followup_request">
         <label>Did the client request interactive text or phone call follow up?</label>
         <item>
           <label>Text</label>
@@ -142,10 +144,18 @@
           <value>phone</value>
         </item>
         <item>
+          <label>Photo Review</label>
+          <value>photo_review</value>
+        </item>
+        <item>
+          <label>Whatsapp</label>
+          <value>whatsapp</value>
+        </item>
+        <item>
           <label>No response OR client did not request follow up</label>
           <value>none</value>
         </item>
-      </select1>
+      </select>
       <select1 ref="/r/note/followup_method">
         <label>How did you reach the client?</label>
         <item>

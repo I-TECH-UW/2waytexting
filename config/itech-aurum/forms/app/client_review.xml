@@ -16,8 +16,6 @@
             </meta>
             <source>user</source>
             <source_id/>
-            <is_referral_for_care_ctx/>
-            <is_no_contact_ctx/>
             <contact>
               <_id/>
               <name/>
@@ -25,34 +23,21 @@
             </contact>
           </inputs>
           <patient_name/>
-          <patient_id/>
+          <patient_id tag="hidden"/>
           <phone/>
-          <is_referral_for_care/>
-          <is_no_contact/>
           <n>
             <client_came/>
             <return_client>
+              <client_visit/>
               <health_center>
-                <_id/>
+                <_id tag="hidden"/>
                 <name/>
               </health_center>
+              <client_visit_location/>
               <visit_date/>
-              <ae_positive/>
-              <ae_severity/>
-              <ae_type/>
             </return_client>
-            <trace_client>
-              <tracing_method/>
-              <client_traced/>
-              <client_not_traced_reason/>
-              <client_ok/>
-              <n_thanks/>
-              <q_ae_positive/>
-              <ae_positive/>
-              <ae_severity/>
-              <ae_type/>
-            </trace_client>
-            <additional_comments/>
+            <tracing_method/>
+            <explain/>
             <nurse/>
           </n>
           <meta tag="hidden">
@@ -64,36 +49,23 @@
       <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
       <bind nodeset="/r/inputs/source" type="string"/>
       <bind nodeset="/r/inputs/source_id" type="string"/>
-      <bind nodeset="/r/inputs/is_referral_for_care_ctx" type="string"/>
-      <bind nodeset="/r/inputs/is_no_contact_ctx" type="string"/>
       <bind nodeset="/r/inputs/contact/_id" type="db:person" required="true()"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
       <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
-      <bind nodeset="/r/is_referral_for_care" type="string" calculate="../inputs/is_referral_for_care"/>
-      <bind nodeset="/r/is_no_contact" type="string" calculate="../inputs/is_no_contact"/>
       <bind nodeset="/r/n/client_came" type="select1" required="true()"/>
       <bind nodeset="/r/n/return_client" relevant=" /r/n/client_came  = 'yes'"/>
+      <bind nodeset="/r/n/return_client/client_visit" type="select1"/>
+      <bind nodeset="/r/n/return_client/health_center" relevant="selected( /r/n/return_client/client_visit , 'chaps_mc_clinic')"/>
       <bind nodeset="/r/n/return_client/health_center/_id" type="db:health_center" required="true()"/>
       <bind nodeset="/r/n/return_client/health_center/name" type="string"/>
-      <bind nodeset="/r/n/return_client/visit_date" type="date" constraint=". &lt;= today() and ((decimal-date-time(today()) - decimal-date-time(.)) &lt;= 28)" jr:constraintMsg="Date is not in the future: and not more than 4 weeks ago" required="true()"/>
-      <bind nodeset="/r/n/return_client/ae_positive" type="select1" required="true()"/>
-      <bind nodeset="/r/n/return_client/ae_severity" type="select1" relevant="../ae_positive = 'yes'" required="true()"/>
-      <bind nodeset="/r/n/return_client/ae_type" type="string" constraint="regex(., &quot;^[a-zA-Z\-]+$&quot;)" relevant="../ae_positive = 'yes'" jr:constraintMsg="The AE Code should be captured in the same way they are recorded in the VMMC register" required="true()"/>
-      <bind nodeset="/r/n/trace_client" relevant=" /r/n/client_came ='no'"/>
-      <bind nodeset="/r/n/trace_client/tracing_method" type="select1" required="true()"/>
-      <bind nodeset="/r/n/trace_client/client_traced" type="string" required="true()" calculate="if( /r/n/trace_client/tracing_method  = 'in_person', 'yes', if( /r/n/trace_client/tracing_method  = 'phone', 'yes', 'no'))"/>
-      <bind nodeset="/r/n/trace_client/client_not_traced_reason" type="string" relevant=" /r/n/trace_client/client_traced  = 'no'" required="true()"/>
-      <bind nodeset="/r/n/trace_client/client_ok" type="select1" relevant=" /r/n/trace_client/client_traced  = 'yes'" required="true()"/>
-      <bind nodeset="/r/n/trace_client/n_thanks" readonly="true()" type="string" relevant=" /r/n/trace_client/client_ok  = 'yes'"/>
-      <bind nodeset="/r/n/trace_client/q_ae_positive" type="string" calculate="if( /r/n/trace_client/tracing_method  = &quot;in_person&quot;, &quot;Did nurse identify an AE?&quot;, &quot;Did nurse suspect an AE?&quot;)"/>
-      <bind nodeset="/r/n/trace_client/ae_positive" type="select1" relevant=" /r/n/trace_client/client_ok  = 'no'" required="true()"/>
-      <bind nodeset="/r/n/trace_client/ae_severity" type="select1" relevant="../ae_positive = 'yes' and  /r/n/trace_client/tracing_method  = 'in_person'" required="true()"/>
-      <bind nodeset="/r/n/trace_client/ae_type" type="string" constraint="regex(., &quot;^[a-zA-Z\-]+$&quot;)" relevant="../ae_positive = 'yes' and  /r/n/trace_client/tracing_method  = 'in_person'" jr:constraintMsg="The AE Code should be captured in the same way they are recorded in the VMMC register" required="true()"/>
-      <bind nodeset="/r/n/additional_comments" type="string" required="false()"/>
-      <bind nodeset="/r/n/nurse" type="string" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space." required="true()"/>
+      <bind nodeset="/r/n/return_client/client_visit_location" type="string" relevant="selected( /r/n/return_client/client_visit , 'doh') or selected( /r/n/return_client/client_visit , 'private_clinic')"/>
+      <bind nodeset="/r/n/return_client/visit_date" type="date" jr:constraintMsg="Date is not in the future: and not more than 4 weeks ago" required="true()" constraint=". &lt;= today() and ((decimal-date-time(today()) - decimal-date-time(.)) &lt;= 28)"/>
+      <bind nodeset="/r/n/tracing_method" type="select1" relevant=" /r/n/client_came ='no'" required="true()"/>
+      <bind nodeset="/r/n/explain" type="string" relevant="selected( /r/n/tracing_method , 'unknown')" required="true()"/>
+      <bind nodeset="/r/n/nurse" type="string" jr:constraintMsg="Please type in name characters e.g letters and space." required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
@@ -105,12 +77,6 @@
       </input>
       <input appearance="hidden" ref="/r/inputs/source_id">
         <label>Source ID</label>
-      </input>
-      <input appearance="hidden" ref="/r/inputs/is_referral_for_care_ctx">
-        <label>Is a referral for care case</label>
-      </input>
-      <input appearance="hidden" ref="/r/inputs/is_no_contact_ctx">
-        <label>Is a no contact case</label>
       </input>
       <group ref="/r/inputs/contact">
         <label>Contact</label>
@@ -129,7 +95,7 @@
     <group appearance="field-list" ref="/r/n">
       <label></label>
       <select1 ref="/r/n/client_came">
-        <label>Did client return to clinic?</label>
+        <label>Was client seen by a clinician?</label>
         <item>
           <label>Yes</label>
           <value>yes</value>
@@ -141,6 +107,21 @@
       </select1>
       <group ref="/r/n/return_client">
         <label></label>
+        <select1 ref="/r/n/return_client/client_visit">
+          <label>Which facility?</label>
+          <item>
+            <label>CHAPS MC team</label>
+            <value>chaps_mc_clinic</value>
+          </item>
+          <item>
+            <label>DOH</label>
+            <value>doh</value>
+          </item>
+          <item>
+            <label>Private clinic</label>
+            <value>private_clinic</value>
+          </item>
+        </select1>
         <group ref="/r/n/return_client/health_center">
           <label></label>
           <input appearance="db-object" ref="/r/n/return_client/health_center/_id">
@@ -148,107 +129,34 @@
           </input>
           <input appearance="hidden" ref="/r/n/return_client/health_center/name"/>
         </group>
+        <input ref="/r/n/return_client/client_visit_location">
+          <label>Specify</label>
+        </input>
         <input ref="/r/n/return_client/visit_date">
           <label>Date of visit/review</label>
         </input>
-        <select1 ref="/r/n/return_client/ae_positive">
-          <label>Did nurse identify an AE?</label>
-          <item>
-            <label>Yes</label>
-            <value>yes</value>
-          </item>
-          <item>
-            <label>No</label>
-            <value>no</value>
-          </item>
-        </select1>
-        <select1 ref="/r/n/return_client/ae_severity">
-          <label>Severity of the Adverse Event (AE)</label>
-          <item>
-            <label>Mild</label>
-            <value>mild</value>
-          </item>
-          <item>
-            <label>Moderate</label>
-            <value>moderate</value>
-          </item>
-          <item>
-            <label>Severe</label>
-            <value>severe</value>
-          </item>
-        </select1>
-        <input ref="/r/n/return_client/ae_type">
-          <label>AE Code</label>
-          <hint>Should be the same AE Code as the one used in the register</hint>
-        </input>
       </group>
-      <group ref="/r/n/trace_client">
-        <label></label>
-        <select1 ref="/r/n/trace_client/tracing_method">
-          <label>Have you traced the client?</label>
-          <item>
-            <label>1. Yes, Via Physical visit</label>
-            <value>in_person</value>
-          </item>
-          <item>
-            <label>2. Yes, Via Phone call</label>
-            <value>phone</value>
-          </item>
-          <item>
-            <label>3. No</label>
-            <value>none</value>
-          </item>
-        </select1>
-        <input ref="/r/n/trace_client/client_not_traced_reason">
-          <label>If no tracing, explain why not.</label>
-        </input>
-        <select1 ref="/r/n/trace_client/client_ok">
-          <label>Is VMMC Client okay?</label>
-          <item>
-            <label>Yes</label>
-            <value>yes</value>
-          </item>
-          <item>
-            <label>No</label>
-            <value>no</value>
-          </item>
-        </select1>
-        <input ref="/r/n/trace_client/n_thanks">
-          <label>Thanks for tracing the client</label>
-        </input>
-        <select1 ref="/r/n/trace_client/ae_positive">
-          <label><output value=" /r/n/trace_client/q_ae_positive "/></label>
-          <item>
-            <label>Yes</label>
-            <value>yes</value>
-          </item>
-          <item>
-            <label>No</label>
-            <value>no</value>
-          </item>
-        </select1>
-        <select1 ref="/r/n/trace_client/ae_severity">
-          <label>Severity of the Adverse Event (AE)</label>
-          <item>
-            <label>Mild</label>
-            <value>mild</value>
-          </item>
-          <item>
-            <label>Moderate</label>
-            <value>moderate</value>
-          </item>
-          <item>
-            <label>Severe</label>
-            <value>severe</value>
-          </item>
-        </select1>
-        <input ref="/r/n/trace_client/ae_type">
-          <label>AE Code</label>
-          <hint>Should be the same AE Code as the one used in the register</hint>
-        </input>
-      </group>
-      <input ref="/r/n/additional_comments">
-        <label>Any Additional Comments</label>
+      <select1 ref="/r/n/tracing_method">
+        <label>Have you traced the client?</label>
+        <item>
+          <label>Client reached by phone and is ok</label>
+          <value>phone</value>
+        </item>
+        <item>
+          <label>Client responded via SMS and is ok</label>
+          <value>sms</value>
+        </item>
+        <item>
+          <label>No (Creates TRACE CLIENT task)</label>
+          <value>no</value>
+        </item>
+        <item>
+          <label>Unknown</label>
+          <value>unknown</value>
+        </item>
+      </select1>
+      <input ref="/r/n/explain">
+        <label>Please Explain</label>
       </input>
       <input ref="/r/n/nurse">
         <label>Name of health provider/Nurse</label>

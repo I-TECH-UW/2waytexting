@@ -26,7 +26,7 @@
             </contact>
           </inputs>
           <r_patient_name/>
-          <patient_uuid db-doc-ref=" /enroll/person " tag="hidden"/>
+          <patient_uuid tag="hidden" db-doc-ref=" /enroll/person "/>
           <r_vmmc_no/>
           <r_phone/>
           <r_alternative_phone/>
@@ -52,11 +52,13 @@
             <vmmc_no/>
             <education/>
             <dob/>
+            <age/>
+            <is_minor/>
+            <phone_owner/>
             <phone/>
             <alternative_phone/>
             <language_preference/>
             <enrolled_by/>
-            <telegram_id/>
           </person>
           <summary tag="hidden">
             <task_label/>
@@ -67,6 +69,7 @@
             <s_vmmc_no/>
             <s_education/>
             <s_dob/>
+            <s_is_minor/>
             <s_phone/>
             <s_alternative_phone/>
             <s_language_preference/>
@@ -99,18 +102,20 @@
       <bind nodeset="/enroll/person/parent/_id" type="string" calculate="../../../inputs/contact/_id"/>
       <bind nodeset="/enroll/person/parent/parent/_id" type="string" calculate="../../../../inputs/contact/parent/_id"/>
       <bind nodeset="/enroll/person/type" type="string" jr:constraintMsg="person" calculate="&quot;person&quot;"/>
-      <bind nodeset="/enroll/person/name" type="string" jr:constraintMsg="Please type in name characters e.g letters and space." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" required="true()"/>
+      <bind nodeset="/enroll/person/name" type="string" jr:constraintMsg="Please type in name characters e.g letters and space." required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
       <bind nodeset="/enroll/person/enrollment_facility" required="true()"/>
       <bind nodeset="/enroll/person/enrollment_facility/_id" type="db:health_center"/>
       <bind nodeset="/enroll/person/enrollment_facility/name" type="string"/>
       <bind nodeset="/enroll/person/vmmc_no" type="string" jr:constraintMsg="Please enter between 5 - 9 digits" required="true()"/>
       <bind nodeset="/enroll/person/education" type="select" required="true()"/>
-      <bind nodeset="/enroll/person/dob" type="date" jr:constraintMsg="Client should be from 15 to 75 years old" required="true()"/>
-      <bind nodeset="/enroll/person/phone" type="string" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" required="true()"/>
-      <bind nodeset="/enroll/person/alternative_phone" type="string" jr:constraintMsg="Please enter a valid mobile number" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" required="false()"/>
+      <bind nodeset="/enroll/person/dob" type="date" jr:constraintMsg="Client should be from 15 to 75 years old" required="true()" constraint=" /enroll/person/age  &gt; 15 and  /enroll/person/age  &lt;= 75"/>
+      <bind nodeset="/enroll/person/age" type="string" calculate="int((decimal-date-time(today()) - decimal-date-time( /enroll/person/dob ) ) div 365.25, 0)"/>
+      <bind nodeset="/enroll/person/is_minor" type="string" calculate="if(( /enroll/person/age  &lt; 18 and  /enroll/person/age  &gt;= 15), 'yes', 'no')"/>
+      <bind nodeset="/enroll/person/phone_owner" type="select1" required="true()" relevant=" /enroll/person/is_minor  = 'yes'"/>
+      <bind nodeset="/enroll/person/phone" type="string" jr:constraintMsg="Please enter a valid mobile number" required="true()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)"/>
+      <bind nodeset="/enroll/person/alternative_phone" type="string" jr:constraintMsg="Please enter a valid mobile number" required="false()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)"/>
       <bind nodeset="/enroll/person/language_preference" type="select1" required="true()"/>
-      <bind nodeset="/enroll/person/enrolled_by" type="string" jr:constraintMsg="Name of the person filling the form must be supplied" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" required="true()"/>
-      <bind nodeset="/enroll/person/telegram_id" type="string"/>
+      <bind nodeset="/enroll/person/enrolled_by" type="string" jr:constraintMsg="Name of the person filling the form must be supplied" required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
       <bind nodeset="/enroll/summary/task_label" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/_warning" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/patient_details" readonly="true()" type="string"/>
@@ -119,6 +124,7 @@
       <bind nodeset="/enroll/summary/s_vmmc_no" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_education" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_dob" readonly="true()" type="string"/>
+      <bind nodeset="/enroll/summary/s_is_minor" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_phone" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_alternative_phone" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_language_preference" readonly="true()" type="string"/>
@@ -188,6 +194,17 @@
       <input appearance="number" ref="/enroll/person/dob">
         <label>VMMC client date of birth</label>
       </input>
+      <select1 ref="/enroll/person/phone_owner">
+        <label>Phone Owner</label>
+        <item>
+          <label>Minor</label>
+          <value>minor</value>
+        </item>
+        <item>
+          <label>Guardian</label>
+          <value>guardian</value>
+        </item>
+      </select1>
       <input ref="/enroll/person/phone">
         <label>Client mobile phone number</label>
         <hint>Should start with the country code
@@ -217,9 +234,6 @@
         <label>Enrolled By</label>
         <hint>Please enter your name</hint>
       </input>
-      <input ref="/enroll/person/telegram_id">
-        <label>Telegram Id</label>
-      </input>
     </group>
     <group appearance="field-list summary" ref="/enroll/summary">
       <label>Summary</label>
@@ -246,6 +260,9 @@
       </input>
       <input ref="/enroll/summary/s_dob">
         <label>&lt;b&gt;Date of birth&lt;/b&gt;: <output value=" /enroll/r_dob "/></label>
+      </input>
+      <input ref="/enroll/summary/s_is_minor">
+        <label>&lt;b&gt;Is Minor&lt;/b&gt;: <output value=" /enroll/person/is_minor "/></label>
       </input>
       <input ref="/enroll/summary/s_phone">
         <label>&lt;b&gt;Phone number&lt;/b&gt;: <output value=" /enroll/person/phone "/></label>

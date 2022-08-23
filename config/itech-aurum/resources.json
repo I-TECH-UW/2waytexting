@@ -19,5 +19,7 @@
   "medic-person": "icon-people-person-general.svg",
   "patient": "medic-patient.svg",
   "recommend": "thumbs-up.svg",
-  "not-recommend": "thumbs-down.svg"
+  "not-recommend": "thumbs-down.svg",
+  "warning": "icon-healthcare-warning@2x.png",
+  "minor-danger": "icon-ICCM-danger-sign@2x.png"
 }

@@ -26,13 +26,9 @@
           <patient_id tag="hidden"/>
           <phone/>
           <note>
-            <g_post_mc>
-              <days_post_mc/>
-            </g_post_mc>
-            <g_symptoms>
-              <symptoms/>
-              <other_symptom/>
-            </g_symptoms>
+            <days_post_mc/>
+            <symptoms/>
+            <other_symptom/>
             <followup_request/>
             <followup_method/>
             <ae/>
@@ -56,12 +52,10 @@
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
       <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
-      <bind nodeset="/r/note/g_post_mc/days_post_mc" type="string" required="true()" jr:requiredMsg="Please select one option"/>
-      <bind nodeset="/r/note/g_symptoms/symptoms" type="select" required="true()" jr:requiredMsg="Please select all options that apply"/>
-      <bind nodeset="/r/note/g_symptoms/other_symptom" type="string" required="true()" relevant="selected( /r/note/g_symptoms/symptoms , 'other')"/>
-
+      <bind nodeset="/r/note/days_post_mc" type="date" jr:requiredMsg="Please select one option" required="true()"/>
+      <bind nodeset="/r/note/symptoms" type="select" jr:requiredMsg="Please select all options that apply" required="true()"/>
+      <bind nodeset="/r/note/other_symptom" type="string" relevant="selected( /r/note/symptoms , 'other')" required="true()"/>
       <bind nodeset="/r/note/followup_request" type="select"/>
-
       <bind nodeset="/r/note/followup_method" type="select1"/>
       <bind nodeset="/r/note/ae" type="select1"/>
       <bind nodeset="/r/note/severity" type="select1" required="true()" relevant="selected( /r/note/ae , 'yes')"/>
@@ -89,50 +83,44 @@
       </group>
     </group>
     <group ref="/r/note">
-      <label></label>
-      <group appearance="field-list" ref="/r/note/g_post_mc">
-        <label>Site nurse will use this form to record every potential AE reported, even if multiple per client, including: 1) A client sends a YES SMS to note a potential AE; 2) A client sends a question about a symptom via SMS; and 3) A client requests a follow-up call.</label>
-        <input appearance="number" ref="/r/note/g_post_mc/days_post_mc">
-          <label>Day post MC that an AE was reported by client.</label>
-        </input>
-      </group>
-      <group appearance="field-list" ref="/r/note/g_symptoms">
-        <label></label>
-        <select ref="/r/note/g_symptoms/symptoms">
-          <label>What symptoms did the client report?</label>
-          <item>
-            <label>Bleeding</label>
-            <value>bleeding</value>
-          </item>
-          <item>
-            <label>Swelling</label>
-            <value>swelling</value>
-          </item>
-          <item>
-            <label>Pus</label>
-            <value>pus</value>
-          </item>
-          <item>
-            <label>Pain</label>
-            <value>pain</value>
-          </item>
-          <item>
-            <label>Wound opening</label>
-            <value>wound_opening</value>
-          </item>
-          <item>
-            <label>Redness</label>
-            <value>redness</value>
-          </item>
-          <item>
-            <label>Other</label>
-            <value>other</value>
-          </item>
-        </select>
-        <input ref="/r/note/g_symptoms/other_symptom">
-          <label>Specify other</label>
-        </input>
-      </group>
+      <label>Site nurse will use this form to record every potential AE reported, even if multiple per client, including: 1) A client sends a YES SMS to note a potential AE; 2) A client sends a question about a symptom via SMS; and 3) A client requests a follow-up call.</label>
+      <input appearance="number" ref="/r/note/days_post_mc">
+        <label>Date that a potential AE was reported by client.</label>
+      </input>
+      <select ref="/r/note/symptoms">
+        <label>What symptoms did the client report?</label>
+        <item>
+          <label>Bleeding</label>
+          <value>bleeding</value>
+        </item>
+        <item>
+          <label>Swelling</label>
+          <value>swelling</value>
+        </item>
+        <item>
+          <label>Pus</label>
+          <value>pus</value>
+        </item>
+        <item>
+          <label>Pain</label>
+          <value>pain</value>
+        </item>
+        <item>
+          <label>Wound opening</label>
+          <value>wound_opening</value>
+        </item>
+        <item>
+          <label>Redness</label>
+          <value>redness</value>
+        </item>
+        <item>
+          <label>Other</label>
+          <value>other</value>
+        </item>
+      </select>
+      <input ref="/r/note/other_symptom">
+        <label>Specify other</label>
+      </input>
       <select ref="/r/note/followup_request">
         <label>Did the client request interactive text or phone call follow up?</label>
         <item>
@@ -142,6 +130,14 @@
         <item>
           <label>Phone call</label>
           <value>phone</value>
+        </item>
+        <item>
+          <label>Photo Review</label>
+          <value>photo_review</value>
+        </item>
+        <item>
+          <label>Whatsapp</label>
+          <value>whatsapp</value>
         </item>
         <item>
           <label>Photo Review</label>

@@ -13,10 +13,11 @@
               <_id/>
               <name/>
             </enrollment_facility>
-            <enrollment_location/>
             <vmmc_no/>
-            <age_years/>
-            <enrollment_date/>
+            <dob/>
+            <age/>
+            <is_minor/>
+            <phone_owner/>
             <phone/>
             <alternative_phone/>
             <language_preference/>
@@ -29,17 +30,18 @@
       </instance>
       <bind nodeset="/data/person/parent" type="string"/>
       <bind nodeset="/data/person/type" type="string"/>
-      <bind nodeset="/data/person/name" type="string" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space." required="true()"/>
+      <bind nodeset="/data/person/name" type="string" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
       <bind nodeset="/data/person/enrollment_facility/_id" type="db:health_center" required="true()"/>
       <bind nodeset="/data/person/enrollment_facility/name" type="string"/>
-      <bind nodeset="/data/person/enrollment_location" type="string" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space." required="true()"/>
-      <bind nodeset="/data/person/vmmc_no" type="string" constraint="regex(., '^[0-9]{5,9}$')" jr:constraintMsg="Must be 5 – 9 numeric digits" required="true()"/>
-      <bind nodeset="/data/person/age_years" type="decimal" constraint="(.) &gt;= 18 and (.) &lt;= 75" jr:constraintMsg="Only 18 - 75 yrs old men can enroll." required="true()"/>
-      <bind nodeset="/data/person/enrollment_date" type="date" constraint="decimal-date-time(.) = floor(decimal-date-time(today()))" jr:constraintMsg="Only today's date is allowed" required="true()"/>
-      <bind nodeset="/data/person/phone" type="string" constraint="regex(., '^\+263[0-9]{9}$')" jr:constraintMsg="Please enter phone number in the format +263xxxxxxxxx" required="true()"/>
-      <bind nodeset="/data/person/alternative_phone" type="string" constraint="regex(., '^\+263[0-9]{9}$')" jr:constraintMsg="Please enter phone number in the format +263xxxxxxxxx" required="false()"/>
+      <bind nodeset="/data/person/vmmc_no" type="string" required="true()" jr:constraintMsg="Must be 5 – 9 numeric digits" constraint="regex(., '^[0-9]{5,9}$')"/>
+      <bind nodeset="/data/person/dob" type="date" required="true()" jr:constraintMsg="Only 15 - 75 yrs old men can enroll." constraint=" /data/person/age  &gt;= 15 and  /data/person/age  &lt;= 75"/>
+      <bind nodeset="/data/person/age" type="string" calculate="int((decimal-date-time(today()) - decimal-date-time( /data/person/dob ) ) div 365.25, 0)"/>
+      <bind nodeset="/data/person/is_minor" type="string" calculate="if(( /data/person/age  &lt; 18 and  /data/person/age  &gt;= 15), 'yes', 'no')"/>
+      <bind nodeset="/data/person/phone_owner" type="select1" required="true()" relevant=" /data/person/is_minor  = 'yes'"/>
+      <bind nodeset="/data/person/phone" type="string" required="true()" jr:constraintMsg="Please enter phone number in the format +263xxxxxxxxx" constraint="regex(., '^\+27[0-9]{9}$')"/>
+      <bind nodeset="/data/person/alternative_phone" type="string" required="false()" jr:constraintMsg="Please enter phone number in the format +263xxxxxxxxx" constraint="regex(., '^\+27[0-9]{9}$')"/>
       <bind nodeset="/data/person/language_preference" type="select1" required="true()"/>
-      <bind nodeset="/data/person/enrollment_nurse" type="string" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space." required="true()"/>
+      <bind nodeset="/data/person/enrollment_nurse" type="string" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
       <bind nodeset="/data/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
@@ -59,22 +61,30 @@
       <group ref="/data/person/enrollment_facility">
         <label></label>
         <input appearance="db-object" ref="/data/person/enrollment_facility/_id">
-          <label>Which clinic?</label>
+          <label>VMMC enrollment facility</label>
         </input>
         <input appearance="hidden" ref="/data/person/enrollment_facility/name"/>
       </group>
-      <input ref="/data/person/enrollment_location">
-        <label>Specify Enrollment Location</label>
-      </input>
       <input ref="/data/person/vmmc_no">
         <label>VMMC Client Number</label>
       </input>
-      <input ref="/data/person/age_years">
-        <label>VMMC Client Age in Years</label>
+      <input ref="/data/person/dob">
+        <label>VMMC client date of birth</label>
       </input>
-      <input ref="/data/person/enrollment_date">
-        <label>Enrollment Date</label>
+      <input ref="/data/person/age">
+        <label></label>
       </input>
+      <select1 ref="/data/person/phone_owner">
+        <label>Phone Owner</label>
+        <item>
+          <label>Minor</label>
+          <value>minor</value>
+        </item>
+        <item>
+          <label>Guardian</label>
+          <value>guardian</value>
+        </item>
+      </select1>
       <input ref="/data/person/phone">
         <label>Client Mobile phone number</label>
       </input>

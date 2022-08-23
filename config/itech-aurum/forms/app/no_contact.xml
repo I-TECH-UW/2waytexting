@@ -16,6 +16,7 @@
             </meta>
             <source>user</source>
             <source_id/>
+            <task_shows_on_day/>
             <contact>
               <_id/>
               <name/>
@@ -28,7 +29,6 @@
           <n>
             <n_header/>
             <client_ok/>
-            <additional_notes_text/>
             <additional_notes/>
           </n>
           <meta tag="hidden">
@@ -40,6 +40,7 @@
       <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
       <bind nodeset="/r/inputs/source" type="string"/>
       <bind nodeset="/r/inputs/source_id" type="string"/>
+      <bind nodeset="/r/inputs/task_shows_on_day" type="string"/>
       <bind nodeset="/r/inputs/contact/_id" type="db:person" required="true()"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
@@ -48,8 +49,7 @@
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
       <bind nodeset="/r/n/n_header" readonly="true()" type="string"/>
       <bind nodeset="/r/n/client_ok" type="select1" required="true()"/>
-      <bind nodeset="/r/n/additional_notes_text" type="string" calculate="if( /r/n/client_ok =&quot;unknown&quot;, &quot;Trace client and add additional notes &quot;, if( /r/n/client_ok =&quot;no&quot;,&quot;Review Client and add additional notes&quot;, &quot;Please add additional notes&quot;))" required="false()"/>
-      <bind nodeset="/r/n/additional_notes" type="string" required="false()"/>
+      <bind nodeset="/r/n/additional_notes" type="string" required="true()" relevant="selected( /r/n/client_ok , 'unknown')"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
@@ -79,7 +79,7 @@
     <group appearance="field-list" ref="/r/n">
       <label></label>
       <input ref="/r/n/n_header">
-        <label>&lt;h4 style="color: #337ab7;"&gt;If there is no sms text response from the client on day 8, nurse makes contact via phone to the client and/or the next kin to find out if they are okay, this form reports on the outcomes of the actions of the nurse and can lead to either&lt;br/&gt;
+        <label>&lt;h4 style=&quot;color: #337ab7;&quot;&gt;If there is no sms text response from the client on day <output value=" /r/inputs/task_shows_on_day "/>, nurse makes contact via phone to the client and/or the next kin to find out if they are okay, this form reports on the outcomes of the actions of the nurse and can lead to either&lt;br/&gt;
 1) a client reached and is ok
 2) a client reached and NEEDS in-person review
 3) client not reached, needs tracing
@@ -96,12 +96,12 @@
           <value>no</value>
         </item>
         <item>
-          <label>Client not reached (generates Task for site tracing)</label>
+          <label>Client LTFU: traced by phone and/or home visit but was not found.</label>
           <value>unknown</value>
         </item>
       </select1>
       <input ref="/r/n/additional_notes">
-        <label><output value=" /r/n/additional_notes_text "/></label>
+        <label>Please add note</label>
       </input>
     </group>
   </h:body>

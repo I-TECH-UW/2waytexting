@@ -1,11 +1,61 @@
 const thisContact = contact;
 const thisLineage = lineage;
 
+function isPatient () {
+    return thisContact.type === 'person' && (!isNurse() || thisContact.role === 'patient');
+}
+
+function reportDaysAfterEnrollment (contact, report) {
+    const hours = Math.ceil((report.reported_date - contact.reported_date) / (1000 * 60 * 60 ));
+    const days = hours / 24;
+    console.log('actual diff ', hours);
+    
+    return hours < 24 ? 1 : Math.ceil(days);
+}
+
+/**
+ * 
+ * @param {object} contact  
+ * @param {object} report 
+ * @param {tuple} daysRange [min, max] days after min, on or before max
+ * @returns 
+ */
+
+function onOrBeforeDays (contact = {}, report = {}, daysRange) {
+    const daysDiff = reportDaysAfterEnrollment(report, contact);
+    if (daysDiff <= daysRange[0]) {
+        return false;
+    }
+     if (daysDiff > daysRange[1]) {
+        return false;
+    }
+    
+    return true;
+}
+
+function getSMSStatus (contact, reports) {
+    let onOrBeforeDay2 = false;
+    let afterDay2 = false;
+    reports.forEach(report => {
+        if (!onOrBeforeDay2) {
+            onOrBeforeDay2 = onOrBeforeDays(contact, report, [0, 4]);
+        }
+        if (!afterDay2) {
+            afterDay2 = onOrBeforeDays(contact, report, [5, 8]);
+        }
+    });
+    return [onOrBeforeDay2, afterDay2];
+}
+
+function getAEreports (allReports) {
+    return allReports.filter(report => (report.form === 'potential_ae'));
+}
+
 const isNurse = () => { return contact.contact_type === 'nurse' || !!contact.is_nurse; };
 const isNotNurse = () => { return !isNurse(); };
 const isMinor = contact.is_minor === 'yes';
 let daysSinceEnrollment;
-if (contact.type === 'person' && !isNurse()) {
+if (isPatient) {
     const diff = new Date().getTime() - new Date(contact.reported_date).getTime();
     daysSinceEnrollment = Math.floor(Math.abs(Math.round(diff / (1000 * 60 * 60 * 24))));
 }
@@ -31,6 +81,48 @@ if (isMinor) {
 
 fields.push({ appliesToType: 'person', label: 'contact.parent', value: thisLineage, filter: 'lineage', width: 12 });
 
+const cards = [
+    {
+        label: 'SMS Status',
+        appliesToType: ['person'],
+        appliesIf: isPatient,
+        fields: function () {
+            const SMS_RECEIVED = 'Received';
+            const SMS_NOT_RECEIVED = 'Not received';
+            const fields = [];
+
+            if (daysSinceEnrollment < 2) return;
+
+            if (!reports.length) return;
+
+            const aeReports = getAEreports(reports);
+            if (!aeReports.length) return;
+
+            const [onOrBeforeDay2, afterDay2] = getSMSStatus(thisContact, aeReports);
+
+            fields.push({ 
+                    appliesToType: 'person', 
+                    label: 'Day 2 SMS', 
+                    value: onOrBeforeDay2 ? SMS_RECEIVED : SMS_NOT_RECEIVED, 
+                    width: 6,
+                    icon: onOrBeforeDay2 ? 'on' : 'off'
+                });
+            if (daysSinceEnrollment >= 7) {
+                fields.push({ 
+                    appliesToType: 'person', 
+                    label: 'Day 7 SMS', 
+                    value: afterDay2 ? SMS_RECEIVED : SMS_NOT_RECEIVED, 
+                    width: 6, 
+                    icon: afterDay2 ? 'on' : 'risk' 
+                });
+            } 
+                
+            return fields;
+        }
+    }
+];
+
 module.exports = {
-    fields: fields
+    fields: fields,
+    cards
 };

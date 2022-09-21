@@ -8,7 +8,6 @@ function isPatient () {
 function reportDaysAfterEnrollment (contact, report) {
     const hours = Math.ceil((report.reported_date - contact.reported_date) / (1000 * 60 * 60 ));
     const days = hours / 24;
-    console.log('actual diff ', hours);
     
     return hours < 24 ? 1 : Math.ceil(days);
 }
@@ -22,14 +21,13 @@ function reportDaysAfterEnrollment (contact, report) {
  */
 
 function onOrBeforeDays (contact = {}, report = {}, daysRange) {
-    const daysDiff = reportDaysAfterEnrollment(report, contact);
+    const daysDiff = reportDaysAfterEnrollment(contact, report);
     if (daysDiff <= daysRange[0]) {
         return false;
     }
-     if (daysDiff > daysRange[1]) {
+     if (daysDiff >= daysRange[1]) {
         return false;
     }
-    
     return true;
 }
 
@@ -81,8 +79,10 @@ if (isMinor) {
 
 fields.push({ appliesToType: 'person', label: 'contact.parent', value: thisLineage, filter: 'lineage', width: 12 });
 
-const cards = [
-    {
+const cards = [];
+
+if (daysSinceEnrollment > 2) {
+    const smsStatusCard = {
         label: 'SMS Status',
         appliesToType: ['person'],
         appliesIf: isPatient,
@@ -91,14 +91,8 @@ const cards = [
             const SMS_NOT_RECEIVED = 'Not received';
             const fields = [];
 
-            if (daysSinceEnrollment < 2) return;
-
-            if (!reports.length) return;
-
             const aeReports = getAEreports(reports);
-            if (!aeReports.length) return;
-
-            const [onOrBeforeDay2, afterDay2] = getSMSStatus(thisContact, aeReports);
+            const [onOrBeforeDay2, afterDay2] = aeReports.length ? getSMSStatus(thisContact, aeReports) : [false, false];
 
             fields.push({ 
                     appliesToType: 'person', 
@@ -119,8 +113,10 @@ const cards = [
                 
             return fields;
         }
-    }
-];
+    };
+
+    cards.push(smsStatusCard);
+}
 
 module.exports = {
     fields: fields,

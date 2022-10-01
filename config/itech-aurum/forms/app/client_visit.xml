@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+  <h:head>
+    <h:title>VMMC Client Visit</h:title>
+    <model>
+      <itext>
+        <translation lang="en">
+          <text id="static_instance-ae_severity-0">
+            <value>No</value>
+          </text>
+          <text id="static_instance-ae_severity-1">
+            <value>Mild</value>
+          </text>
+          <text id="static_instance-ae_severity-2">
+            <value>Moderate</value>
+          </text>
+          <text id="static_instance-ae_severity-3">
+            <value>Severe</value>
+          </text>
+          <text id="static_instance-districts-0">
+            <value>Ekurhuleni</value>
+          </text>
+          <text id="static_instance-districts-1">
+            <value>Bojanala</value>
+          </text>
+          <text id="static_instance-reviewers-0">
+            <value>Dedicated/mobile VMMC team</value>
+          </text>
+          <text id="static_instance-reviewers-1">
+            <value>DoH nurse</value>
+          </text>
+          <text id="static_instance-sites-0">
+            <value>Winnie Mandela Clinic</value>
+          </text>
+          <text id="static_instance-sites-1">
+            <value>Bafokeng Clinic</value>
+          </text>
+          <text id="static_instance-sites-2">
+            <value>Mobile Unit</value>
+          </text>
+          <text id="static_instance-sites-3">
+            <value>Mogwase Clinic</value>
+          </text>
+          <text id="static_instance-sites-4">
+            <value>Bapong Clinic</value>
+          </text>
+          <text id="static_instance-visit-0">
+            <value>Circumcision</value>
+          </text>
+          <text id="static_instance-visit-1">
+            <value>Day 2 Post Circumcision</value>
+          </text>
+          <text id="static_instance-visit-2">
+            <value>Day 7 Post Circumcision</value>
+          </text>
+          <text id="static_instance-visit-3">
+            <value>Day 14 Post Circumcision</value>
+          </text>
+          <text id="static_instance-visit-4">
+            <value>Day 42 Post Circumcision</value>
+          </text>
+          <text id="static_instance-visit-5">
+            <value>Additional Review</value>
+          </text>
+          <text id="static_instance-yes_no-0">
+            <value>Yes</value>
+          </text>
+          <text id="static_instance-yes_no-1">
+            <value>No</value>
+          </text>
+        </translation>
+      </itext>
+      <instance>
+        <r id="client_visit" prefix="J1!client_visit!" delimiter="#" version="2017-09-30 00:00:00">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <source>user</source>
+            <source_id/>
+            <contact>
+              <_id/>
+              <name/>
+              <phone/>
+            </contact>
+          </inputs>
+          <phone/>
+          <patient_id tag="hidden"/>
+          <n tag="hidden"/>
+          <visit/>
+          <phone_credit/>
+          <explanation/>
+          <visit_date>today()</visit_date>
+          <district/>
+          <site/>
+          <reviewer/>
+          <ae_severity/>
+          <ae_code/>
+          <care_provider/>
+          <comments/>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </r>
+      </instance>
+      <instance id="contact-summary"/>
+      <instance id="yes_no">
+        <root>
+          <item>
+            <itextId>static_instance-yes_no-0</itextId>
+            <name>yes</name>
+          </item>
+          <item>
+            <itextId>static_instance-yes_no-1</itextId>
+            <name>no</name>
+          </item>
+        </root>
+      </instance>
+      <instance id="visit">
+        <root>
+          <item>
+            <itextId>static_instance-visit-0</itextId>
+            <name>circumcision</name>
+          </item>
+          <item>
+            <itextId>static_instance-visit-1</itextId>
+            <name>day2</name>
+          </item>
+          <item>
+            <itextId>static_instance-visit-2</itextId>
+            <name>day7</name>
+          </item>
+          <item>
+            <itextId>static_instance-visit-3</itextId>
+            <name>day14</name>
+          </item>
+          <item>
+            <itextId>static_instance-visit-4</itextId>
+            <name>day42</name>
+          </item>
+          <item>
+            <itextId>static_instance-visit-5</itextId>
+            <name>additional</name>
+          </item>
+        </root>
+      </instance>
+      <instance id="ae_severity">
+        <root>
+          <item>
+            <itextId>static_instance-ae_severity-0</itextId>
+            <name>no</name>
+          </item>
+          <item>
+            <itextId>static_instance-ae_severity-1</itextId>
+            <name>mild</name>
+          </item>
+          <item>
+            <itextId>static_instance-ae_severity-2</itextId>
+            <name>moderate</name>
+          </item>
+          <item>
+            <itextId>static_instance-ae_severity-3</itextId>
+            <name>severe</name>
+          </item>
+        </root>
+      </instance>
+      <instance id="reviewers">
+        <root>
+          <item>
+            <itextId>static_instance-reviewers-0</itextId>
+            <name>team</name>
+          </item>
+          <item>
+            <itextId>static_instance-reviewers-1</itextId>
+            <name>nurse</name>
+          </item>
+        </root>
+      </instance>
+      <instance id="districts">
+        <root>
+          <item>
+            <itextId>static_instance-districts-0</itextId>
+            <name>ekurhuleni</name>
+          </item>
+          <item>
+            <itextId>static_instance-districts-1</itextId>
+            <name>bojanala</name>
+          </item>
+        </root>
+      </instance>
+      <instance id="sites">
+        <root>
+          <item>
+            <itextId>static_instance-sites-0</itextId>
+            <name>winnie_mandela</name>
+            <district>ekurhuleni</district>
+          </item>
+          <item>
+            <itextId>static_instance-sites-1</itextId>
+            <name>bafokeng</name>
+            <district>bojanala</district>
+          </item>
+          <item>
+            <itextId>static_instance-sites-2</itextId>
+            <name>letlhabile</name>
+            <district>bojanala</district>
+          </item>
+          <item>
+            <itextId>static_instance-sites-3</itextId>
+            <name>mogwase</name>
+            <district>bojanala</district>
+          </item>
+          <item>
+            <itextId>static_instance-sites-4</itextId>
+            <name>bapong</name>
+            <district>bojanala</district>
+          </item>
+        </root>
+      </instance>
+      <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
+      <bind nodeset="/r/inputs/source" type="string"/>
+      <bind nodeset="/r/inputs/source_id" type="string"/>
+      <bind nodeset="/r/inputs/contact/_id" type="db:person" required="true()"/>
+      <bind nodeset="/r/inputs/contact/name" type="string"/>
+      <bind nodeset="/r/inputs/contact/phone" type="string"/>
+      <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
+      <bind nodeset="/r/patient_id" type="string" calculate="../inputs/contact/_id" required="true()"/>
+      <bind nodeset="/r/n" readonly="true()" type="string"/>
+      <bind nodeset="/r/visit" type="select1" required="true()"/>
+      <bind nodeset="/r/phone_credit" type="select1" relevant="selected( /r/visit , 'day14')" required="true()"/>
+      <bind nodeset="/r/explanation" type="string" relevant="selected( /r/phone_credit , 'no')" required="true()"/>
+      <bind nodeset="/r/visit_date" type="date" constraint=". &lt; today()" jr:constraintMsg="Please select current or previous date" required="true()"/>
+      <bind nodeset="/r/district" type="select1" required="true()"/>
+      <bind nodeset="/r/site" type="select1" relevant="not( /r/district  = '')" required="true()"/>
+      <bind nodeset="/r/reviewer" type="select1" required="true()"/>
+      <bind nodeset="/r/ae_severity" type="select1" required="true()"/>
+      <bind nodeset="/r/ae_code" type="string" relevant="selected( /r/ae_severity , 'mild') or selected( /r/ae_severity , 'moderate') or selected( /r/ae_severity , 'severe')" constraint="regex(., '^(AN|BL|IN|OT|PA|SD|SX|WD|OA)-[A-C]$') or regex(., '^(an|bl|in|ot|pa|sd|sx|wd|oa)-[a-c]$')" jr:constraintMsg="Please enter valid AE Code"/>
+      <bind nodeset="/r/care_provider" type="string"/>
+      <bind nodeset="/r/comments" type="string"/>
+      <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group appearance="field-list" ref="/r/inputs">
+      <label></label>
+      <input appearance="hidden" ref="/r/inputs/source">
+        <label>Source</label>
+      </input>
+      <input appearance="hidden" ref="/r/inputs/source_id">
+        <label>Source ID</label>
+      </input>
+      <group ref="/r/inputs/contact">
+        <label>Contact</label>
+        <input appearance="db-object" ref="/r/inputs/contact/_id">
+          <label>What is the patient's name?</label>
+          <hint>Select a person from list</hint>
+        </input>
+      </group>
+    </group>
+    <input ref="/r/n">
+      <label>This information about in-person clinic visits should be copied directly from the paper VMMC Register and/or paper Client Intake Form. For all pilot and study participants, record data for MC, Day 14 Review, and any Additional Reviews. For Control Group clients, record data for MC, Day 2, Day 7, Day 14 and any Additional Reviews.</label>
+    </input>
+    <select1 ref="/r/visit">
+      <label>What type of visit are you reporting?</label>
+      <item>
+        <label>Circumcision</label>
+        <value>circumcision</value>
+      </item>
+      <item>
+        <label>Day 2 Post Circumcision</label>
+        <value>day2</value>
+      </item>
+      <item>
+        <label>Day 7 Post Circumcision</label>
+        <value>day7</value>
+      </item>
+      <item>
+        <label>Day 14 Post Circumcision</label>
+        <value>day14</value>
+      </item>
+      <item>
+        <label>Day 42 Post Circumcision</label>
+        <value>day42</value>
+      </item>
+      <item>
+        <label>Additional Review</label>
+        <value>additional</value>
+      </item>
+    </select1>
+    <select1 ref="/r/phone_credit">
+      <label>Verify ZAR 100 phone credit given to client</label>
+      <item>
+        <label>Yes</label>
+        <value>yes</value>
+      </item>
+      <item>
+        <label>No</label>
+        <value>no</value>
+      </item>
+    </select1>
+    <input ref="/r/explanation">
+      <label>Explain why</label>
+    </input>
+    <input ref="/r/visit_date">
+      <label>Date of visit</label>
+    </input>
+    <select1 ref="/r/district">
+      <label>District</label>
+      <item>
+        <label>Ekurhuleni</label>
+        <value>ekurhuleni</value>
+      </item>
+      <item>
+        <label>Bojanala</label>
+        <value>bojanala</value>
+      </item>
+    </select1>
+    <select1 ref="/r/site">
+      <label>Site</label>
+      <itemset nodeset="instance('sites')/root/item[ /r/district  = district]">
+        <value ref="name"/>
+        <label ref="jr:itext(itextId)"/>
+      </itemset>
+    </select1>
+    <select1 ref="/r/reviewer">
+      <label>Who reviewed the client?</label>
+      <item>
+        <label>Dedicated/mobile VMMC team</label>
+        <value>team</value>
+      </item>
+      <item>
+        <label>DoH nurse</label>
+        <value>nurse</value>
+      </item>
+    </select1>
+    <select1 ref="/r/ae_severity">
+      <label>Did the provider identify an AE?</label>
+      <item>
+        <label>No</label>
+        <value>no</value>
+      </item>
+      <item>
+        <label>Mild</label>
+        <value>mild</value>
+      </item>
+      <item>
+        <label>Moderate</label>
+        <value>moderate</value>
+      </item>
+      <item>
+        <label>Severe</label>
+        <value>severe</value>
+      </item>
+    </select1>
+    <input ref="/r/ae_code">
+      <label>Adverse Event Code and Timing</label>
+    </input>
+    <input ref="/r/care_provider">
+      <label>Name of Health Care Provider who reviewed the client</label>
+      <hint>Note that this is the name of the clinician, copied from the paper Client Intake Form, not the name of the study nurse who uses the software</hint>
+    </input>
+    <input ref="/r/comments">
+      <label>Comments</label>
+    </input>
+  </h:body>
+</h:html>

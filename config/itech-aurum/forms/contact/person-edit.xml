@@ -30,18 +30,18 @@
       </instance>
       <bind nodeset="/data/person/parent" type="string"/>
       <bind nodeset="/data/person/type" type="string"/>
-      <bind nodeset="/data/person/name" type="string" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
+      <bind nodeset="/data/person/name" type="string" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space."/>
       <bind nodeset="/data/person/enrollment_facility/_id" type="db:health_center" required="true()"/>
       <bind nodeset="/data/person/enrollment_facility/name" type="string"/>
-      <bind nodeset="/data/person/vmmc_no" type="string" required="true()" jr:constraintMsg="Must be 5 – 9 numeric digits" constraint="regex(., '^[0-9]{5,9}$')"/>
-      <bind nodeset="/data/person/dob" type="date" required="true()" jr:constraintMsg="Only 15 - 75 yrs old men can enroll." constraint=" /data/person/age  &gt;= 15 and  /data/person/age  &lt;= 75"/>
+      <bind nodeset="/data/person/vmmc_no" type="string" constraint="regex(., '^[0-9]{5,9}$')" required="true()" jr:constraintMsg="Must be 5 – 9 numeric digits"/>
+      <bind nodeset="/data/person/dob" type="date" constraint=" /data/person/age  &gt;= 15 and  /data/person/age  &lt;= 75" required="true()" jr:constraintMsg="Only 15 - 75 yrs old men can enroll."/>
       <bind nodeset="/data/person/age" type="string" calculate="int((decimal-date-time(today()) - decimal-date-time( /data/person/dob ) ) div 365.25, 0)"/>
       <bind nodeset="/data/person/is_minor" type="string" calculate="if(( /data/person/age  &lt; 18 and  /data/person/age  &gt;= 15), 'yes', 'no')"/>
       <bind nodeset="/data/person/phone_owner" type="select1" required="true()" relevant=" /data/person/is_minor  = 'yes'"/>
-      <bind nodeset="/data/person/phone" type="string" required="true()" jr:constraintMsg="Please enter phone number in the format +263xxxxxxxxx" constraint="regex(., '^\+27[0-9]{9}$')"/>
-      <bind nodeset="/data/person/alternative_phone" type="string" required="false()" jr:constraintMsg="Please enter phone number in the format +263xxxxxxxxx" constraint="regex(., '^\+27[0-9]{9}$')"/>
+      <bind nodeset="/data/person/phone" type="string" constraint="regex(., '^\+27[0-9]{9}$')" required="true()" jr:constraintMsg="Please enter phone number in the format +263xxxxxxxxx"/>
+      <bind nodeset="/data/person/alternative_phone" type="string" constraint="regex(., '^\+27[0-9]{9}$')" required="false()" jr:constraintMsg="Please enter phone number in the format +263xxxxxxxxx"/>
       <bind nodeset="/data/person/language_preference" type="select1" required="true()"/>
-      <bind nodeset="/data/person/enrollment_nurse" type="string" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
+      <bind nodeset="/data/person/enrollment_nurse" type="string" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space."/>
       <bind nodeset="/data/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
@@ -71,9 +71,6 @@
       <input ref="/data/person/dob">
         <label>VMMC client date of birth</label>
       </input>
-      <input ref="/data/person/age">
-        <label></label>
-      </input>
       <select1 ref="/data/person/phone_owner">
         <label>Phone Owner</label>
         <item>
@@ -98,12 +95,12 @@
           <value>english</value>
         </item>
         <item>
-          <label>Shona</label>
-          <value>shona</value>
+          <label>Afrikaans</label>
+          <value>afrikaans</value>
         </item>
         <item>
-          <label>Ndebele</label>
-          <value>ndebele</value>
+          <label>Setswana</label>
+          <value>setswana</value>
         </item>
       </select1>
       <input ref="/data/person/enrollment_nurse">

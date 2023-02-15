@@ -44,14 +44,7 @@
           <client_visit db-doc="true">
             <fields>
               <visit_date/>
-              <district>
-                <_id/>
-                <name/>
-              </district>
-              <enrollment_facility>
-                <_id/>
-                <name/>
-              </enrollment_facility>
+              <visited_facility/>
               <ae_severity/>
               <ae_code/>
               <care_provider/>
@@ -91,22 +84,17 @@
       <bind nodeset="/r/review/client_came" type="select1" required="true()"/>
       <bind nodeset="/r/review/return_client" relevant=" /r/review/client_came  = 'yes'"/>
       <bind nodeset="/r/review/return_client/visit_facility" type="select1"/>
-      <bind nodeset="/r/review/return_client/health_center/_id" type="db:health_center" relevant="selected( /r/review/return_client/visit_facility , 'chaps_mc_clinic')" required="true()"/>
+      <bind nodeset="/r/review/return_client/health_center/_id" type="db:health_center" required="true()" relevant="selected( /r/review/return_client/visit_facility , 'team')"/>
       <bind nodeset="/r/review/return_client/health_center/name" type="string"/>
-      <bind nodeset="/r/review/return_client/client_visit_location" type="string" relevant="selected( /r/review/return_client/visit_facility , 'doh') or selected( /r/review/return_client/visit_facility , 'private_clinic')"/>
-      <bind nodeset="/r/review/return_client/visit_date" type="date" constraint=". &lt;= today() and ((decimal-date-time(today()) - decimal-date-time(.)) &lt;= 28)" jr:constraintMsg="Date is not in the future: and not more than 4 weeks ago" required="true()"/>
-      <bind nodeset="/r/review/tracing_method" type="select1" relevant=" /r/review/client_came ='no'" required="true()"/>
-      <bind nodeset="/r/review/explain" type="string" relevant="selected( /r/review/tracing_method , 'unknown')" required="true()"/>
-      <bind nodeset="/r/review/nurse" type="string" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space." required="true()"/>
+      <bind nodeset="/r/review/return_client/client_visit_location" type="string" relevant="selected( /r/review/return_client/visit_facility , 'nurse')"/>
+      <bind nodeset="/r/review/return_client/visit_date" type="date" constraint=". &lt;= today() and ((decimal-date-time(today()) - decimal-date-time(.)) &lt;= 28)" required="true()" jr:constraintMsg="Date is not in the future: and not more than 4 weeks ago"/>
+      <bind nodeset="/r/review/tracing_method" type="select1" required="true()" relevant=" /r/review/client_came ='no'"/>
+      <bind nodeset="/r/review/explain" type="string" required="true()" relevant="selected( /r/review/tracing_method , 'unknown')"/>
+      <bind nodeset="/r/review/nurse" type="string" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space."/>
       <bind nodeset="/r/review/linked_client_visit" type="string" calculate=" /r/client_visit "/>
       <bind nodeset="/r/client_visit" relevant=" /r/review/client_came  = 'yes'"/>
       <bind nodeset="/r/client_visit/fields/visit_date" type="string" required="true()" calculate="../../../review/return_client/visit_date"/>
-      <bind nodeset="/r/client_visit/fields/district" required="true()"/>
-      <bind nodeset="/r/client_visit/fields/district/_id" type="db:district_hospital"/>
-      <bind nodeset="/r/client_visit/fields/district/name" type="string"/>
-      <bind nodeset="/r/client_visit/fields/enrollment_facility" required="true()"/>
-      <bind nodeset="/r/client_visit/fields/enrollment_facility/_id" type="db:health_center"/>
-      <bind nodeset="/r/client_visit/fields/enrollment_facility/name" type="string"/>
+      <bind nodeset="/r/client_visit/fields/visited_facility" type="string" calculate="../../../review/return_client/health_center/name"/>
       <bind nodeset="/r/client_visit/fields/ae_severity" type="select1" required="true()"/>
       <bind nodeset="/r/client_visit/fields/ae_code" type="string" constraint="regex(., '^(AN|BL|IN|OT|PA|SD|SX|WD|OA)-[A-C]$') or regex(., '^(an|bl|in|ot|pa|sd|sx|wd|oa)-[a-c]$')" jr:constraintMsg="Please enter valid AE Code" relevant="selected( /r/client_visit/fields/ae_severity , 'mild') or selected( /r/client_visit/fields/ae_severity , 'moderate') or selected( /r/client_visit/fields/ae_severity , 'severe')"/>
       <bind nodeset="/r/client_visit/fields/care_provider" type="string" calculate=" /r/review/nurse "/>
@@ -117,12 +105,12 @@
       <bind nodeset="/r/client_visit/form" type="string" calculate="&quot;client_visit&quot;"/>
       <bind nodeset="/r/client_visit/content_type" type="string" calculate="&quot;xml&quot;"/>
       <bind nodeset="/r/report/client_seen" type="string" calculate=" /r/review/client_came "/>
-      <bind nodeset="/r/report/facility" type="string" relevant=" /r/review/client_came  = 'yes'" calculate="../../review/return_client/visit_facility"/>
-      <bind nodeset="/r/report/clinic" type="string" relevant="selected( /r/review/return_client/visit_facility , 'chaps_mc_clinic')" calculate="../../review/return_client/health_center/name"/>
-      <bind nodeset="/r/report/location" type="string" relevant="selected( /r/review/return_client/visit_facility , 'doh') or selected( /r/review/return_client/visit_facility , 'private_clinic')" calculate="../../review/return_client/client_visit_location"/>
-      <bind nodeset="/r/report/visit_date" type="string" relevant=" /r/review/client_came  = 'yes'" calculate="../../review/return_client/visit_date"/>
-      <bind nodeset="/r/report/tracing_medium" type="string" relevant=" /r/review/client_came ='no'" calculate="../../review/tracing_method"/>
-      <bind nodeset="/r/report/explain" type="string" relevant="selected( /r/review/tracing_method , 'unknown')" calculate="../../review/explain"/>
+      <bind nodeset="/r/report/facility" type="string" calculate="../../review/return_client/visit_facility" relevant=" /r/review/client_came  = 'yes'"/>
+      <bind nodeset="/r/report/clinic" type="string" calculate="../../review/return_client/health_center/name" relevant="selected( /r/review/return_client/visit_facility , 'chaps_mc_clinic')"/>
+      <bind nodeset="/r/report/location" type="string" calculate="../../review/return_client/client_visit_location" relevant="selected( /r/review/return_client/visit_facility , 'doh') or selected( /r/review/return_client/visit_facility , 'private_clinic')"/>
+      <bind nodeset="/r/report/visit_date" type="string" calculate="../../review/return_client/visit_date" relevant=" /r/review/client_came  = 'yes'"/>
+      <bind nodeset="/r/report/tracing_medium" type="string" calculate="../../review/tracing_method" relevant=" /r/review/client_came ='no'"/>
+      <bind nodeset="/r/report/explain" type="string" calculate="../../review/explain" relevant="selected( /r/review/tracing_method , 'unknown')"/>
       <bind nodeset="/r/report/service_provider" type="string" calculate="../../review/nurse"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
@@ -167,16 +155,12 @@
         <select1 ref="/r/review/return_client/visit_facility">
           <label>Which facility?</label>
           <item>
-            <label>CHAPS MC team</label>
-            <value>chaps_mc_clinic</value>
+            <label>Dedicated/mobile VMMC team</label>
+            <value>team</value>
           </item>
           <item>
-            <label>DOH</label>
-            <value>doh</value>
-          </item>
-          <item>
-            <label>Private clinic</label>
-            <value>private_clinic</value>
+            <label>DoH nurse</label>
+            <value>nurse</value>
           </item>
         </select1>
         <group ref="/r/review/return_client/health_center">
@@ -222,24 +206,6 @@
     <group ref="/r/client_visit">
       <group appearance="field-list" ref="/r/client_visit/fields">
         <label></label>
-        <group ref="/r/client_visit/fields/district">
-          <label>District</label>
-          <input appearance="db-object" ref="/r/client_visit/fields/district/_id">
-            <label></label>
-          </input>
-          <input appearance="hidden" ref="/r/client_visit/fields/district/name">
-            <label></label>
-          </input>
-        </group>
-        <group ref="/r/client_visit/fields/enrollment_facility">
-          <label></label>
-          <input appearance="db-object" ref="/r/client_visit/fields/enrollment_facility/_id">
-            <label>VMMC enrollment facility</label>
-          </input>
-          <input appearance="hidden" ref="/r/client_visit/fields/enrollment_facility/name">
-            <label></label>
-          </input>
-        </group>
         <select1 ref="/r/client_visit/fields/ae_severity">
           <label>Did the provider identify an AE?</label>
           <item>

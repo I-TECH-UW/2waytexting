@@ -26,7 +26,7 @@
             </contact>
           </inputs>
           <r_patient_name/>
-          <patient_uuid db-doc-ref=" /enroll/person " tag="hidden"/>
+          <patient_uuid tag="hidden" db-doc-ref=" /enroll/person "/>
           <r_vmmc_no/>
           <r_phone/>
           <r_alternative_phone/>
@@ -101,14 +101,14 @@
       <bind nodeset="/enroll/s_facility_name_calc" type="string" calculate="../person/enrollment_facility/name"/>
       <bind nodeset="/enroll/person/parent/_id" type="string" calculate="../../../inputs/contact/_id"/>
       <bind nodeset="/enroll/person/parent/parent/_id" type="string" calculate="../../../../inputs/contact/parent/_id"/>
-      <bind nodeset="/enroll/person/type" type="string" calculate="&quot;person&quot;" jr:constraintMsg="person"/>
+      <bind nodeset="/enroll/person/type" type="string" jr:constraintMsg="person" calculate="&quot;person&quot;"/>
       <bind nodeset="/enroll/person/name" type="string" required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space."/>
       <bind nodeset="/enroll/person/enrollment_facility" required="true()"/>
       <bind nodeset="/enroll/person/enrollment_facility/_id" type="db:health_center"/>
       <bind nodeset="/enroll/person/enrollment_facility/name" type="string"/>
       <bind nodeset="/enroll/person/vmmc_no" type="string" required="true()" jr:constraintMsg="Please enter between 5 - 9 digits"/>
       <bind nodeset="/enroll/person/education" type="select" required="true()"/>
-      <bind nodeset="/enroll/person/dob" type="date" required="true()" constraint=" /enroll/person/age  &gt; 15 and  /enroll/person/age  &lt;= 75" jr:constraintMsg="Client should be from 15 to 75 years old"/>
+      <bind nodeset="/enroll/person/dob" type="date" required="true()" constraint=" /enroll/person/age  &gt;= 15 and  /enroll/person/age  &lt;= 75" jr:constraintMsg="Client should be from 15 to 75 years old"/>
       <bind nodeset="/enroll/person/age" type="string" calculate="int((decimal-date-time(today()) - decimal-date-time( /enroll/person/dob ) ) div 365.25, 0)"/>
       <bind nodeset="/enroll/person/is_minor" type="string" calculate="if(( /enroll/person/age  &lt; 18 and  /enroll/person/age  &gt;= 15), 'yes', 'no')"/>
       <bind nodeset="/enroll/person/phone_owner" type="select1" required="true()" relevant=" /enroll/person/is_minor  = 'yes'"/>

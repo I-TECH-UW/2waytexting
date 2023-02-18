@@ -26,7 +26,7 @@
             </contact>
           </inputs>
           <r_patient_name/>
-          <patient_uuid db-doc-ref=" /enroll/person " tag="hidden"/>
+          <patient_uuid tag="hidden" db-doc-ref=" /enroll/person "/>
           <r_vmmc_no/>
           <r_phone/>
           <r_alternative_phone/>
@@ -36,7 +36,7 @@
           <r_language_preference/>
           <r_telegram_id tag="hidden"/>
           <s_facility_name_calc tag="hidden"/>
-          <person tag="hidden" db-doc="true">
+          <person db-doc="true" tag="hidden">
             <parent>
               <_id/>
               <parent>
@@ -102,20 +102,20 @@
       <bind nodeset="/enroll/person/parent/_id" type="string" calculate="../../../inputs/contact/_id"/>
       <bind nodeset="/enroll/person/parent/parent/_id" type="string" calculate="../../../../inputs/contact/parent/_id"/>
       <bind nodeset="/enroll/person/type" type="string" jr:constraintMsg="person" calculate="&quot;person&quot;"/>
-      <bind nodeset="/enroll/person/name" type="string" jr:constraintMsg="Please type in name characters e.g letters and space." required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
+      <bind nodeset="/enroll/person/name" type="string" required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space."/>
       <bind nodeset="/enroll/person/enrollment_facility" required="true()"/>
       <bind nodeset="/enroll/person/enrollment_facility/_id" type="db:health_center"/>
       <bind nodeset="/enroll/person/enrollment_facility/name" type="string"/>
-      <bind nodeset="/enroll/person/vmmc_no" type="string" jr:constraintMsg="Please enter between 5 - 9 digits" required="true()"/>
+      <bind nodeset="/enroll/person/vmmc_no" type="string" required="true()" jr:constraintMsg="Please enter between 5 - 9 digits"/>
       <bind nodeset="/enroll/person/education" type="select" required="true()"/>
-      <bind nodeset="/enroll/person/dob" type="date" jr:constraintMsg="Client should be from 15 to 75 years old" required="true()" constraint=" /enroll/person/age  &gt; 15 and  /enroll/person/age  &lt;= 75"/>
+      <bind nodeset="/enroll/person/dob" type="date" required="true()" constraint=" /enroll/person/age  &gt;= 15 and  /enroll/person/age  &lt;= 75" jr:constraintMsg="Client should be from 15 to 75 years old"/>
       <bind nodeset="/enroll/person/age" type="string" calculate="int((decimal-date-time(today()) - decimal-date-time( /enroll/person/dob ) ) div 365.25, 0)"/>
       <bind nodeset="/enroll/person/is_minor" type="string" calculate="if(( /enroll/person/age  &lt; 18 and  /enroll/person/age  &gt;= 15), 'yes', 'no')"/>
-      <bind nodeset="/enroll/person/phone_owner" type="select1" relevant=" /enroll/person/is_minor  = 'yes'" required="true()"/>
-      <bind nodeset="/enroll/person/phone" type="string" jr:constraintMsg="Please enter a valid mobile number" required="true()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)"/>
-      <bind nodeset="/enroll/person/alternative_phone" type="string" jr:constraintMsg="Please enter a valid mobile number" required="false()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)"/>
+      <bind nodeset="/enroll/person/phone_owner" type="select1" required="true()" relevant=" /enroll/person/is_minor  = 'yes'"/>
+      <bind nodeset="/enroll/person/phone" type="string" required="true()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Please enter a valid mobile number"/>
+      <bind nodeset="/enroll/person/alternative_phone" type="string" required="false()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Please enter a valid mobile number"/>
       <bind nodeset="/enroll/person/language_preference" type="select1" required="true()"/>
-      <bind nodeset="/enroll/person/enrolled_by" type="string" jr:constraintMsg="Name of the person filling the form must be supplied" required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
+      <bind nodeset="/enroll/person/enrolled_by" type="string" required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Name of the person filling the form must be supplied"/>
       <bind nodeset="/enroll/summary/task_label" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/_warning" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/patient_details" readonly="true()" type="string"/>

@@ -70,7 +70,7 @@
       <bind nodeset="/r/r_visit_ae_code" type="string" calculate="../form/ae_code"/>
       <bind nodeset="/r/r_visit_provider" type="string" calculate="../form/care_provider"/>
       <bind nodeset="/r/r_visit_comments" type="string" calculate="../form/comments"/>
-      <bind nodeset="/r/form/visit_date" type="date" jr:constraintMsg="Please select current or previous date" required="true()" constraint=". &lt; today()"/>
+      <bind nodeset="/r/form/visit_date" type="date" constraint=". &lt; today()" required="true()" jr:constraintMsg="Please select current or previous date"/>
       <bind nodeset="/r/form/district" required="true()"/>
       <bind nodeset="/r/form/district/_id" type="db:district_hospital"/>
       <bind nodeset="/r/form/district/name" type="string"/>
@@ -157,6 +157,7 @@
       </select1>
       <input ref="/r/form/ae_code">
         <label>Adverse Event Code and Timing</label>
+        <hint>Should be one of the following AN|BL|IN|OT|PA|SD|SX|WD|OA followed by - and a letter from A to C</hint>
       </input>
       <input ref="/r/form/care_provider">
         <label>Name of Health Care Provider who reviewed the client</label>

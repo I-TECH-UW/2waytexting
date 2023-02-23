@@ -151,6 +151,14 @@
           <value>whatsapp</value>
         </item>
         <item>
+          <label>Photo Review</label>
+          <value>photo_review</value>
+        </item>
+        <item>
+          <label>Whatsapp</label>
+          <value>whatsapp</value>
+        </item>
+        <item>
           <label>No response OR client did not request follow up</label>
           <value>none</value>
         </item>

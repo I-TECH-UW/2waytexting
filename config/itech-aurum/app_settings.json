@@ -491,7 +491,7 @@
           "optional": false
         },
         "extra.name": {
-          "expr": "doc.fields.r_patient_name",
+          "expr": "doc.fields.patient_name",
           "optional": false
         },
         "extra.group": {

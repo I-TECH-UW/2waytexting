@@ -35,7 +35,7 @@ if (isMinor) {
     fields.push({ appliesToType: 'person', appliesIf: isNotNurse, label: 'person.field.phone_owner', value: thisContact.phone_owner, width: 4 });
 }
 
-fields.push({ appliesToType: 'person', label: 'contact.parent', value: thisLineage, filter: 'lineage', width: 12 });
+fields.push({ appliesToType: ['person', 'nurse'], label: 'contact.parent', value: thisLineage, filter: 'lineage', width: 12 });
 const cards = [];
 
 if (isPatient()) {

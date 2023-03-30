@@ -32,8 +32,8 @@
       <bind nodeset="/data/person/age" type="string" calculate="int((decimal-date-time(today()) - decimal-date-time( /data/person/dob ) ) div 365.25, 0)"/>
       <bind nodeset="/data/person/is_minor" type="string" calculate="if(( /data/person/age  &lt; 18 and  /data/person/age  &gt;= 15), 'yes', 'no')"/>
       <bind nodeset="/data/person/phone_owner" type="select1" required="true()" relevant=" /data/person/is_minor  = 'yes'"/>
-      <bind nodeset="/data/person/phone" type="string" required="true()" jr:constraintMsg="Please enter phone number in the format +263xxxxxxxxx" constraint="regex(., '^\+27[0-9]{9}$')"/>
-      <bind nodeset="/data/person/alternative_phone" type="string" required="false()" jr:constraintMsg="Please enter phone number in the format +263xxxxxxxxx" constraint="regex(., '^\+27[0-9]{9}$')"/>
+      <bind nodeset="/data/person/phone" type="string" required="true()" jr:constraintMsg="Please enter phone number in the format +27xxxxxxxxx" constraint="regex(., '^\+27[0-9]{9}$')"/>
+      <bind nodeset="/data/person/alternative_phone" type="string" required="false()" jr:constraintMsg="Please enter phone number in the format +27xxxxxxxxx" constraint="regex(., '^\+27[0-9]{9}$')"/>
       <bind nodeset="/data/person/language_preference" type="select1" required="true()"/>
       <bind nodeset="/data/person/enrolled_by" type="string" required="true()" jr:constraintMsg="Please type in name characters e.g letters and space." constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)"/>
       <bind nodeset="/data/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>

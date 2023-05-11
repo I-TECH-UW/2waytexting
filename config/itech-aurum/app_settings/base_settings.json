@@ -489,13 +489,13 @@
         "auth": {
           "type": "header",
           "name": "Authorization",
-          "value_key": "aurum.rapidpro.dev"
+          "value_key": "rapidpro.app"
         },
         "path": "/api/v2/flow_starts.json"
       },
       "mapping": {
         "flow": {
-          "expr": "'8790d6b5-36e6-4ad7-81b7-bbb38756078c'"
+          "expr": "'11504d0e-3b90-4732-84af-c1edf1296b9c'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.fields.r_phone ]",
@@ -591,13 +591,13 @@
         "auth": {
           "type": "header",
           "name": "Authorization",
-          "value_key": "aurum.rapidpro.dev"
+          "value_key": "rapidpro.app"
         },
         "path": "/api/v2/flow_starts.json"
       },
       "mapping": {
         "flow": {
-          "expr": "'02420437-d291-4849-adbc-fba65d8149c5'"
+          "expr": "'62a062ef-c567-48b5-9f45-16fa1f750d20'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.tasks[0].messages[0].to ]",
@@ -612,13 +612,13 @@
         "auth": {
           "type": "header",
           "name": "Authorization",
-          "value_key": "aurum.rapidpro.dev"
+          "value_key": "rapidpro.app"
         },
         "path": "/api/v2/flow_starts.json"
       },
       "mapping": {
         "flow": {
-          "expr": "'2b294481-3d7f-43d8-84ae-c5fc208a14db'"
+          "expr": "'4be66392-4ec0-4f5d-bc62-090008acb0e4'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.fields.phone ]",
@@ -633,13 +633,13 @@
         "auth": {
           "type": "header",
           "name": "Authorization",
-          "value_key": "aurum.rapidpro.dev"
+          "value_key": "rapidpro.app"
         },
         "path": "/api/v2/flow_starts.json"
       },
       "mapping": {
         "flow": {
-          "expr": "'e9686f18-e86d-48a9-a71a-6191d2467db0'"
+          "expr": "'738c9795-748a-42bb-87d9-0a87e79d005b'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.fields.phone ]",

@@ -78,14 +78,16 @@
     "can_view_analytics": [
       "national_admin",
       "district_admin",
-      "analytics"
+      "analytics",
+      "regional_admin"
     ],
     "can_view_data_records": [
       "national_admin",
       "district_admin",
       "read_only",
       "analytics",
-      "gateway"
+      "gateway",
+      "regional_admin"
     ],
     "can_view_unallocated_data_records": [
       "national_admin",
@@ -100,7 +102,8 @@
     "can_edit": [
       "national_admin",
       "district_admin",
-      "gateway"
+      "gateway",
+      "regional_admin"
     ],
     "can_update_messages": [
       "national_admin",
@@ -119,7 +122,7 @@
     "can_create_records": [
       "national_admin",
       "district_admin",
-      "data_entry",
+      "regional_admin",
       "gateway"
     ],
     "can_access_gateway_api": [
@@ -137,12 +140,14 @@
     "can_view_tasks": [
       "national_admin",
       "district_admin",
-      "offline_limited"
+      "offline_limited",
+      "regional_admin"
     ],
     "can_view_tasks_tab": [
       "national_admin",
       "district_admin",
-      "offline_limited"
+      "offline_limited",
+      "regional_admin"
     ],
     "can_configure": [
       "national_admin"
@@ -151,41 +156,48 @@
       "national_admin",
       "district_admin",
       "read_only",
-      "offline_limited"
+      "offline_limited",
+      "regional_admin"
     ],
     "can_view_messages_tab": [
       "national_admin",
       "district_admin",
       "read_only",
-      "offline_limited"
+      "offline_limited",
+      "regional_admin"
     ],
     "can_view_reports": [
       "national_admin",
       "district_admin",
       "read_only",
-      "offline_limited"
+      "offline_limited",
+      "regional_admin"
     ],
     "can_view_reports_tab": [
       "national_admin",
       "district_admin",
       "read_only",
-      "offline_limited"
+      "offline_limited",
+      "regional_admin"
     ],
     "can_view_analytics_tab": [
       "national_admin",
-      "district_admin"
+      "district_admin",
+      "regional_admin"
     ],
     "can_view_contacts": [
       "national_admin",
       "district_admin",
       "read_only",
-      "offline_limited"
+      "offline_limited",
+      "regional_admin"
     ],
     "can_view_contacts_tab": [
       "national_admin",
       "district_admin",
       "read_only",
-      "offline_limited"
+      "offline_limited",
+      "regional_admin"
     ],
     "can_edit_profile": [
       "national_admin",
@@ -212,16 +224,19 @@
     ],
     "can_view_message_action": [
       "national_admin",
-      "district_admin"
+      "district_admin",
+      "regional_admin"
     ],
     "can_view_call_action": [
       "national_admin",
-      "district_admin"
+      "district_admin",
+      "regional_admin"
     ],
     "can_log_out_on_android": [
       "national_admin",
       "district_admin",
-      "offline_limited"
+      "offline_limited",
+      "regional_admin"
     ]
   },
   "roles": {
@@ -239,6 +254,10 @@
     },
     "district_admin": {
       "name": "usertype.district-manager",
+      "offline": true
+    },
+    "regional_admin": {
+      "name": "usertype.regional-manager",
       "offline": true
     },
     "read_only": {
@@ -511,68 +530,68 @@
           "optional": false
         }
       }
-    }
-  },
-  "rapidpro-gateway": {
-    "relevant_to": "doc.type === 'data_record' && doc.tasks && doc.tasks[0] && doc.tasks[0].state && doc.tasks[0].state === 'pending'",
-    "destination": {
-      "base_url": "https://rapidpro.app.medicmobile.org",
-      "auth": {
-        "type": "header",
-        "name": "Authorization",
-        "value_key": "aurum.rapidpro.de"
-      },
-      "path": "/api/v2/flow_starts.json"
     },
-    "mapping": {
-      "flow": {
-        "expr": "'02420437-d291-4849-adbc-fba65d8149c55353'"
+    "rapidpro-gateway": {
+      "relevant_to": "doc.type === 'data_record' && doc.tasks && doc.tasks[0] && doc.tasks[0].state && doc.tasks[0].state === 'pending'",
+      "destination": {
+        "base_url": "https://rapidpro.app.medicmobile.org",
+        "auth": {
+          "type": "header",
+          "name": "Authorization",
+          "value_key": "aurum.rapidpro.dev"
+        },
+        "path": "/api/v2/flow_starts.json"
       },
-      "urns": {
-        "expr": "[ 'tel:' + doc.tasks[0].messages[0].to ]",
-        "optional": false
+      "mapping": {
+        "flow": {
+          "expr": "'02420437-d291-4849-adbc-fba65d8149c5'"
+        },
+        "urns": {
+          "expr": "[ 'tel:' + doc.tasks[0].messages[0].to ]",
+          "optional": false
+        }
       }
-    }
-  },
-  "rapidpro-muting": {
-    "relevant_to": "doc.type === 'data_record' && doc.form === 'mute'",
-    "destination": {
-      "base_url": "https://rapidpro.app.medicmobile.org",
-      "auth": {
-        "type": "header",
-        "name": "Authorization",
-        "value_key": "aurum.rapidpro.dev"
-      },
-      "path": "/api/v2/flow_starts.json"
     },
-    "mapping": {
-      "flow": {
-        "expr": "'2b294481-3d7f-43d8-84ae-c5fc208a14db'"
+    "rapidpro-muting": {
+      "relevant_to": "doc.type === 'data_record' && doc.form === 'mute'",
+      "destination": {
+        "base_url": "https://rapidpro.app.medicmobile.org",
+        "auth": {
+          "type": "header",
+          "name": "Authorization",
+          "value_key": "aurum.rapidpro.dev"
+        },
+        "path": "/api/v2/flow_starts.json"
       },
-      "urns": {
-        "expr": "[ 'tel:' + doc.fields.phone ]",
-        "optional": false
+      "mapping": {
+        "flow": {
+          "expr": "'2b294481-3d7f-43d8-84ae-c5fc208a14db'"
+        },
+        "urns": {
+          "expr": "[ 'tel:' + doc.fields.phone ]",
+          "optional": false
+        }
       }
-    }
-  },
-  "rapidpro-unmuting": {
-    "relevant_to": "doc.type === 'data_record' && doc.form === 'unmute'",
-    "destination": {
-      "base_url": "https://rapidpro.app.medicmobile.org",
-      "auth": {
-        "type": "header",
-        "name": "Authorization",
-        "value_key": "aurum.rapidpro.dev"
-      },
-      "path": "/api/v2/flow_starts.json"
     },
-    "mapping": {
-      "flow": {
-        "expr": "'e9686f18-e86d-48a9-a71a-6191d2467db0'"
+    "rapidpro-unmuting": {
+      "relevant_to": "doc.type === 'data_record' && doc.form === 'unmute'",
+      "destination": {
+        "base_url": "https://rapidpro.app.medicmobile.org",
+        "auth": {
+          "type": "header",
+          "name": "Authorization",
+          "value_key": "aurum.rapidpro.dev"
+        },
+        "path": "/api/v2/flow_starts.json"
       },
-      "urns": {
-        "expr": "[ 'tel:' + doc.fields.phone ]",
-        "optional": false
+      "mapping": {
+        "flow": {
+          "expr": "'e9686f18-e86d-48a9-a71a-6191d2467db0'"
+        },
+        "urns": {
+          "expr": "[ 'tel:' + doc.fields.phone ]",
+          "optional": false
+        }
       }
     }
   },

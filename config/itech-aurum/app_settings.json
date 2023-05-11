@@ -520,13 +520,13 @@
       "auth": {
         "type": "header",
         "name": "Authorization",
-        "value_key": "aurum.rapidpro.dev"
+        "value_key": "aurum.rapidpro.de"
       },
       "path": "/api/v2/flow_starts.json"
     },
     "mapping": {
       "flow": {
-        "expr": "'02420437-d291-4849-adbc-fba65d8149c5'"
+        "expr": "'02420437-d291-4849-adbc-fba65d8149c55353'"
       },
       "urns": {
         "expr": "[ 'tel:' + doc.tasks[0].messages[0].to ]",

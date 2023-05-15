@@ -538,7 +538,7 @@
         "auth": {
           "type": "header",
           "name": "Authorization",
-          "value_key": "aurum.rapidpro.dev"
+          "value_key": "rapidpro.app"
         },
         "path": "/api/v2/flow_starts.json"
       },

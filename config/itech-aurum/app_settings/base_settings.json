@@ -552,7 +552,7 @@
       },
       "mapping": {
         "flow": {
-          "expr": "'2a5fd2d8-478e-4159-8fca-48998bf45724'"
+          "expr": "'747db5f2-c7ce-4f8d-bfaf-928b70b3e7ba'"
         },
         "contacts": {
           "expr": "[ doc.rapidpro_uuid ]",

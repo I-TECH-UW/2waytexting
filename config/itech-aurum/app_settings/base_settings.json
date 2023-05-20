@@ -547,7 +547,7 @@
           "expr": "'2a5fd2d8-478e-4159-8fca-48998bf45724'"
         },
         "contacts": {
-          "expr": "doc.rapidpro_uuid",
+          "expr": "[ doc.rapidpro_uuid ]",
           "optional": false
         },
         "extra.language": {
@@ -567,7 +567,11 @@
           "optional": false
         },
         "extra.telegram_id": {
-          "expr": "doc.telegram_id",
+          "expr": "doc.telegram_id ? doc.telegram_id : ''",
+          "optional": true
+        },
+        "extra.phone": {
+          "expr": "doc.phone",
           "optional": true
         },
         "extra.alt_phone": {

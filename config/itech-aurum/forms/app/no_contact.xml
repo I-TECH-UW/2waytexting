@@ -49,7 +49,7 @@
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
       <bind nodeset="/r/n/n_header" readonly="true()" type="string"/>
       <bind nodeset="/r/n/client_ok" type="select1" required="true()"/>
-      <bind nodeset="/r/n/additional_notes" type="string" relevant="selected( /r/n/client_ok , 'unknown')" required="true()"/>
+      <bind nodeset="/r/n/additional_notes" type="string"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
@@ -79,29 +79,30 @@
     <group appearance="field-list" ref="/r/n">
       <label></label>
       <input ref="/r/n/n_header">
-        <label>&lt;h4 style=&quot;color: #337ab7;&quot;&gt;If there is no sms text response from the client on day <output value=" /r/inputs/task_shows_on_day "/>, nurse makes contact via phone to the client and/or the next kin to find out if they are okay, this form reports on the outcomes of the actions of the nurse and can lead to either&lt;br/&gt;
-1) a client reached and is ok
-2) a client reached and NEEDS in-person review
-3) client not reached, needs tracing
+        <label>&lt;h4 style="color: #337ab7;"&gt;Hub Nurse Completes this task form for minors and adults who appear to have no interaction via SMS with the team post MC on day 3 (minors) and day 8 (adults) respectively.
 &lt;/h4&gt;</label>
       </input>
       <select1 ref="/r/n/client_ok">
         <label>Is VMMC Client okay?</label>
         <item>
-          <label>Client reached and reports no concerns (no follow-up needed)</label>
-          <value>yes</value>
+          <label>Client reached by phone or SMS and reports no concerns (no follow-up needed)</label>
+          <value>yes_ok</value>
         </item>
         <item>
-          <label>Client reached and needs in-person review (generate the Task for site-based in-person review)</label>
+          <label>Client reached by phone or SMS and needs in-person review</label>
+          <value>yes_not_ok</value>
+        </item>
+        <item>
+          <label>Client traced by SMS or phone but not found</label>
           <value>no</value>
         </item>
         <item>
-          <label>Client LTFU: traced by phone and/or home visit but was not found.</label>
-          <value>unknown</value>
+          <label>Client has already been seen at the clinic</label>
+          <value>yes_visited</value>
         </item>
       </select1>
       <input ref="/r/n/additional_notes">
-        <label>Please add note</label>
+        <label>Please add additional notes</label>
       </input>
     </group>
   </h:body>

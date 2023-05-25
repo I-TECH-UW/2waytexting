@@ -48,12 +48,12 @@
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
-      <bind nodeset="/r/patient_id" type="string" calculate="../inputs/contact/_id" required="true()"/>
+      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
       <bind nodeset="/r/n/n_header" readonly="true()" type="string"/>
       <bind nodeset="/r/n/client_ok" type="select1" required="true()"/>
       <bind nodeset="/r/n/additional_notes" type="string" relevant="selected( /r/n/client_ok , 'no')"/>
-      <bind nodeset="/r/n/trace_medium" type="select1" relevant="selected( /r/n/client_ok , 'yes_ok') or selected( /r/n/client_ok , 'yes_not_ok')"/>
+      <bind nodeset="/r/n/trace_medium" type="select1" relevant="selected( /r/n/client_ok , 'yes_ok') or selected( /r/n/client_ok , 'not_ok')"/>
       <bind nodeset="/r/client_traced" type="string" calculate="if(
   /r/n/client_ok = 'no',
  &quot;Client traced and not found/Client not traced (LTFU)&quot;,
@@ -61,7 +61,7 @@
   /r/n/client_ok ='yes_ok', 
  &quot;Client successfully traced and reports no concerns (no follow-up needed)&quot;, 
  if(
-  /r/n/client_ok ='yes_not_ok',
+  /r/n/client_ok ='not_ok',
  &quot;Client successfully traced and reports a potential AE&quot;,
  if(  /r/n/client_ok ='yes_visited', &quot;Client already reviewed by site team &quot;, &quot;&quot;)
  )

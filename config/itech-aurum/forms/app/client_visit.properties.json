@@ -1,5 +1,6 @@
 {
   "icon": "clinic",
+  "title": "VMMC Client In-person Visit",
   "context": {
     "person": true,
     "place": false,

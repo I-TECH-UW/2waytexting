@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
-    <h:title>VMMC Client Visit</h:title>
+    <h:title>VMMC Client In-person Visit</h:title>
     <model>
       <instance>
         <r id="client_visit" prefix="J1!client_visit!" delimiter="#" version="2017-09-30 00:00:00">
@@ -34,7 +34,7 @@
           <r_visit_comments/>
           <form tag="hidden">
             <visit_date>today()</visit_date>
-            <district>
+            <district tag="hidden">
               <_id/>
               <name/>
             </district>
@@ -61,7 +61,7 @@
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
-      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
+      <bind nodeset="/r/patient_id" type="string" calculate="../inputs/contact/_id" required="true()"/>
       <bind nodeset="/r/r_visit_date" type="string" calculate="../form/visit_date"/>
       <bind nodeset="/r/r_visit_district" type="string" calculate="../form/district/name"/>
       <bind nodeset="/r/r_visit_facility" type="string" calculate="../form/enrollment_facility/name"/>
@@ -70,8 +70,7 @@
       <bind nodeset="/r/r_visit_ae_code" type="string" calculate="../form/ae_code"/>
       <bind nodeset="/r/r_visit_provider" type="string" calculate="../form/care_provider"/>
       <bind nodeset="/r/r_visit_comments" type="string" calculate="../form/comments"/>
-      <bind nodeset="/r/form/visit_date" type="date" constraint=". &lt; today()" required="true()" jr:constraintMsg="Please select current or previous date"/>
-      <bind nodeset="/r/form/district" required="true()"/>
+      <bind nodeset="/r/form/visit_date" type="date" constraint=". &lt; today()" jr:constraintMsg="Please select current or previous date" required="true()"/>
       <bind nodeset="/r/form/district/_id" type="db:district_hospital"/>
       <bind nodeset="/r/form/district/name" type="string"/>
       <bind nodeset="/r/form/enrollment_facility" required="true()"/>
@@ -103,11 +102,12 @@
       </group>
     </group>
     <group appearance="field-list" ref="/r/form">
-      <label>This information about in-person clinic visits should be copied directly from the paper VMMC Register and/or paper Client Intake Form. For all pilot and study participants, record data for MC, Day 14 Review, and any Additional Reviews. For Control Group clients, record data for MC, Day 2, Day 7, Day 14 and any Additional Reviews.</label>
+      <label>This information about in-person clinic visits should be copied directly from the paper VMMC Register and/or paper Client Intake Form. This should be an Action Form in the client Profile. 
+This form is used for a spontaneous or non-2wT encouraged visits</label>
       <input ref="/r/form/visit_date">
         <label>Date of visit</label>
       </input>
-      <group ref="/r/form/district">
+      <group appearance="hidden" ref="/r/form/district">
         <label>District</label>
         <input appearance="db-object" ref="/r/form/district/_id">
           <label></label>

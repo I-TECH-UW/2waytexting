@@ -25,6 +25,12 @@
           <patient_name/>
           <patient_id tag="hidden"/>
           <phone/>
+          <form tag="hidden">
+            <instructions/>
+            <symptoms_list/>
+            <symptoms_other/>
+            <additional_notes/>
+          </form>
           <symptoms_list/>
           <symptoms_other/>
           <additional_notes/>
@@ -43,9 +49,13 @@
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
       <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
-      <bind nodeset="/r/symptoms_list" type="select" required="true()"/>
-      <bind nodeset="/r/symptoms_other" type="string" required="true()" relevant="selected( /r/symptoms_list , 'other')"/>
-      <bind nodeset="/r/additional_notes" type="string" required="false()"/>
+      <bind nodeset="/r/form/instructions" readonly="true()" type="string"/>
+      <bind nodeset="/r/form/symptoms_list" type="select" required="true()"/>
+      <bind nodeset="/r/form/symptoms_other" type="string" required="true()" relevant="selected(../symptoms_list, 'other')"/>
+      <bind nodeset="/r/form/additional_notes" type="string" required="false()"/>
+      <bind nodeset="/r/symptoms_list" type="string" calculate="../form/symptoms_list"/>
+      <bind nodeset="/r/symptoms_other" type="string" calculate="../form/symptoms_other" relevant="selected(../form/symptoms_list, 'other')"/>
+      <bind nodeset="/r/additional_notes" type="string" calculate="../form/additional_notes"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
   </h:head>
@@ -72,42 +82,46 @@
         </input>
       </group>
     </group>
-    <select ref="/r/symptoms_list">
-      <label>What is the client experiencing</label>
-      <item>
-        <label>Bleeding</label>
-        <value>bleeding</value>
-      </item>
-      <item>
-        <label>Swelling</label>
-        <value>swellling</value>
-      </item>
-      <item>
-        <label>Pus</label>
-        <value>pus</value>
-      </item>
-      <item>
-        <label>Pain</label>
-        <value>pain</value>
-      </item>
-      <item>
-        <label>Redness</label>
-        <value>redness</value>
-      </item>
-      <item>
-        <label>Wound opening</label>
-        <value>wound</value>
-      </item>
-      <item>
-        <label>Other</label>
-        <value>other</value>
-      </item>
-    </select>
-    <input ref="/r/symptoms_other">
-      <label>Specify other</label>
-    </input>
-    <input ref="/r/additional_notes">
-      <label>Please add additional notes</label>
-    </input>
+    <group appearance="field-list" ref="/r/form">
+      <label>Referral for Care Form: Used by the super nurse or site Nurse to refer Clients to the Clinic for attention. Submitting this form triggers the Client Review: Potential AE task which can be accessed by either the hub or the site nurse. This task form should also be accessible as an Action in the client profile.</label>
+      <input appearance="h4 blue" ref="/r/form/instructions"/>
+      <select ref="/r/form/symptoms_list">
+        <label>What is the client experiencing</label>
+        <item>
+          <label>Bleeding</label>
+          <value>bleeding</value>
+        </item>
+        <item>
+          <label>Swelling</label>
+          <value>swellling</value>
+        </item>
+        <item>
+          <label>Pus</label>
+          <value>pus</value>
+        </item>
+        <item>
+          <label>Pain</label>
+          <value>pain</value>
+        </item>
+        <item>
+          <label>Redness</label>
+          <value>redness</value>
+        </item>
+        <item>
+          <label>Wound opening</label>
+          <value>wound</value>
+        </item>
+        <item>
+          <label>Other</label>
+          <value>other</value>
+        </item>
+      </select>
+      <input ref="/r/form/symptoms_other">
+        <label>Specify other</label>
+      </input>
+      <input ref="/r/form/additional_notes">
+        <label>Please add additional notes</label>
+      </input>
+    </group>
   </h:body>
 </h:html>

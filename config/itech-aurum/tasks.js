@@ -1,4 +1,5 @@
 const clientReviewTask = require('./tasks/client_review.task');
+const InPersonTracingTask = require('./tasks/in-person-tracing.task');
 
 const noContactTaskResolver = (contact, report, event, dueDate) => {
   const no_contact_submitted = Utils.isFormSubmittedInWindow(
@@ -27,39 +28,7 @@ const noContactTaskResolver = (contact, report, event, dueDate) => {
 
 module.exports = [
   clientReviewTask,
-  {
-    name: 'trace_client',
-    icon: 'off',
-    title: 'task.no-contact.title',
-    appliesTo: 'reports',
-    appliesToType: ['client_review'],
-    contactLabel: function (contact) {
-      return (
-        contact.contact.name
-      );
-    },
-    appliesIf: (contact, report) => {
-      return Utils.getField(report, 'review.tracing_method') === 'no';
-    },
-    resolvedIf: noContactTaskResolver,
-    actions: [
-      {
-        form: 'no_contact',
-        label: 'No Contact',
-        modifyContent: function (content) {
-          content.is_task = true;
-          content.task_shows_on_day = 8;
-        },
-      },
-    ],
-    events: [
-      {
-        days: 0,
-        start: 0,
-        end: 21,
-      },
-    ],
-  },
+  InPersonTracingTask,
   {
     name: 'no-contact',
     icon: 'off',

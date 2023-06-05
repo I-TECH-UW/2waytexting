@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
   <h:head>
-    <h:title>Received SMS: potential AE</h:title>
+    <h:title>Received SMS: Potential AE</h:title>
     <model>
       <instance>
         <r id="potential_ae" prefix="J1!potential_ae!" delimiter="#" version="2017-09-30 00:00:00">
@@ -26,15 +26,19 @@
           <patient_id tag="hidden"/>
           <phone/>
           <note>
-            <days_post_mc/>
-            <client_return/>
-            <symptoms/>
-            <other_symptom/>
+            <g_post_mc>
+              <days_post_mc/>
+            </g_post_mc>
+            <g_symptoms>
+              <symptoms/>
+              <other_symptom/>
+            </g_symptoms>
             <followup_request/>
             <followup_method/>
             <ae/>
             <severity/>
             <info/>
+            <client_return/>
             <explanation/>
           </note>
           <meta tag="hidden">
@@ -50,17 +54,17 @@
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
       <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
-      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
+      <bind nodeset="/r/patient_id" type="string" calculate="../inputs/contact/_id" required="true()"/>
       <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
-      <bind nodeset="/r/note/days_post_mc" type="date" required="true()" jr:constraintMsg="Date cannot be in the future OR more than 4 weeks ago" constraint=". &lt;= date(today()) and . &gt;= date(today() - 28)"/>
-      <bind nodeset="/r/note/client_return" type="select1"/>
-      <bind nodeset="/r/note/symptoms" type="select" required="true()" jr:requiredMsg="Please select all options that apply"/>
-      <bind nodeset="/r/note/other_symptom" type="string" required="true()" relevant="selected( /r/note/symptoms , 'other')"/>
+      <bind nodeset="/r/note/g_post_mc/days_post_mc" type="string" jr:requiredMsg="Please select one option" required="true()"/>
+      <bind nodeset="/r/note/g_symptoms/symptoms" type="select" jr:requiredMsg="Please select all options that apply" required="true()"/>
+      <bind nodeset="/r/note/g_symptoms/other_symptom" type="string" relevant="selected( /r/note/g_symptoms/symptoms , 'other')" required="true()"/>
       <bind nodeset="/r/note/followup_request" type="select"/>
       <bind nodeset="/r/note/followup_method" type="select1"/>
       <bind nodeset="/r/note/ae" type="select1"/>
-      <bind nodeset="/r/note/severity" type="select1" required="true()" relevant="selected( /r/note/ae , 'yes')"/>
+      <bind nodeset="/r/note/severity" type="select1" relevant="selected( /r/note/ae , 'yes')" required="true()"/>
       <bind nodeset="/r/note/info" type="string"/>
+      <bind nodeset="/r/note/client_return" type="select1"/>
       <bind nodeset="/r/note/explanation" type="string" relevant="selected( /r/note/client_return , 'no') and selected( /r/note/ae , 'yes')"/>
       <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
     </model>
@@ -83,55 +87,50 @@
       </group>
     </group>
     <group ref="/r/note">
-      <label>Site nurse will use this form to record every potential AE reported, even if multiple per client, including: 1) A client sends a YES SMS to note a potential AE; 2) A client sends a question about a symptom via SMS; and 3) A client requests a follow-up call.</label>
-      <input appearance="number" ref="/r/note/days_post_mc">
-        <label>Date that a potential AE was reported by client.</label>
-      </input>
-      <select1 ref="/r/note/client_return">
-        <label>Did you ask the client to return to the clinic?</label>
-        <item>
-          <label>Yes</label>
-          <value>yes</value>
-        </item>
-        <item>
-          <label>No</label>
-          <value>no</value>
-        </item>
-      </select1>
-      <select ref="/r/note/symptoms">
-        <label>What symptoms did the client report?</label>
-        <item>
-          <label>Bleeding</label>
-          <value>bleeding</value>
-        </item>
-        <item>
-          <label>Swelling</label>
-          <value>swelling</value>
-        </item>
-        <item>
-          <label>Pus</label>
-          <value>pus</value>
-        </item>
-        <item>
-          <label>Pain</label>
-          <value>pain</value>
-        </item>
-        <item>
-          <label>Wound opening</label>
-          <value>wound_opening</value>
-        </item>
-        <item>
-          <label>Redness</label>
-          <value>redness</value>
-        </item>
-        <item>
-          <label>Other</label>
-          <value>other</value>
-        </item>
-      </select>
-      <input ref="/r/note/other_symptom">
-        <label>Specify other</label>
-      </input>
+      <label></label>
+      <group appearance="field-list" ref="/r/note/g_post_mc">
+        <label>Site nurse will use this form to record every potential AE reported, even if multiple per client, including: 1) A client sends a YES SMS to note a potential AE; 2) A client sends a question about a symptom via SMS; and 3) A client requests a follow-up call.</label>
+        <input appearance="number" ref="/r/note/g_post_mc/days_post_mc">
+          <label>Day post MC that an AE was reported by client.</label>
+        </input>
+      </group>
+      <group appearance="field-list" ref="/r/note/g_symptoms">
+        <label></label>
+        <select ref="/r/note/g_symptoms/symptoms">
+          <label>What symptoms did the client report?</label>
+          <item>
+            <label>Bleeding</label>
+            <value>bleeding</value>
+          </item>
+          <item>
+            <label>Swelling</label>
+            <value>swelling</value>
+          </item>
+          <item>
+            <label>Pus</label>
+            <value>pus</value>
+          </item>
+          <item>
+            <label>Pain</label>
+            <value>pain</value>
+          </item>
+          <item>
+            <label>Wound opening</label>
+            <value>wound_opening</value>
+          </item>
+          <item>
+            <label>Redness</label>
+            <value>redness</value>
+          </item>
+          <item>
+            <label>Other</label>
+            <value>other</value>
+          </item>
+        </select>
+        <input ref="/r/note/g_symptoms/other_symptom">
+          <label>Specify other</label>
+        </input>
+      </group>
       <select ref="/r/note/followup_request">
         <label>Did the client request interactive text or phone call follow up?</label>
         <item>
@@ -141,14 +140,6 @@
         <item>
           <label>Phone call</label>
           <value>phone</value>
-        </item>
-        <item>
-          <label>Photo Review</label>
-          <value>photo_review</value>
-        </item>
-        <item>
-          <label>Whatsapp</label>
-          <value>whatsapp</value>
         </item>
         <item>
           <label>Photo Review</label>
@@ -207,6 +198,17 @@
       <input ref="/r/note/info">
         <label>What information did you provide the client?</label>
       </input>
+      <select1 ref="/r/note/client_return">
+        <label>Did you ask the client to return to the clinic?</label>
+        <item>
+          <label>Yes</label>
+          <value>yes</value>
+        </item>
+        <item>
+          <label>No</label>
+          <value>no</value>
+        </item>
+      </select1>
       <input ref="/r/note/explanation">
         <label>Why was client NOT asked to seek care?</label>
       </input>

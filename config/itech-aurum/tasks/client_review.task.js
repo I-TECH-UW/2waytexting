@@ -26,17 +26,18 @@ const clientReviewTask = {
   ],
 };
 
-clientReviewTask.appliesIf =  (contact, report) => {
-    return (
-      report.form === 'referral_for_care' ||
-      (report.form === 'no_contact' &&
-        Utils.getField(report, 'n.client_ok') === 'no')
-    );
-  };
+clientReviewTask.appliesIf = (contact, report) => {
+  return (
+    report.form === 'referral_for_care' ||
+    (report.form === 'no_contact' &&
+      Utils.getField(report, 'n.client_ok') === 'yes_not_ok')
+  );
+};
 
 clientReviewTask.resolvedIf = (contact, report) => {
   const mostRecentReport = Utils.getMostRecentReport(contact.reports, ['client_review', 'no_contact', 'referral_for_care']);
   if (!mostRecentReport) return false;
+
   return Utils.isFirstReportNewer(mostRecentReport, report);
 };
 

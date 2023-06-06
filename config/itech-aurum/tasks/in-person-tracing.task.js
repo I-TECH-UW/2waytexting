@@ -59,10 +59,16 @@ const InPersonTracingTask = {
   icon: 'follow-up',
   title: 'task.in-person-tracing.title',
   appliesTo: 'reports',
-  appliesToType: ['client_review'],
+  appliesToType: ['client_review', 'no_contact'],
   contactLabel,
   appliesIf: (contact, report) => {
-    return Utils.getField(report, 'review.tracing_method') === 'no';
+    let apply;
+    if (report.form === 'client_review') {
+      apply = Utils.getField(report, 'review.tracing_method') === 'no';
+    } else {
+      apply = Utils.getField(report, 'n.client_ok') === 'no';
+    }
+    return apply;
   },
   resolvedIf: noContactTaskResolver,
   actions: [

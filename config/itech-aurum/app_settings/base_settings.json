@@ -528,6 +528,14 @@
         "extra.medic_id": {
           "expr": "doc.fields.patient_uuid",
           "optional": false
+        },
+        "extra.use_whatsapp": {
+          "expr": "doc.fields.r_use_whatsapp",
+          "optional": true
+        },
+        "extra.whatsapp_number": {
+          "expr": "doc.fields.r_same_sms_whatsapp_number ? doc.fields.r_phone : doc.fields.r_whatsapp_number",
+          "optional": true
         }
       }
     },

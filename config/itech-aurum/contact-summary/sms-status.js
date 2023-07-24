@@ -20,8 +20,13 @@ function getFields(contact, reports, daysSinceEnrollment) {
   const fields = [];
 
   const clientReports = getAESuspectedReports(reports);
+  if (contact.last_seen) {
+    clientReports.push({
+      type: 'data_record',
+      reported_date: new Date(contact.last_seen).getTime(),
+    });
+  }
   const [onOrBeforeDay2, afterDay2] = clientReports.length ? getSMSStatus(contact, clientReports) : [false, false];
-
   fields.push({
     appliesToType: 'person',
     label: 'Day 2 SMS',

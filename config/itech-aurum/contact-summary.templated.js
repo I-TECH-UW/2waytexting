@@ -25,6 +25,7 @@ const fields = [
     { appliesToType: 'person', appliesIf: isNotNurse, label: 'contact.days_since_enrollment', value: daysSinceEnrollment, width: 4 },
     { appliesToType: 'person', appliesIf: isNotNurse, label: 'contact.enrollment_date', value: contact.reported_date, width: 4, filter: 'date' },
     { appliesToType: 'person', appliesIf: isNotNurse, label: 'person.field.language_preference', value: thisContact.language_preference, width: 8 },
+    { appliesToType: 'person', appliesIf: isNotNurse, label: 'contact.last_seen', value: contact.last_seen, width: 4, filter: 'date' },
     { appliesToType: ['clinic', 'health_center', 'district_hospital'], label: 'Contact', value: thisContact.contact && thisContact.contact.name, width: 4 },
     { appliesToType: ['clinic', 'health_center', 'district_hospital'], label: 'contact.phone_number', value: thisContact.contact && thisContact.contact.phone, width: 4 },
     { appliesToType: ['clinic', 'health_center', 'district_hospital'], label: 'External ID', value: thisContact.external_id, width: 4 },

@@ -1,3 +1,5 @@
+const { VVMC_TASKS_LIFESPAN } = require('./constants');
+
 const noContactTaskResolver = (contact, report, event, dueDate) => {
   // a tracing form was submitted
   // client reported no AE
@@ -81,7 +83,7 @@ const InPersonTracingTask = {
     {
       days: 0,
       start: 1,
-      end: 21,
+      end: VVMC_TASKS_LIFESPAN,
     },
   ]
 };

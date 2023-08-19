@@ -1,3 +1,3 @@
 module.exports = {
-  VVMC_TASKS_LIFESPAN: 45,
+  VMMC_NO_CONTACT_TASKS_LIFESPAN: 45,
 };

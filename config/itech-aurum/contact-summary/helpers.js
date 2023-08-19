@@ -6,15 +6,20 @@ function getAEReportedReports(allReports) {
   return allReports.filter(report => (report.form === 'potential_ae'));
 }
 
-function reportDaysAfterEnrollment(contact, report) {
-  const hours = Math.ceil((report.reported_date - contact.reported_date) / (1000 * 60 * 60));
+function dateDiffInDays(date1, data2) {
+  const hours = Math.ceil((date1 - data2) / (1000 * 60 * 60));
   const days = hours / 24;
-
   return hours < 24 ? 1 : Math.ceil(days);
 }
 
 function isOnOrBeforeDays(contact = {}, report = {}, daysRange) {
-  const daysDiff = reportDaysAfterEnrollment(contact, report);
+  let lastSeenDiff, reportDaysDiff;
+  if (contact.last_seen) {
+    lastSeenDiff = dateDiffInDays(new Date(contact.last_seen).getTime(), contact.reported_date);
+  } else {
+    reportDaysDiff = dateDiffInDays(contact.reported_date, report.reported_date);
+  }
+  const daysDiff = lastSeenDiff || reportDaysDiff;
   if (daysDiff <= daysRange[0]) {
     return false;
   }

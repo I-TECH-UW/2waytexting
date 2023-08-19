@@ -1,4 +1,6 @@
-const { VVMC_TASKS_LIFESPAN } = require('./constants');
+const { VMMC_NO_CONTACT_TASKS_LIFESPAN } = require('./constants');
+
+console.log(VMMC_NO_CONTACT_TASKS_LIFESPAN);
 
 const noContactTaskResolver = (contact, report, event, dueDate) => {
   const deadline = Utils.addDate(dueDate, 1).getTime();
@@ -64,7 +66,7 @@ const noContactTask = {
     {
       days: 8,
       start: 0,
-      end: VVMC_TASKS_LIFESPAN,
+      end: VMMC_NO_CONTACT_TASKS_LIFESPAN,
     },
   ],
 };
@@ -102,7 +104,7 @@ const noContactMinorTask = {
     {
       days: 3,
       start: 3,
-      end: VVMC_TASKS_LIFESPAN,
+      end: VMMC_NO_CONTACT_TASKS_LIFESPAN,
     },
   ],
 };

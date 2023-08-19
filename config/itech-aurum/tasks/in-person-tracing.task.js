@@ -1,4 +1,4 @@
-const { VVMC_TASKS_LIFESPAN } = require('./constants');
+const { VMMC_NO_CONTACT_TASKS_LIFESPAN } = require('./constants');
 
 const noContactTaskResolver = (contact, report, event, dueDate) => {
   // a tracing form was submitted
@@ -83,7 +83,7 @@ const InPersonTracingTask = {
     {
       days: 0,
       start: 1,
-      end: VVMC_TASKS_LIFESPAN,
+      end: VMMC_NO_CONTACT_TASKS_LIFESPAN,
     },
   ]
 };

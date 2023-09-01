@@ -24,7 +24,8 @@ const fields = [
     { appliesToType: 'person', appliesIf: isNotNurse, label: 'contact.dob', value: thisContact.dob, width: 4, filter: 'date' },
     { appliesToType: 'person', appliesIf: isNotNurse, label: 'contact.days_since_enrollment', value: daysSinceEnrollment, width: 4 },
     { appliesToType: 'person', appliesIf: isNotNurse, label: 'contact.enrollment_date', value: contact.reported_date, width: 4, filter: 'date' },
-    { appliesToType: 'person', appliesIf: isNotNurse, label: 'person.field.language_preference', value: thisContact.language_preference, width: 8 },
+    { appliesToType: 'person', appliesIf: isNotNurse, label: 'person.field.language_preference', value: thisContact.language_preference, width: 4 },
+    { appliesToType: 'person', appliesIf: isNotNurse, label: 'person.field.preferred_channel', value: thisContact.use_whatsapp === 'Yes' ? 'SMS and WhatsApp' : 'SMS Only', width: 4 },
     { appliesToType: 'person', appliesIf: isNotNurse, label: 'contact.last_seen', value: contact.last_seen, width: 4, filter: 'date' },
     { appliesToType: ['clinic', 'health_center', 'district_hospital'], label: 'Contact', value: thisContact.contact && thisContact.contact.name, width: 4 },
     { appliesToType: ['clinic', 'health_center', 'district_hospital'], label: 'contact.phone_number', value: thisContact.contact && thisContact.contact.phone, width: 4 },
@@ -39,8 +40,9 @@ if (isMinor) {
 fields.push({ appliesToType: ['person', 'nurse'], label: 'contact.parent', value: thisLineage, filter: 'lineage', width: 12 });
 const cards = [];
 
+const aeReports = reports.filter(report => report.form === '0' || report.form === '1');
 if (isPatient()) {
-    const smsStatusCard = getSMSStatusCard(contact, reports, daysSinceEnrollment);
+    const smsStatusCard = getSMSStatusCard(contact, aeReports, daysSinceEnrollment);
     cards.push(smsStatusCard);
 }
 

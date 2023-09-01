@@ -1,16 +1,53 @@
-const { getAESuspectedReports, isOnOrBeforeDays } = require('./helpers');
+const {
+  getAESuspectedReports,
+  lastSeenFromLogs,
+  getAEReportDays,
+  dateDiffInDays
+} = require('./helpers');
 
+const SEEN_ON_DAY_2_START = 0;
+const SEEN_ON_DAY_2_END = 4;
+const SEEN_AFTER_DAY_2_START = 5;
+const SEEN_AFTER_DAY_2_END = 8;
+
+/**
+ * @typedef {Object} Contact
+ * @property {string} type
+ * @property {string} role
+ * @property {string} last_seen
+ * @property {string} reported_date
+ * @property {string} last_seen_logs
+ */
+
+/**
+ * @typedef {Object} Report
+ * @property {string} reported_date 
+ */
+
+/**
+ * 
+ * @param {Contact} contact 
+ * @param {Report[]} reports 
+ * @returns 
+ */
 function getSMSStatus(contact, reports) {
   let onOrBeforeDay2 = false;
   let afterDay2 = false;
-  reports.forEach(report => {
-    if (!onOrBeforeDay2) {
-      onOrBeforeDay2 = isOnOrBeforeDays(contact, report, [0, 4]);
-    }
-    if (!afterDay2) {
-      afterDay2 = isOnOrBeforeDays(contact, report, [5, 8]);
-    }
-  });
+  if (contact.last_seen_log) {
+    const daysSeen = lastSeenFromLogs(contact);
+    onOrBeforeDay2 = daysSeen.filter(day => day >= SEEN_ON_DAY_2_START && day <= SEEN_ON_DAY_2_END).length > 0;
+    afterDay2 = daysSeen.filter(day => day >= SEEN_AFTER_DAY_2_START && day <= SEEN_AFTER_DAY_2_END).length > 0;
+
+  } else if (reports.length) {
+    const reportDays = getAEReportDays(contact, reports);
+    onOrBeforeDay2 = reportDays.filter(day => day >= SEEN_ON_DAY_2_START && day <= SEEN_ON_DAY_2_END).length > 0;
+    afterDay2 = reportDays.filter(day => day >= SEEN_AFTER_DAY_2_START && day <= SEEN_AFTER_DAY_2_END).length > 0;
+  } else if (contact.last_seen) {
+    const daysDiff = dateDiffInDays(new Date(contact.reported_date).getTime(), new Date(contact.last_seen).getTime());
+    onOrBeforeDay2 = daysDiff >= SEEN_ON_DAY_2_START && daysDiff <= SEEN_ON_DAY_2_END;
+    afterDay2 = daysDiff >= SEEN_AFTER_DAY_2_START && daysDiff <= SEEN_AFTER_DAY_2_END;
+  }
+  console.log('SMS Status', onOrBeforeDay2, afterDay2);
   return [onOrBeforeDay2, afterDay2];
 }
 
@@ -34,7 +71,7 @@ function getFields(contact, reports, daysSinceEnrollment) {
     width: 6,
     icon: onOrBeforeDay2 ? 'on' : 'off'
   });
-  if (daysSinceEnrollment >= 7) {
+  if (daysSinceEnrollment >= 5) {
     fields.push({
       appliesToType: 'person',
       label: 'Day 7 SMS',

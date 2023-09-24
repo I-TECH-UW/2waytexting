@@ -3,44 +3,49 @@ const { VMMC_NO_CONTACT_TASKS_LIFESPAN } = require('./constants');
 console.log(VMMC_NO_CONTACT_TASKS_LIFESPAN);
 
 const noContactTaskResolver = (contact, report, event, dueDate) => {
-  if (contact.contact.last_seen_log) {
-    const last_seen_log = JSON.parse(contact.contact.last_seen_log);
-    const activityArray = last_seen_log.split(';').map((log) => JSON.parse(log));
-    const seenInWindow = activityArray.some((log) => {
-      const logTime = new Date(log.time).getTime();
-      return Utils.isTimely(logTime, event);
-    });
-    return seenInWindow;
-  }
-  if (contact.contact.last_seen) {
-    const last_seen = new Date(contact.contact.last_seen).getTime();
-
-    if (Utils.isTimely(last_seen, event)) {
-      return true;
+  try {
+    if (contact.contact.last_seen_log) {
+      const last_seen_log = JSON.parse(contact.contact.last_seen_log);
+      const activityArray = last_seen_log.split(';').map((log) => JSON.parse(log));
+      const seenInWindow = activityArray.some((log) => {
+        const logTime = new Date(log.time).getTime();
+        return Utils.isTimely(logTime, event);
+      });
+      return seenInWindow;
     }
+    if (contact.contact.last_seen) {
+      const last_seen = new Date(contact.contact.last_seen).getTime();
+
+      if (Utils.isTimely(last_seen, event)) {
+        return true;
+      }
+    }
+    const no_contact_submitted = Utils.isFormSubmittedInWindow(
+      contact.reports,
+      'no_contact',
+      report.reported_date,
+      Utils.addDate(dueDate, event.end + 1).getTime()
+    );
+
+    const report_0_submitted = Utils.isFormSubmittedInWindow(
+      contact.reports,
+      '0',
+      report.reported_date,
+      Utils.addDate(dueDate, 1).getTime()
+    );
+
+    const report_1_submitted = Utils.isFormSubmittedInWindow(
+      contact.reports,
+      '1',
+      report.reported_date,
+      Utils.addDate(dueDate, 1).getTime()
+    );
+
+    return no_contact_submitted || report_0_submitted || report_1_submitted;
+  } catch (error) {
+    console.log('Error in no contact task resolver', error);
+    return false;
   }
-  const no_contact_submitted = Utils.isFormSubmittedInWindow(
-    contact.reports,
-    'no_contact',
-    report.reported_date,
-    Utils.addDate(dueDate, event.end + 1).getTime()
-  );
-
-  const report_0_submitted = Utils.isFormSubmittedInWindow(
-    contact.reports,
-    '0',
-    report.reported_date,
-    Utils.addDate(dueDate, 1).getTime()
-  );
-
-  const report_1_submitted = Utils.isFormSubmittedInWindow(
-    contact.reports,
-    '1',
-    report.reported_date,
-    Utils.addDate(dueDate, 1).getTime()
-  );
-
-  return no_contact_submitted || report_0_submitted || report_1_submitted;
 };
 
 const noContactTask = {

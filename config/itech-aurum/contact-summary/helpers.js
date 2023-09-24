@@ -33,9 +33,9 @@ function lastSeenFromLogs(contact) {
   const logs = contact.last_seen_log;
   try {
     const logsStringToArray = logs.split(';').map(log => {
-      const logFragment = log.split("-");
+      const logFragment = log.split('-');
       const channel = logFragment.pop();
-      const time = logFragment.join("-");
+      const time = logFragment.join('-');
       return { time, channel };
     });
     const daysActive = logsStringToArray.map(log => dateDiffInDays(new Date(log.time).getTime(), new Date(contact.reported_date).getTime()));

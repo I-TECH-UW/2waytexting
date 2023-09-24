@@ -32,7 +32,12 @@ function dateDiffInDays(date1, data2) {
 function lastSeenFromLogs(contact) {
   const logs = contact.last_seen_log;
   try {
-    const logsStringToArray = JSON.parse(logs).split(';').map(log => JSON.parse(log));
+    const logsStringToArray = logs.split(';').map(log => {
+      const logFragment = log.split("-");
+      const channel = logFragment.pop();
+      const time = logFragment.join("-");
+      return { time, channel };
+    });
     const daysActive = logsStringToArray.map(log => dateDiffInDays(new Date(log.time).getTime(), new Date(contact.reported_date).getTime()));
     console.log('Days active', daysActive, logsStringToArray);
     return [...new Set(daysActive)];

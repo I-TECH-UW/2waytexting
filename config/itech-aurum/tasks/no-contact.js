@@ -1,18 +1,17 @@
 const { VMMC_NO_CONTACT_TASKS_LIFESPAN } = require('./constants');
 
-console.log(VMMC_NO_CONTACT_TASKS_LIFESPAN);
-
 const noContactTaskResolver = (contact, report, event, dueDate) => {
   try {
-    if (contact.contact.last_seen_log) {
-      const last_seen_log = JSON.parse(contact.contact.last_seen_log);
-      const activityArray = last_seen_log.split(';').map((log) => JSON.parse(log));
-      const seenInWindow = activityArray.some((log) => {
-        const logTime = new Date(log.time).getTime();
-        return Utils.isTimely(logTime, event);
-      });
-      return seenInWindow;
-    }
+    // if (contact.contact.last_seen_log) {
+    //   const last_seen_log = JSON.parse(contact.contact.last_seen_log);
+    //   const activityArray = last_seen_log.split(';').map((log) => JSON.parse(log));
+    //   const seenInWindow = activityArray.some((log) => {
+    //     const logTime = new Date(log.time).getTime();
+    //     return Utils.isTimely(logTime, event);
+    //   });
+    //   console.log(seenInWindow);
+    //   return seenInWindow;
+    // }
     if (contact.contact.last_seen) {
       const last_seen = new Date(contact.contact.last_seen).getTime();
 
@@ -40,7 +39,7 @@ const noContactTaskResolver = (contact, report, event, dueDate) => {
       report.reported_date,
       Utils.addDate(dueDate, 1).getTime()
     );
-
+    console.log('No contact submitted', no_contact_submitted, report_0_submitted, report_1_submitted);
     return no_contact_submitted || report_0_submitted || report_1_submitted;
   } catch (error) {
     console.log('Error in no contact task resolver', error);
@@ -77,7 +76,7 @@ const noContactTask = {
   ],
   events: [
     {
-      days: 8,
+      days: 4,
       start: 0,
       end: VMMC_NO_CONTACT_TASKS_LIFESPAN,
     },
@@ -115,7 +114,7 @@ const noContactMinorTask = {
   ],
   events: [
     {
-      days: 3,
+      days: 4,
       start: 3,
       end: VMMC_NO_CONTACT_TASKS_LIFESPAN,
     },

@@ -94,7 +94,7 @@ const noContactMinorTask = {
       contact.contact.name + ' (' + contact.contact.enrollment_location + ')'
     );
   },
-  appliesIf: (contact) => {
+  appliesIf: (contact, report) => {
     return (
       (report.form === 'enroll' && contact.contact.is_minor === 'yes') || Utils.getField(report, 'review.tracing_method') === 'no'
     );

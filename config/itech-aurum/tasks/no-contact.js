@@ -60,7 +60,7 @@ const noContactTask = {
   },
   appliesIf: (contact, report) => {
     return (
-      report.form === 'enroll' || Utils.getField(report, 'review.tracing_method') === 'no'
+      (report.form === 'enroll' && contact.contact.is_minor === 'no') || Utils.getField(report, 'review.tracing_method') === 'no'
     );
   },
   resolvedIf: noContactTaskResolver,
@@ -95,7 +95,9 @@ const noContactMinorTask = {
     );
   },
   appliesIf: (contact) => {
-    return contact.contact.is_minor === 'yes';
+    return (
+      (report.form === 'enroll' && contact.contact.is_minor === 'yes') || Utils.getField(report, 'review.tracing_method') === 'no'
+    );
   },
   resolvedIf: noContactTaskResolver,
   priority: {

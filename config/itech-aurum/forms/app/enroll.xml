@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <h:head>
     <h:title>Enroll New Person</h:title>
     <model>
       <instance>
-        <enroll id="enroll" prefix="J1!enroll!" delimiter="#" version="2020-03-10 00:00:00">
+        <enroll delimiter="#" id="enroll" prefix="J1!enroll!" version="2020-03-10 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -26,7 +26,7 @@
             </contact>
           </inputs>
           <patient_name/>
-          <patient_uuid tag="hidden" db-doc-ref=" /enroll/person "/>
+          <patient_uuid db-doc-ref=" /enroll/person " tag="hidden"/>
           <r_vmmc_no/>
           <r_phone/>
           <r_alternative_phone/>
@@ -60,7 +60,7 @@
             <phone/>
             <alternative_phone/>
             <language_preference/>
-            <use_whatsapp/>
+            <use_whatsapp>No</use_whatsapp>
             <same_sms_whatsapp_number/>
             <whatsapp_number/>
             <enrolled_by/>
@@ -90,42 +90,42 @@
       <bind nodeset="/enroll/inputs/source" type="string"/>
       <bind nodeset="/enroll/inputs/source_id" type="string"/>
       <bind nodeset="/enroll/inputs/is_task" type="string"/>
-      <bind nodeset="/enroll/inputs/contact/_id" type="db:person" required="true()"/>
+      <bind nodeset="/enroll/inputs/contact/_id" required="true()" type="db:person"/>
       <bind nodeset="/enroll/inputs/contact/patient_phone" type="string"/>
       <bind nodeset="/enroll/inputs/contact/parent/_id" type="string"/>
-      <bind nodeset="/enroll/patient_name" type="string" calculate="../person/name"/>
-      <bind nodeset="/enroll/patient_uuid" type="string" calculate="person"/>
-      <bind nodeset="/enroll/r_vmmc_no" type="string" calculate="../person/vmmc_no"/>
-      <bind nodeset="/enroll/r_phone" type="string" calculate="../person/phone"/>
-      <bind nodeset="/enroll/r_alternative_phone" type="string" calculate="../person/alternative_phone"/>
-      <bind nodeset="/enroll/r_dob" type="string" calculate="format-date( /enroll/person/dob , '&quot;%d-%m-%Y&quot;')"/>
-      <bind nodeset="/enroll/r_education" type="string" calculate="../person/education"/>
-      <bind nodeset="/enroll/r_use_whatsapp" type="string" calculate="../person/use_whatsapp"/>
-      <bind nodeset="/enroll/r_same_sms_whatsapp_number" type="string" calculate="../person/same_sms_whatsapp_number"/>
-      <bind nodeset="/enroll/r_whatsapp_number" type="string" calculate="../person/whatsapp_number"/>
-      <bind nodeset="/enroll/r_enrolled_by" type="string" calculate="../person/enrolled_by"/>
-      <bind nodeset="/enroll/r_language_preference" type="string" calculate="../person/language_preference"/>
-      <bind nodeset="/enroll/s_facility_name_calc" type="string" calculate="../person/enrollment_facility/name"/>
-      <bind nodeset="/enroll/person/parent/_id" type="string" calculate="../../../inputs/contact/_id"/>
-      <bind nodeset="/enroll/person/parent/parent/_id" type="string" calculate="../../../../inputs/contact/parent/_id"/>
-      <bind nodeset="/enroll/person/type" type="string" calculate="&quot;person&quot;" jr:constraintMsg="person"/>
-      <bind nodeset="/enroll/person/name" type="string" required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space."/>
+      <bind calculate="../person/name" nodeset="/enroll/patient_name" type="string"/>
+      <bind calculate="person" nodeset="/enroll/patient_uuid" type="string"/>
+      <bind calculate="../person/vmmc_no" nodeset="/enroll/r_vmmc_no" type="string"/>
+      <bind calculate="../person/phone" nodeset="/enroll/r_phone" type="string"/>
+      <bind calculate="../person/alternative_phone" nodeset="/enroll/r_alternative_phone" type="string"/>
+      <bind calculate="format-date( /enroll/person/dob , '&quot;%d-%m-%Y&quot;')" nodeset="/enroll/r_dob" type="string"/>
+      <bind calculate="../person/education" nodeset="/enroll/r_education" type="string"/>
+      <bind calculate="../person/use_whatsapp" nodeset="/enroll/r_use_whatsapp" type="string"/>
+      <bind calculate="../person/same_sms_whatsapp_number" nodeset="/enroll/r_same_sms_whatsapp_number" type="string"/>
+      <bind calculate="../person/whatsapp_number" nodeset="/enroll/r_whatsapp_number" type="string"/>
+      <bind calculate="../person/enrolled_by" nodeset="/enroll/r_enrolled_by" type="string"/>
+      <bind calculate="../person/language_preference" nodeset="/enroll/r_language_preference" type="string"/>
+      <bind calculate="../person/enrollment_facility/name" nodeset="/enroll/s_facility_name_calc" type="string"/>
+      <bind calculate="../../../inputs/contact/_id" nodeset="/enroll/person/parent/_id" type="string"/>
+      <bind calculate="../../../../inputs/contact/parent/_id" nodeset="/enroll/person/parent/parent/_id" type="string"/>
+      <bind calculate="&quot;person&quot;" jr:constraintMsg="person" nodeset="/enroll/person/type" type="string"/>
+      <bind constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Please type in name characters e.g letters and space." nodeset="/enroll/person/name" required="true()" type="string"/>
       <bind nodeset="/enroll/person/enrollment_facility" required="true()"/>
       <bind nodeset="/enroll/person/enrollment_facility/_id" type="db:health_center"/>
       <bind nodeset="/enroll/person/enrollment_facility/name" type="string"/>
-      <bind nodeset="/enroll/person/vmmc_no" type="string" required="true()" jr:constraintMsg="Must be 5 – 9 alpha-numeric characters, cannot have white spaces"/>
-      <bind nodeset="/enroll/person/education" type="select" required="true()"/>
-      <bind nodeset="/enroll/person/dob" type="date" required="true()" constraint=" /enroll/person/age  &gt;= 15 and  /enroll/person/age  &lt;= 75" jr:constraintMsg="Client should be from 15 to 75 years old"/>
-      <bind nodeset="/enroll/person/age" type="string" calculate="int((decimal-date-time(today()) - decimal-date-time( /enroll/person/dob ) ) div 365.25, 0)"/>
-      <bind nodeset="/enroll/person/is_minor" type="string" calculate="if(( /enroll/person/age  &lt; 18 and  /enroll/person/age  &gt;= 15), 'yes', 'no')"/>
-      <bind nodeset="/enroll/person/phone_owner" type="select1" relevant=" /enroll/person/is_minor  = 'yes'" required="true()"/>
-      <bind nodeset="/enroll/person/phone" type="string" required="true()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Please enter a valid mobile number"/>
-      <bind nodeset="/enroll/person/alternative_phone" type="string" required="false()" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Please enter a valid mobile number"/>
-      <bind nodeset="/enroll/person/language_preference" type="select1" required="true()"/>
-      <bind nodeset="/enroll/person/use_whatsapp" type="select1" relevant="selected( /enroll/person/language_preference , 'afrikaans') or selected( /enroll/person/language_preference , 'zulu') or selected( /enroll/person/language_preference , 'english')"/>
-      <bind nodeset="/enroll/person/same_sms_whatsapp_number" type="select1" relevant="selected( /enroll/person/use_whatsapp , 'Yes')"/>
-      <bind nodeset="/enroll/person/whatsapp_number" type="string" relevant="selected( /enroll/person/same_sms_whatsapp_number , 'No')" constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Please enter a valid mobile number"/>
-      <bind nodeset="/enroll/person/enrolled_by" type="string" required="true()" constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Name of the person filling the form must be supplied"/>
+      <bind jr:constraintMsg="Must be 5 – 9 alpha-numeric characters, cannot have white spaces" nodeset="/enroll/person/vmmc_no" required="true()" type="string"/>
+      <bind nodeset="/enroll/person/education" required="true()" type="select"/>
+      <bind constraint=" /enroll/person/age  &gt;= 15 and  /enroll/person/age  &lt;= 75" jr:constraintMsg="Client should be from 15 to 75 years old" nodeset="/enroll/person/dob" required="true()" type="date"/>
+      <bind calculate="int((decimal-date-time(today()) - decimal-date-time( /enroll/person/dob ) ) div 365.25, 0)" nodeset="/enroll/person/age" type="string"/>
+      <bind calculate="if(( /enroll/person/age  &lt; 18 and  /enroll/person/age  &gt;= 15), 'yes', 'no')" nodeset="/enroll/person/is_minor" type="string"/>
+      <bind nodeset="/enroll/person/phone_owner" relevant=" /enroll/person/is_minor  = 'yes'" required="true()" type="select1"/>
+      <bind constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Incorrect or duplicate mobile number not allowed" nodeset="/enroll/person/phone" required="true()" type="tel"/>
+      <bind constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Incorrect or duplicate mobile number not allowed" nodeset="/enroll/person/alternative_phone" required="false()" type="tel"/>
+      <bind nodeset="/enroll/person/language_preference" required="true()" type="select1"/>
+      <bind nodeset="/enroll/person/use_whatsapp" relevant="selected( /enroll/person/language_preference , 'afrikaans') or selected( /enroll/person/language_preference , 'zulu') or selected( /enroll/person/language_preference , 'english')" type="select1"/>
+      <bind nodeset="/enroll/person/same_sms_whatsapp_number" relevant="selected( /enroll/person/use_whatsapp , 'Yes')" type="select1"/>
+      <bind constraint="regex(., &quot;^(\+27)([0-9]{9})$&quot;)" jr:constraintMsg="Please enter a valid mobile number" nodeset="/enroll/person/whatsapp_number" relevant="selected( /enroll/person/same_sms_whatsapp_number , 'No')" type="string"/>
+      <bind constraint="regex(., &quot;^[a-zA-Z\'\s]+$&quot;)" jr:constraintMsg="Name of the person filling the form must be supplied" nodeset="/enroll/person/enrolled_by" required="true()" type="string"/>
       <bind nodeset="/enroll/summary/task_label" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/_warning" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/patient_details" readonly="true()" type="string"/>
@@ -139,7 +139,7 @@
       <bind nodeset="/enroll/summary/s_alternative_phone" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_language_preference" readonly="true()" type="string"/>
       <bind nodeset="/enroll/summary/s_enrolled_by" readonly="true()" type="string"/>
-      <bind nodeset="/enroll/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/enroll/meta/instanceID" readonly="true()" type="string"/>
     </model>
   </h:head>
   <h:body class="pages">
@@ -248,7 +248,7 @@
           <value>sotho</value>
         </item>
       </select1>
-      <select1 ref="/enroll/person/use_whatsapp">
+      <select1 appearance="hidden" ref="/enroll/person/use_whatsapp">
         <label>How would you like to receive follow up messages?</label>
         <item>
           <label>SMS and WhatsApp</label>
@@ -259,7 +259,7 @@
           <value>No</value>
         </item>
       </select1>
-      <select1 ref="/enroll/person/same_sms_whatsapp_number">
+      <select1 appearance="hidden" ref="/enroll/person/same_sms_whatsapp_number">
         <label>Is Mobile phone number provided registered on WhatsApp?</label>
         <item>
           <label>Yes</label>
@@ -270,7 +270,7 @@
           <value>No</value>
         </item>
       </select1>
-      <input ref="/enroll/person/whatsapp_number">
+      <input appearance="hidden" ref="/enroll/person/whatsapp_number">
         <label>Please provide us with your WhatsApp number</label>
       </input>
       <input ref="/enroll/person/enrolled_by">

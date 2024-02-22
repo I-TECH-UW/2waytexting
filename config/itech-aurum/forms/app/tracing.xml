@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <h:head>
     <h:title>Trace Person</h:title>
     <model>
       <instance>
-        <r id="tracing" prefix="J1!tracing!" delimiter="#" version="24/5/2023">
+        <r delimiter="#" id="tracing" prefix="J1!tracing!" version="24/5/2023">
           <inputs>
             <meta>
               <location>
@@ -44,17 +44,17 @@
       <bind nodeset="/r/inputs/source" type="string"/>
       <bind nodeset="/r/inputs/source_id" type="string"/>
       <bind nodeset="/r/inputs/task_shows_on_day" type="string"/>
-      <bind nodeset="/r/inputs/contact/_id" type="db:person" required="true()"/>
+      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
-      <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
-      <bind nodeset="/r/patient_id" type="string" required="true()" calculate="../inputs/contact/_id"/>
-      <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
+      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
+      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
+      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
       <bind nodeset="/r/n/n_header" readonly="true()" type="string"/>
-      <bind nodeset="/r/n/client_ok" type="select1" required="true()"/>
-      <bind nodeset="/r/n/additional_notes" type="string" relevant="selected( /r/n/client_ok , 'no')"/>
-      <bind nodeset="/r/n/trace_medium" type="select1" relevant="selected( /r/n/client_ok , 'yes_ok') or selected( /r/n/client_ok , 'not_ok')"/>
-      <bind nodeset="/r/client_traced" type="string" calculate="if(
+      <bind nodeset="/r/n/client_ok" required="true()" type="select1"/>
+      <bind nodeset="/r/n/additional_notes" relevant="selected( /r/n/client_ok , 'no')" type="string"/>
+      <bind nodeset="/r/n/trace_medium" relevant="selected( /r/n/client_ok , 'yes_ok') or selected( /r/n/client_ok , 'not_ok')" type="select1"/>
+      <bind calculate="if(
   /r/n/client_ok = 'no',
  &quot;Client traced and not found/Client not traced (LTFU)&quot;,
  if(
@@ -66,9 +66,9 @@
  if(  /r/n/client_ok ='yes_visited', &quot;Client already reviewed by site team &quot;, &quot;&quot;)
  )
  )
-)"/>
-      <bind nodeset="/r/method" type="string" calculate="if( /r/n/trace_medium ='sms_phone', &quot;Traced by SMS/Phone &quot;, &quot;Traced by home visit&quot;)"/>
-      <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
+)" nodeset="/r/client_traced" type="string"/>
+      <bind calculate="if( /r/n/trace_medium ='sms_phone', &quot;Traced by SMS/Phone &quot;, if ( /r/n/client_ok = 'yes_visited', &quot;Client visited a site&quot;, &quot;Traced by home visit&quot;))" nodeset="/r/method" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
     </model>
   </h:head>
   <h:body class="pages">

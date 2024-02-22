@@ -112,7 +112,7 @@
       <bind calculate="../../review/return_client/client_visit_location" nodeset="/r/report/location" relevant="selected( /r/review/return_client/visit_facility , 'doh') or selected( /r/review/return_client/visit_facility , 'private_clinic')" type="string"/>
       <bind calculate="../../review/return_client/visit_date" nodeset="/r/report/visit_date" relevant=" /r/review/client_came  = 'yes'" type="string"/>
       <bind calculate="../../review/tracing_method" nodeset="/r/report/tracing_medium" relevant=" /r/review/client_came ='no'" type="string"/>
-      <bind calculate="../../review/explain" nodeset="/r/report/explain" relevant="selected( /r/review/tracing_method , 'unknown')" type="string"/>
+      <bind calculate="../../review/explain" nodeset="/r/report/explain" relevant=" /r/review/client_came ='no'" type="string"/>
       <bind calculate="../../review/nurse" nodeset="/r/report/service_provider" type="string"/>
       <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
     </model>

@@ -495,7 +495,7 @@
       },
       "mapping": {
         "flow": {
-          "expr": "'8790d6b5-36e6-4ad7-81b7-bbb38756078c'"
+          "expr": "'11504d0e-3b90-4732-84af-c1edf1296b9c'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.fields.r_phone ]",
@@ -552,7 +552,7 @@
       },
       "mapping": {
         "flow": {
-          "expr": "'2a5fd2d8-478e-4159-8fca-48998bf45724'"
+          "expr": "'747db5f2-c7ce-4f8d-bfaf-928b70b3e7ba'"
         },
         "contacts": {
           "expr": "[ doc.rapidpro_uuid ]",
@@ -605,7 +605,7 @@
       },
       "mapping": {
         "flow": {
-          "expr": "'02420437-d291-4849-adbc-fba65d8149c5'"
+          "expr": "'62a062ef-c567-48b5-9f45-16fa1f750d20'"
         },
         "urns": {
           "expr": "[ 'tel:' + doc.tasks[0].messages[0].to ]",

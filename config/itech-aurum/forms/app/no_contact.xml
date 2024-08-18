@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms">
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <h:head>
     <h:title>No Contact</h:title>
     <model>
       <instance>
-        <r id="no_contact" prefix="J1!no_contact!" delimiter="#" version="2020-03-06 00:00:00">
+        <r delimiter="#" id="no_contact" prefix="J1!no_contact!" version="2020-03-06 00:00:00">
           <inputs>
             <meta>
               <location>
@@ -41,16 +41,16 @@
       <bind nodeset="/r/inputs/source" type="string"/>
       <bind nodeset="/r/inputs/source_id" type="string"/>
       <bind nodeset="/r/inputs/task_shows_on_day" type="string"/>
-      <bind nodeset="/r/inputs/contact/_id" type="db:person" required="true()"/>
+      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
       <bind nodeset="/r/inputs/contact/name" type="string"/>
       <bind nodeset="/r/inputs/contact/phone" type="string"/>
-      <bind nodeset="/r/patient_name" type="string" calculate="../inputs/contact/name"/>
-      <bind nodeset="/r/patient_id" type="string" calculate="../inputs/contact/_id" required="true()"/>
-      <bind nodeset="/r/phone" type="string" calculate="../inputs/contact/phone"/>
+      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
+      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
+      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
       <bind nodeset="/r/n/n_header" readonly="true()" type="string"/>
-      <bind nodeset="/r/n/client_ok" type="select1" required="true()"/>
+      <bind nodeset="/r/n/client_ok" required="true()" type="select1"/>
       <bind nodeset="/r/n/additional_notes" type="string"/>
-      <bind nodeset="/r/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
     </model>
   </h:head>
   <h:body class="pages">
@@ -79,7 +79,7 @@
     <group appearance="field-list" ref="/r/n">
       <label></label>
       <input ref="/r/n/n_header">
-        <label>&lt;h4 style="color: #337ab7;"&gt;Hub Nurse Completes this task form for minors and adults who appear to have no interaction via SMS with the team post MC on day 3 (minors) and day 8 (adults) respectively.
+        <label>&lt;h4 style="color: #337ab7;"&gt;Hub Nurse Completes this task form for minors and adults who appear to have no interaction via SMS with the team post MC on day 3 (minors) and day 4 (adults) respectively.
 &lt;/h4&gt;</label>
       </input>
       <select1 ref="/r/n/client_ok">
@@ -89,15 +89,15 @@
           <value>yes_ok</value>
         </item>
         <item>
-          <label>Client reached by phone or SMS and needs in-person review</label>
+          <label>Client reached by phone or SMS and needs in-person review (refer for care)</label>
           <value>yes_not_ok</value>
         </item>
         <item>
-          <label>Client traced by SMS or phone but not found</label>
+          <label>Client traced by SMS or phone but not found (generate tracing task)</label>
           <value>no</value>
         </item>
         <item>
-          <label>Client has already been seen at the clinic</label>
+          <label>Client has already been seen at the clinic (no follow-up needed)</label>
           <value>yes_visited</value>
         </item>
       </select1>

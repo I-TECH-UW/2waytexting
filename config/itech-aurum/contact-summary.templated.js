@@ -16,6 +16,8 @@ if (isPatient) {
     daysSinceEnrollment = Math.floor(Math.abs(Math.round(diff / (1000 * 60 * 60 * 24))));
 }
 
+const showDashboardButton = true;
+
 const fields = [
     { appliesToType: ['person', 'nurse'], appliesIf: isNurse, label: 'contact.profile.nurse', value: '', width: 12 },
     { appliesToType: 'person', appliesIf: isNotNurse, label: 'person.field.is_minor', value: isMinor ? 'Yes' : 'No', width: 4 },
@@ -38,6 +40,20 @@ if (isMinor) {
 }
 
 fields.push({ appliesToType: ['person', 'nurse'], label: 'contact.parent', value: thisLineage, filter: 'lineage', width: 12 });
+
+if (showDashboardButton)
+{
+    const dashboardUrl='http://superset.cht.uwdigi.org';
+    const dashboardId='1';
+    const dashboardFilter='NATIVE_FILTER-4c9bGW7ih';
+    const dashboardValue= encodeURIComponent(thisContact.name);
+    const dashboardColumn='enrollment_facility';
+
+    const dashboardButton = `<a href="${dashboardUrl}/superset/dashboard/${dashboardId}/?native_filters=(${dashboardFilter}:(__cache:(label:'${dashboardValue}',validateStatus:!f,value:!('${dashboardValue}')),extraFormData:(filters:!((col:${dashboardColumn},op:IN,val:!('${dashboardValue}')))),filterState:(label:'${dashboardValue}',validateStatus:!f,value:!('${dashboardValue}')),id:${dashboardFilter},ownState:()))" target="_blank" rel="noopener"><button mat-flat-button="" color="primary">Open Dashboard <i class="fa fa-line-chart"></i></button></a>`;
+
+    fields.push({ appliesToType: ['clinic', 'health_center', 'district_hospital'], label: '', value: dashboardButton, width: 12, filter:'safeHtml' });
+}
+
 const cards = [];
 
 const aeReports = reports.filter(report => report.form === '0' || report.form === '1');

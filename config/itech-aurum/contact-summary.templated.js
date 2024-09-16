@@ -42,7 +42,7 @@ if (isMinor) {
 fields.push({ appliesToType: ['person', 'nurse'], label: 'contact.parent', value: thisLineage, filter: 'lineage', width: 12 });
 
 if (thisContact.phone) {
-    const messageButton = `<a href="#/messages/contact:'${thisContact._id}"><button mat-flat-button="" color="primary">View Messages <i class="fa fa-envelope"></i></button></a>`;
+    const messageButton = `<a href="#/messages/contact:${thisContact._id}"><button mat-flat-button="" color="primary">View Messages <i class="fa fa-envelope"></i></button></a>`;
     fields.push({ appliesToType: 'person', appliesIf: isNotNurse, label: '', value: messageButton, width: 12, filter: 'safeHtml' });
 }
 

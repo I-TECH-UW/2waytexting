@@ -1,0 +1,64 @@
+{
+    "0": {
+        "meta": {
+            "code": "0",
+            "translation_key": "No AE Experienced"
+        },
+        "fields": {
+            "patient_name": {
+                "labels": {
+                    "tiny": {
+                        "en": "patient_name"
+                    },
+                    "short": {
+                        "en": "Patient name"
+                    }
+                },
+                "position": 0,
+                "type": "string",
+                "required": false
+            }
+        },
+        "use_sentinel": true
+    },
+    "1": {
+        "meta": {
+            "code": "1",
+            "translation_key": "Suspected AE Reported",
+            "icon": "risk"
+        },
+        "fields": {
+            "patient_name": {
+                "labels": {
+                    "tiny": {
+                        "en": "patient_name"
+                    },
+                    "short": {
+                        "en": "Patient name"
+                    }
+                },
+                "position": 0,
+                "type": "string",
+                "required": false
+            }
+        }
+    },
+    "N": {
+        "meta": {
+            "code": "N",
+            "translation_key": "Does NOT recommend MC",
+            "icon": "not-recommend"
+        },
+        "fields": {},
+        "use_sentinel": true
+    },
+    "Y": {
+        "meta": {
+            "code": "Y",
+            "translation_key": "Recommend 2wT",
+            "icon": "recommend"
+        },
+        "fields": {},
+        "use_sentinel": true
+    }
+}

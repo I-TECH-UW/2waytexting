@@ -378,91 +378,12 @@
       ]
     }
   ],
-  "schedules": [],
   "tasks": {
     "rules": "!function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},n.r=function(t){'undefined'!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:'Module'}),Object.defineProperty(t,'__esModule',{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&'object'==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,'default',{enumerable:!0,value:t}),2&e&&'string'!=typeof t)for(var r in t)n.d(o,r,function(e){return t[e]}.bind(null,r));return o},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,'a',e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p='',n(n.s=2)}([function(t,e){t.exports={VMMC_NO_CONTACT_TASKS_LIFESPAN:45}},function(t,e){t.exports=function(t){var e={};!function t(e,n){var o=Object.keys(e);for(var r in o){var a=o[r];switch(typeof e[a]){case'object':t(e[a],n);break;case'function':e[a]=e[a].bind(n)}}}(t,e),e.definition=function t(e){var n=Object.assign({},e),o=Object.keys(n);for(var r in o){var a=o[r];if(Array.isArray(n[a])){n[a]=n[a].slice(0);for(var i=0;i<n[a].length;++i)'object'==typeof n[a][i]&&(n[a][i]=t(n[a][i]))}else'object'==typeof n[a]&&(n[a]=t(n[a]))}return n}(t)}},function(t,e,n){var o=n(3),r=n(7),a=n(8);n(10)(r,c,Utils,Target,emit),a(o,c,Utils,Task,emit),emit('_complete',{_id:!0})},function(t,e,n){const o=n(4),r=n(5),{noContactTask:a,noContactMinorTask:i}=n(6);t.exports=[o,r,a,i]},function(t,e){const n={name:'client-review-request',icon:'man-risk',title:'task.client-review-request.title',appliesTo:'reports',appliesToType:['no_contact','referral_for_care'],actions:[{form:'client_review',label:'Client review',modifyContent:function(t,e,n){'no_contact'===n.form?t.is_no_contact_ctx=!0:t.is_referral_for_care_ctx=!0}}],events:[{days:0,start:1,end:21}],appliesIf:(t,e)=>'referral_for_care'===e.form||'no_contact'===e.form&&'yes_not_ok'===Utils.getField(e,'n.client_ok'),resolvedIf:(t,e)=>{const n=Utils.getMostRecentReport(t.reports,['client_review','no_contact','referral_for_care']);return!!n&&Utils.isFirstReportNewer(n,e)}};t.exports=n},function(t,e,n){const{VMMC_NO_CONTACT_TASKS_LIFESPAN:o}=n(0),r={name:'in-person-tracing',icon:'follow-up',title:'task.in-person-tracing.title',appliesTo:'reports',appliesToType:['client_review','no_contact'],contactLabel:function(t){return t.contact.name},appliesIf:(t,e)=>{let n;return n='client_review'===e.form?'no'===Utils.getField(e,'review.tracing_method'):'no'===Utils.getField(e,'n.client_ok'),n},resolvedIf:(t,e,n,o)=>{const r=Utils.isFormSubmittedInWindow(t.reports,'tracing',e.reported_date,Utils.addDate(o,n.end+1).getTime()),a=Utils.isFormSubmittedInWindow(t.reports,'client_review',e.reported_date+1e3,Utils.addDate(o,n.end+1).getTime()),i=Utils.isFormSubmittedInWindow(t.reports,'client_visit',e.reported_date,Utils.addDate(o,n.end+1).getTime()),c=Utils.isFormSubmittedInWindow(t.reports,'0',e.reported_date,Utils.addDate(o,1).getTime()),s=Utils.isFormSubmittedInWindow(t.reports,'1',e.reported_date,Utils.addDate(o,1).getTime());return r||a||i||c||s},actions:[{form:'tracing',label:'In-Person Tracing'}],events:[{days:0,start:1,end:o}]};t.exports=r},function(t,e,n){const{VMMC_NO_CONTACT_TASKS_LIFESPAN:o}=n(0),r=(t,e,n,o)=>{try{if(t.contact.last_seen){const e=new Date(t.contact.last_seen).getTime();if(Utils.isTimely(e,n))return!0}const r=Utils.isFormSubmittedInWindow(t.reports,'no_contact',e.reported_date,Utils.addDate(o,n.end+1).getTime()),a=Utils.isFormSubmittedInWindow(t.reports,'0',e.reported_date,Utils.addDate(o,1).getTime()),i=Utils.isFormSubmittedInWindow(t.reports,'1',e.reported_date,Utils.addDate(o,1).getTime());return console.log('No contact submitted',r,a,i),r||a||i}catch(t){return console.log('Error in no contact task resolver',t),!1}},a={name:'no-contact',icon:'off',title:'task.no-contact.title',appliesTo:'reports',appliesToType:['enroll','client_review'],contactLabel:function(t){return t.contact.name+' ('+t.contact.enrollment_location+')'},appliesIf:(t,e)=>'enroll'===e.form&&'no'===t.contact.is_minor||'no'===Utils.getField(e,'review.tracing_method'),resolvedIf:r,actions:[{form:'no_contact',label:'No Contact',modifyContent:function(t){t.is_task=!0,t.task_shows_on_day=8}}],events:[{days:4,start:0,end:o}]},i={name:'no-contact-minor',icon:'minor-danger',title:'task.no-contact.title',appliesTo:'reports',appliesToType:['enroll'],contactLabel:function(t){return t.contact.name+' ('+t.contact.enrollment_location+')'},appliesIf:(t,e)=>'enroll'===e.form&&'yes'===t.contact.is_minor||'no'===Utils.getField(e,'review.tracing_method'),resolvedIf:r,priority:{level:'high',label:'Minor no contact'},actions:[{form:'no_contact',label:'No Contact Minor',modifyContent:function(t){t.is_task=!0,t.task_shows_on_day=3}}],events:[{days:4,start:3,end:o}]};t.exports={noContactTask:a,noContactMinorTask:i}},function(t,e){t.exports=[]},function(t,e,n){var o=n(1),r=n(9);function a(t,e,n,o,r,a){var i;if(t.appliesToType){var c;if('contacts'===t.appliesTo){if(!r.contact)return;c='contact'===r.contact.type?r.contact.contact_type:r.contact.type}else{if(!a)return;c=a.form}if(-1===t.appliesToType.indexOf(c))return}if('scheduled_tasks'===t.appliesTo||!t.appliesIf||t.appliesIf(r,a))if('scheduled_tasks'===t.appliesTo){if(a&&t.appliesIf){if(!a.scheduled_tasks)return;for(i=0;i<a.scheduled_tasks.length;i++)t.appliesIf(r,a,i)&&l(i)}}else l();function s(t,e,n){var o;return(o='function'==typeof t.contactLabel?t.contactLabel(e,n):t.contactLabel)?{name:o}:e.contact}function l(i){var c,l,p,f,u=null;for(c=0;c<t.events.length;c++){if((l=t.events[c]).dueDate)u=l.dueDate(l,r,a,i);else if(a)u=void 0!==i?new Date(e.addDate(new Date(a.scheduled_tasks[i].due),l.days)):new Date(e.addDate(new Date(a.reported_date),l.days));else if(l.dueDate)u=l.dueDate(l,r);else{var _=r.contact&&r.contact.reported_date?new Date(r.contact.reported_date):new Date;u=new Date(e.addDate(_,l.days))}e.isTimely(u,l)&&(f={_id:(a?a._id:r.contact&&r.contact._id)+'~'+(l.id||c)+'~'+t.name,deleted:!(!(r.contact&&r.contact.deleted||a)||!a.deleted),doc:r,contact:s(t,r,a),icon:t.icon,date:u,readyStart:l.start||0,readyEnd:l.end||0,title:t.title,resolved:t.resolvedIf(r,a,l,u,i),actions:d(t.actions,l)},void 0!==i&&(f._id+='-'+i),'function'==typeof(p=t.priority)&&(p=p(r,a)),p&&(f.priority=p.level,f.priorityLabel=p.label),o('task',new n(f)))}}function d(e,n){return t.actions.map((function(t){return function(t,e){var n={source:'task',source_id:a?a._id:r.contact&&r.contact._id,contact:r.contact};t.modifyContent&&t.modifyContent(n,r,a,e);return{type:t.type||'report',form:t.form,label:t.label||'Follow up',content:n}}(t,n)}))}}t.exports=function(t,e,n,i,c){if(t)for(var s,l,d=0;d<t.length;++d)switch('function'!=typeof(s=Object.assign({},t[d],r)).resolvedIf&&(s.resolvedIf=function(t,e,o,r){return s.defaultResolvedIf(t,e,o,r,n)}),o(s),s.appliesTo){case'reports':case'scheduled_tasks':for(var p=0;p<e.reports.length;++p)l=e.reports[p],a(s,n,i,c,e,l);break;case'contacts':e.contact&&a(s,n,i,c,e);break;default:throw new Error('Unrecognised task.appliesTo: '+s.appliesTo)}}},function(t,e){t.exports={defaultResolvedIf:function(t,e,n,o,r){var a,i;r||(r=Utils);var c=function(t){var e;if(!t||!t.actions)return;return(e=t.actions.find((function(t){return!t.type||'report'===t.type})))&&e.form}(this.definition);if(!c)throw new Error('Could not find the default resolving form!');return a=0,a=e?Math.max(r.addDate(o,-n.start).getTime(),e.reported_date+1):r.addDate(o,-n.start).getTime(),i=r.addDate(o,n.end+1).getTime(),r.isFormSubmittedInWindow(t.reports,c,a,i)}}},function(t,e,n){var o=n(1);function r(t,e,n,o,r,a){var i=!!a;if(r.contact){var c='contact'===r.contact.type?r.contact.contact_type:r.contact.type,s=i?a.form:c;if(!(t.appliesToType&&t.appliesToType.indexOf(s)<0)&&(!t.appliesIf||t.appliesIf(r,a)))for(var l=i?a:r.contact,d=function(t,e,n){var o;return o='function'==typeof t.idType?t.idType(e,n):'report'===t.idType?n&&n._id:e.contact&&e.contact._id,Array.isArray(o)||(o=[o]),o}(t,r,a),p=!t.passesIf||!!t.passesIf(r,a),f=function(t,e,n,o){if('function'==typeof t.date)return t.date(n,o)||e.now().getTime();if(void 0===t.date||null===t.date||'now'===t.date)return e.now().getTime();if('reported'===t.date)return o?o.reported_date:n.contact.reported_date;throw new Error('Unrecognised value for target.date: '+t.date)}(t,n,r,a),u=t.groupBy&&t.groupBy(r,a),_=0;_<d.length;++_){var m=new e({_id:d[_]+'~'+t.id,contact:r.contact,deleted:!!l.deleted,type:t.id,pass:p,groupBy:u,date:f});t.emitCustom?t.emitCustom(y,m,r,a):y(m)}}function y(t){o('target',t)}}t.exports=function(t,e,n,a,i){for(var c=0;c<t.length;++c){var s=t[c];switch(o(s),s.appliesTo){case'contacts':r(s,a,n,i,e);break;case'reports':for(var l=0;l<e.reports.length;++l){r(s,a,n,i,e,e.reports[l])}break;default:throw new Error('Unrecognised target.appliesTo: '+s.appliesTo)}}}}]);",
     "isDeclarative": true,
     "targets": {
       "enabled": true,
       "items": []
-    }
-  },
-  "forms": {
-    "0": {
-      "meta": {
-        "label": {
-          "en": "No AE Experienced"
-        },
-        "code": "0"
-      },
-      "fields": {
-        "patient_name": {
-          "labels": {
-            "tiny": {
-              "en": "patient_name"
-            },
-            "description": {
-              "en": "Patient name"
-            },
-            "short": {
-              "en": "Patient name"
-            }
-          },
-          "position": 0,
-          "type": "string",
-          "required": false
-        }
-      },
-      "use_sentinel": true
-    },
-    "1": {
-      "meta": {
-        "label": {
-          "en": "Suspected AE Reported"
-        },
-        "code": "1",
-        "icon": "risk"
-      },
-      "fields": {
-        "patient_name": {
-          "labels": {
-            "tiny": {
-              "en": "patient_name"
-            },
-            "description": {
-              "en": "Patient name"
-            },
-            "short": {
-              "en": "Patient name"
-            }
-          },
-          "position": 0,
-          "type": "string",
-          "required": false
-        }
-      }
-    },
-    "N": {
-      "meta": {
-        "label": {
-          "en": "Does NOT recommend MC",
-          "icon": "not-recommend"
-        },
-        "code": "N"
-      },
-      "fields": {},
-      "use_sentinel": true
-    },
-    "Y": {
-      "meta": {
-        "label": {
-          "en": "Recommend 2wT"
-        },
-        "code": "Y",
-        "icon": "recommend"
-      },
-      "fields": {},
-      "use_sentinel": true
     }
   },
   "transitions": {
@@ -810,5 +731,70 @@
     "run_every_days": 2,
     "cron": "0 0 * * MON",
     "fn": "function (userCtx, contact, reports, messages) {\n    const old = Date.now() - (1000 * 60 * 60 * 24 * 45);\n    const oldMessages = Date.now() - (1000 * 60 * 60 * 24 * 45);\n\n    const reportsToPurge = reports\n      .filter(r => r.reported_date < old)\n      .map(r => r._id);\n    const messagesToPurge = messages\n      .filter(m => m.reported_date < oldMessages)\n      .map(m => m._id);\n\n    return [...reportsToPurge, ...messagesToPurge];\n  }"
-  }
+  },
+  "forms": {
+    "0": {
+      "meta": {
+        "code": "0",
+        "translation_key": "No AE Experienced"
+      },
+      "fields": {
+        "patient_name": {
+          "labels": {
+            "tiny": {
+              "en": "patient_name"
+            },
+            "short": {
+              "en": "Patient name"
+            }
+          },
+          "position": 0,
+          "type": "string",
+          "required": false
+        }
+      },
+      "use_sentinel": true
+    },
+    "1": {
+      "meta": {
+        "code": "1",
+        "translation_key": "Suspected AE Reported",
+        "icon": "risk"
+      },
+      "fields": {
+        "patient_name": {
+          "labels": {
+            "tiny": {
+              "en": "patient_name"
+            },
+            "short": {
+              "en": "Patient name"
+            }
+          },
+          "position": 0,
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    "N": {
+      "meta": {
+        "code": "N",
+        "translation_key": "Does NOT recommend MC",
+        "icon": "not-recommend"
+      },
+      "fields": {},
+      "use_sentinel": true
+    },
+    "Y": {
+      "meta": {
+        "code": "Y",
+        "translation_key": "Recommend 2wT",
+        "icon": "recommend"
+      },
+      "fields": {},
+      "use_sentinel": true
+    }
+  },
+  "schedules": []
 }

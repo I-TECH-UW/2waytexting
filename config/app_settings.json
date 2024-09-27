@@ -539,6 +539,43 @@
         }
       }
     },
+    "rapidpro-automated-msg": {
+      "relevant_to": "doc.type === 'data_record' && doc.form === 'referral_for_care'",
+      "destination": {
+        "base_url": "https://rapidpro.app.medicmobile.org",
+        "auth": {
+          "type": "header",
+          "name": "Authorization",
+          "value_key": "rapidpro.app"
+        },
+        "path": "/api/v2/flow_starts.json"
+      },
+      "mapping": {
+        "flow": {
+          "expr": "'11504d0e-3b90-4732-84af-c1edf1296b9c'"
+        },
+        "extra.date": {
+          "expr": "doc.reported_date/1000",
+          "optional": false
+        },
+        "urns": {
+          "expr": "[ 'tel:' + doc.fields.r_phone ]",
+          "optional": true
+        },
+        "extra.name": {
+          "expr": "doc.fields.patient_name",
+          "optional": true
+        },
+        "extra.group": {
+          "expr": "'texting'",
+          "optional": true
+        },
+        "extra.medic_id": {
+          "expr": "doc.fields.patient_uuid",
+          "optional": false
+        }
+      }
+    },
     "rapidpro-update-contact": {
       "relevant_to": "doc.type === 'person' && doc.edited === 'true'",
       "destination": {

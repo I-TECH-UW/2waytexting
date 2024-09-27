@@ -23,7 +23,6 @@
   ],
   "locale": "en",
   "locale_outgoing": "en",
-  "muvuku_webapp_url": "/medic-reporter/_design/medic-reporter/_rewrite/?_embed_mode=2&_locale=en#/generic-anc.json",
   "date_format": "ddd, MMM Do, YYYY",
   "reported_date_format": "ddd, MMM Do, YYYY [at] h:mm A",
   "forms_only_mode": false,
@@ -485,7 +484,7 @@
     "rapidpro-scheduled-msg": {
       "relevant_to": "doc.type === 'data_record' && doc.form === 'enroll'",
       "destination": {
-        "base_url": "https://rapidpro.app.medicmobile.org",
+        "base_url": "https://textit.com",
         "auth": {
           "type": "header",
           "name": "Authorization",
@@ -542,7 +541,7 @@
     "rapidpro-update-contact": {
       "relevant_to": "doc.type === 'person' && doc.edited === 'true'",
       "destination": {
-        "base_url": "https://rapidpro.app.medicmobile.org",
+        "base_url": "https://textit.com",
         "auth": {
           "type": "header",
           "name": "Authorization",
@@ -595,7 +594,7 @@
     "rapidpro-gateway": {
       "relevant_to": "doc.type === 'data_record' && doc.tasks && doc.tasks[0] && doc.tasks[0].state && doc.tasks[0].state === 'pending'",
       "destination": {
-        "base_url": "https://rapidpro.app.medicmobile.org",
+        "base_url": "https://textit.com",
         "auth": {
           "type": "header",
           "name": "Authorization",
@@ -616,7 +615,7 @@
     "rapidpro-muting": {
       "relevant_to": "doc.type === 'data_record' && doc.form === 'mute'",
       "destination": {
-        "base_url": "https://rapidpro.app.medicmobile.org",
+        "base_url": "https://textit.com",
         "auth": {
           "type": "header",
           "name": "Authorization",
@@ -637,7 +636,7 @@
     "rapidpro-unmuting": {
       "relevant_to": "doc.type === 'data_record' && doc.form === 'unmute'",
       "destination": {
-        "base_url": "https://rapidpro.app.medicmobile.org",
+        "base_url": "https://textit.com",
         "auth": {
           "type": "header",
           "name": "Authorization",
@@ -678,7 +677,10 @@
     "debounce_interval": 200
   },
   "sms": {
-    "outgoing_service": "medic-gateway"
+    "outgoing_service": "rapidpro",
+    "rapidpro": {
+      "url": "https://textit.com"
+    }
   },
   "contact_types": [
     {

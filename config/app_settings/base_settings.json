@@ -462,7 +462,7 @@
     "rapidpro-automated-msg": {
       "relevant_to": "doc.type === 'data_record' && doc.form === 'referral_for_care'",
       "destination": {
-        "base_url": "https://rapidpro.app.medicmobile.org",
+        "base_url": "https://textit.com",
         "auth": {
           "type": "header",
           "name": "Authorization",
